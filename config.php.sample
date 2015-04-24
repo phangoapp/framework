@@ -1,0 +1,51 @@
+<?php
+
+/**
+* Configuration file for phangoapp
+*/
+
+namespace PhangoApp\Config;
+
+use PhangoApp\PhaRouter\Routes;
+use PhangoApp\PhaModels\Webmodel;
+use PhangoApp\PhaView\View;
+
+/*
+* Configure routes and apps
+*/
+
+//The default app. The place where phangoapp begin by default...
+
+Routes::$root_url='/';
+
+Routes::$app='app';
+
+Routes::$apps=['app'];
+
+/**
+* Configure database. You can configure multiple databases for different models.
+*/ 
+
+Webmodel::$host_db['default']='localhost';
+	
+Webmodel::$db['default']='phangoapp';
+
+Webmodel::$login_db['default']='root';
+
+Webmodel::$pass_db['default']='';
+
+/**
+* Property that define the static when you will go to production.
+*/
+
+View::$url_media='/media';
+
+/**
+* With this method set the media files to production if the argument is true. By default is false.
+* @warning Never forget set this method when you are going to production
+*/
+
+View::setProduction(false);
+
+
+?>
