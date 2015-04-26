@@ -1,10 +1,5 @@
 <?php
 
-/*include('pharouter/src/Routes.php');
-include('pharouter/src/Controller.php');*/
-
-//Aquí puedo definir la conexión de los modelos?
-
 include('autoload.php');
 
 use PhangoApp\PhaRouter\Routes;
