@@ -1,0 +1,31 @@
+{
+
+    "includes": { "extra-repo.json": {} }, 
+
+    "repositories": [{
+            "type": "vcs",
+            "url": "https://github.com/phangoapp/pharouter.git"
+       }, 
+       {
+            "type": "vcs",
+            "url": "https://github.com/phangoapp/phaview.git"
+        },
+	{
+            "type": "vcs",
+            "url": "https://github.com/phangoapp/phamodels.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/phangoapp/phautils.git"
+        }
+	],
+
+    "require": {
+
+	"phangoapp/pharouter": "dev-master",
+        "phangoapp/phaview": "dev-master",
+	"phangoapp/phamodels": "dev-master",
+	"phangoapp/phautils": "dev-master"
+
+    }
+}

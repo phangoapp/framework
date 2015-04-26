@@ -34,6 +34,8 @@ Webmodel::$login_db['default']='root';
 
 Webmodel::$pass_db['default']='';
 
+//Configure views and media.
+
 /**
 * Property that define the static when you will go to production.
 */

@@ -1,9 +1,37 @@
 <?php
 
+//include(__DIR__.'/vendor/autoload.php');
+//echo __DIR__ . '/vendor/composer/autoload_classmap.php';
+
+/*$files = require __DIR__ . '/vendor/composer/autoload_files.php';
+foreach ($files as $file) {
+    require $file;
+}*/
+
+//Loader from composer.
+
+if(is_file(__DIR__ . '/vendor/composer/autoload_classmap.php'))
+{
+
+	$classMap = require __DIR__ . '/vendor/composer/autoload_classmap.php';
+
+	spl_autoload_register(function ($className) use ($classMap) {
+
+	if (isset($classMap[$className])) {
+	
+		require $classMap[$className];
+	
+	}
+	
+	});
+	
+}
+
 spl_autoload_register(function ($class) {
 
 	
 	//die;
+	
 	
 	$arr_class=explode('\\', $class);
 	
@@ -24,7 +52,18 @@ spl_autoload_register(function ($class) {
 		
 		//echo __DIR__.'/'.$dir_file.'/src/'.$php_file.'<p>';
 		
-		require($path_file);
+		if(is_file($path_file))
+		{
+		
+			require($path_file);
+			
+		}
+		else
+		{
+		
+			return;
+		
+		}
 		
 	}
 	else
@@ -37,3 +76,5 @@ spl_autoload_register(function ($class) {
 	
   
 });
+
+
