@@ -1,6 +1,6 @@
 {
 
-    "includes": { "extra-repo.json": {} }, 
+    "includes": { "extras/extra-repo.json": {} }, 
 
     "repositories": [{
             "type": "vcs",
@@ -30,7 +30,9 @@
         "phangoapp/phaview": "dev-master",
 	"phangoapp/phamodels": "dev-master",
 	"phangoapp/phautils": "dev-master",
-	"phangoapp/phai18n": "dev-master"
+	"phangoapp/phai18n": "dev-master",
+	"ext-gd": "*",
+	"ext-libxml": "*"
 	
     }
 }
