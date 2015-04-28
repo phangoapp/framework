@@ -17,6 +17,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/phangoapp/phautils.git"
+        },
+	{
+            "type": "vcs",
+            "url": "https://github.com/phangoapp/phai18n.git"
         }
 	],
 
@@ -25,7 +29,8 @@
 	"phangoapp/pharouter": "dev-master",
         "phangoapp/phaview": "dev-master",
 	"phangoapp/phamodels": "dev-master",
-	"phangoapp/phautils": "dev-master"
+	"phangoapp/phautils": "dev-master",
+	"phangoapp/phai18n": "dev-master"
 	
     }
 }
