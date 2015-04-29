@@ -11,7 +11,7 @@ if(is_file(__DIR__ . '/vendor/composer/autoload_classmap.php'))
 	{
 		
 		spl_autoload_register(function ($className) use ($classMap) {
-
+		
 		if (isset($classMap[$className])) {
 		
 			require $classMap[$className];
@@ -40,7 +40,7 @@ spl_autoload_register(function ($className) {
 	
 	if(strpos($className, $prefix)!==false)
 	{
-	
+		
 		$path=__DIR__.'/src/'.str_replace('\\', '/', str_replace($prefix, '', $className) ).'.php';
 		
 		require $path;
