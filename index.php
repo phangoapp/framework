@@ -17,13 +17,19 @@ View::$php_file=Routes::$root_url.'/showmedia.php';
 foreach(Routes::$apps as $app)
 {
 
-	View::$folder_env[]=$app.'/views';
+	View::$folder_env[]='modules/'.$app.'/views';
 	
 }
+
+//Define model and controllers paths
+
+Webmodel::$model_path='./modules/';
 
 //See the first element of uri next to index.php.
 
 $route=new Routes();
+
+Routes::$root_path=Routes::$root_path.'/modules';
 
 //Define routes...
 

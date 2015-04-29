@@ -12,7 +12,7 @@ include('config.php');
 foreach(Routes::$apps as $app)
 {
 
-	View::$folder_env[]=$app.'/views';
+	View::$folder_env[]='modules/'.$app.'/views';
 	
 }
 
