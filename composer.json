@@ -1,5 +1,24 @@
 {
 
+    "name": "phangoapp/framework",
+    "description": "A framework for create nice apps",
+    
+     "license": "GPL",
+    "authors": [
+        {
+            "name": "Antonio de la Rosa",
+            "email": "webmaster@web-t-sys.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+	},
+    "autoload": {
+        "psr-4": {
+            "PhangoApp\\": "src"
+        }
+    },
+
     "includes": { "extras/extra-repo.json": {} }, 
 
     "repositories": [{
