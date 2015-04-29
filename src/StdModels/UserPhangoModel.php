@@ -9,7 +9,11 @@
 *
 */
 
+namespace PhangoApp\Framework\StdModels;
+
+use PhangoApp\PhaModels\Webmodel;
 use PhangoApp\PhaI18n\I18n;
+use PhangoApp\PhaUtils\Utils;
 
 I18n::loadLang('users');
 
@@ -76,7 +80,7 @@ class UserPhangoModel extends Webmodel {
 				
 				}
 				
-				if(form_text($post['password'])=='')
+				if(Utils::form_text($post['password'])=='')
 				{
 				
 					$this->components[$this->password]->required=0;
@@ -109,8 +113,8 @@ class UserPhangoModel extends Webmodel {
 	public function check_password($password, $repeat_password)
 	{
 	
-		$password=form_text($password);
-		$repeat_password=form_text($repeat_password);
+		$password=Utils::form_text($password);
+		$repeat_password=Utils::form_text($repeat_password);
 		
 		if($password!=$repeat_password)
 		{

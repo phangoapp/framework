@@ -24,10 +24,33 @@ if(is_file(__DIR__ . '/vendor/composer/autoload_classmap.php'))
 	else
 	{
 	
-		include(__DIR__.'/vendor/autoload.php');
+		require(__DIR__.'/vendor/autoload.php');
 		
 	}
 
 }
+
+//Internal functions autoloading.
+
+spl_autoload_register(function ($className) {
+
+	$prefix='PhangoApp\\Framework\\';
+	
+	if(strpos($className, $prefix)!==false)
+	{
+	
+		$path=__DIR__.'/src/'.str_replace('\\', '/', str_replace($prefix, '', $className) ).'.php';
+		
+		require $path;
+	
+	}
+	else
+	{
+	
+		return;
+	
+	}
+	
+});
 
 ?>
