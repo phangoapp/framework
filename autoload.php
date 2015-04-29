@@ -34,6 +34,8 @@ if(is_file(__DIR__ . '/vendor/composer/autoload_classmap.php'))
 
 spl_autoload_register(function ($className) {
 
+	//Need caching using arrays...
+
 	$prefix='PhangoApp\\Framework\\';
 	
 	if(strpos($className, $prefix)!==false)
