@@ -14,9 +14,7 @@
     "require": {
 	},
     "autoload": {
-        "psr-4": {
-            "PhangoApp\\": "src"
-        }
+         "classmap": ["src/"]
     },
 
     "includes": { "extras/extra-repo.json": {} }, 

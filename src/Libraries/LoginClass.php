@@ -10,6 +10,7 @@
 */
 
 namespace PhangoApp\Framework\Libraries;
+use PhangoApp\PhaModels\CoreFields\PasswordField;
 
 class LoginClass {
 
@@ -39,12 +40,28 @@ class LoginClass {
 	public function __construct($model_login, $field_user, $field_password, $field_key, $arr_user_session=array(), $arr_user_insert=array())
 	{
 	
-		$this->model_login=$model_login;
+		//Check is phangoUser the model.
+		
+		if(get_class($model_login)!='PhangoApp\Framework\StdModels\UserPhangoModel')
+		{
+		
+			/*show_error(I18n::lang('users', 'need_class_special', 'A special library is need, please, inform to admin'),
+			I18n::lang('users', 'need_class_special_phango_class', 'Special class PhangoUserClass is needed'));
+		
+			die;*/
+			
+			throw new \Exception('Special UserPhangoModel object is needed');
+			
+			die;
+		
+		}
+	
+		$this->model_login=&$model_login;
 		$this->field_user=$field_user;
 		$this->field_password=$field_password;
 		$this->arr_user_session=$arr_user_session;
 		$this->field_key=$field_key;
-		$this->name_cookie=$model[$model_login]->name;
+		$this->name_cookie=$this->model_login->name;
 		
 		$this->arr_user_insert=$arr_user_insert;
 		
@@ -53,32 +70,20 @@ class LoginClass {
 		$this->arr_user_insert[]='repeat_password';
 		
 		$this->arr_user_insert=array_unique($this->arr_user_insert, SORT_STRING);
-		
-		//Check is phangoUser the model.
-		
-		if(get_class($model[$this->model_login])!='UserPhangoModel')
-		{
-		
-			show_error(I18n::lang('users', 'need_class_special', 'A special library is need, please, inform to admin'),
-			I18n::lang('users', 'need_class_special_phango_class', 'Special class PhangoUserClass is needed'));
-		
-			die;
-		
-		}
 
 		//Initialize form
 		
-		if(count($model[$this->model_login]->forms)==0)
+		if(count($this->model_login->forms)==0)
 		{
 		
-			$model[$this->model_login]->create_form();
+			$this->model_login->create_form();
 		
 		}
 		
 		if(count($this->arr_user_session)==0)
 		{
 		
-			$this->arr_user_session[]=$model[$this->model_login]->idmodel;
+			$this->arr_user_session[]=$this->model_login->idmodel;
 			$this->arr_user_session[]=$this->field_key;
 		
 		}
@@ -88,7 +93,7 @@ class LoginClass {
 	public function automatic_login($iduser)
 	{
 	
-		$arr_user=$model[$this->model_login]->select_a_row($iduser, array($this->field_user, $this->field_password));
+		$arr_user=$this->model_login->select_a_row($iduser, array($this->field_user, $this->field_password));
 	
 		return $this->login($arr_user[$this->field_user], $arr_user[$this->field_password], 0, 1);
 	
@@ -96,7 +101,7 @@ class LoginClass {
 	
 	public function login($user, $password, $no_expire_session=0, $yes_hash=0)
 	{
-		load_libraries(array('fields/passwordfield'));
+		//load_libraries(array('fields/passwordfield'));
 	
 		$check_password=0;
 	
@@ -104,16 +109,16 @@ class LoginClass {
 		
 		$this->arr_user_session[]=$this->field_password;
 		
-		$arr_user=$model[$this->model_login]->select_a_row_where('where '.$this->field_user.'="'.$user.'"', $this->arr_user_session);
+		$arr_user=$this->model_login->select_a_row_where('where '.$this->field_user.'="'.$user.'"', $this->arr_user_session);
 		
-		settype($arr_user[$model[$this->model_login]->idmodel], 'integer');
+		settype($arr_user[$this->model_login->idmodel], 'integer');
 		
-		if($arr_user[$model[$this->model_login]->idmodel]==0)
+		if($arr_user[$this->model_login->idmodel]==0)
 		{
 			
-			ModelForm::set_values_form($_POST, $model[$this->model_login]->forms, 1);
+			ModelForm::set_values_form($_POST, $this->model_login->forms, 1);
 		
-			$model[$this->model_login]->forms[$this->field_password]->std_error= I18n::lang('users', 'user_error_nick_or_pass', 'Wrong user or password');
+			$this->model_login->forms[$this->field_password]->std_error= I18n::lang('users', 'user_error_nick_or_pass', 'Wrong user or password');
 		
 			unset($arr_user[$this->field_password]);
 			
@@ -160,12 +165,12 @@ class LoginClass {
 				
 				$new_token=sha1(get_token());
 				
-				$model[$this->model_login]->reset_require();
+				$this->model_login->reset_require();
 				
-				if( $model[$this->model_login]->update(array($this->field_key => sha1($new_token)), 'where `'.$model[$this->model_login]->idmodel.'`='.$arr_user[$model[$this->model_login]->idmodel]) )
+				if( $this->model_login->update(array($this->field_key => sha1($new_token)), 'where `'.$this->model_login->idmodel.'`='.$arr_user[$this->model_login->idmodel]) )
 				{
 					
-					$model[$this->model_login]->reload_require();
+					$this->model_login->reload_require();
 					
 					$lifetime=0;
 					
@@ -177,7 +182,7 @@ class LoginClass {
 					
 					}
 					
-					if(!setcookie(COOKIE_NAME.'_'.sha1($this->name_cookie), $new_token,$lifetime, $cookie_path))
+					if(!setcookie(COOKIE_NAME.'_'.sha1($this->name_cookie), $new_token,$lifetime, COOKIE_PATH))
 					{
 						
 						return false;
@@ -190,7 +195,7 @@ class LoginClass {
 				else
 				{
 				
-					ModelForm::set_values_form($_POST, $model[$this->model_login]->forms, 1);
+					ModelForm::set_values_form($_POST, $this->model_login->forms, 1);
 				
 					return false;
 				
@@ -200,9 +205,9 @@ class LoginClass {
 			else
 			{
 				
-				ModelForm::set_values_form($_POST, $model[$this->model_login]->forms, 1);
+				ModelForm::set_values_form($_POST, $this->model_login->forms, 1);
 				
-				$model[$this->model_login]->forms[$this->field_password]->std_error= I18n::lang('users', 'user_error_nick_or_pass', 'Wrong user or password');
+				$this->model_login->forms[$this->field_password]->std_error= I18n::lang('users', 'user_error_nick_or_pass', 'Wrong user or password');
 			
 				return false;
 			
@@ -219,10 +224,10 @@ class LoginClass {
 	
 		session_destroy();
 		
-		//setcookie(COOKIE_NAME.'_'.sha1($this->field_key), 0, 0, $cookie_path);
+		//setcookie(COOKIE_NAME.'_'.sha1($this->field_key), 0, 0, COOKIE_PATH);
 		
-		setcookie(COOKIE_NAME, 0, 0, $cookie_path);
-		setcookie(COOKIE_NAME.'_'.sha1($this->name_cookie), 0, 0, $cookie_path);
+		setcookie(COOKIE_NAME, 0, 0, COOKIE_PATH);
+		setcookie(COOKIE_NAME.'_'.sha1($this->name_cookie), 0, 0, COOKIE_PATH);
 	
 	}
 	
@@ -231,7 +236,7 @@ class LoginClass {
 		
 		$check_user=0;
 		
-		/*if(isset($_SESSION[$this->field_key]) && isset($_SESSION[$model[$this->model_login]->idmodel]))
+		/*if(isset($_SESSION[$this->field_key]) && isset($_SESSION[$this->model_login->idmodel]))
 		{
 			
 			$check_user=1;
@@ -250,7 +255,7 @@ class LoginClass {
 			if($arr_set['id']>0)
 			{
 			
-				$_SESSION[$model[$this->model_login]->idmodel]=$arr_set['id'];
+				$_SESSION[$this->model_login->idmodel]=$arr_set['id'];
 			
 				$_SESSION[$this->field_key]=$arr_set['token'];
 				
@@ -274,11 +279,11 @@ class LoginClass {
 		if($check_user==1)
 		{
 			
-			$arr_user=$model[$this->model_login]->select_a_row_where('where '.$this->field_key.'="'.$cookie_val.'"', $this->arr_user_session);
+			$arr_user=$this->model_login->select_a_row_where('where '.$this->field_key.'="'.$cookie_val.'"', $this->arr_user_session);
 			
-			settype($arr_user[$model[$this->model_login]->idmodel], 'integer');
+			settype($arr_user[$this->model_login->idmodel], 'integer');
 			
-			if($arr_user[$model[$this->model_login]->idmodel]==0)
+			if($arr_user[$this->model_login->idmodel]==0)
 			{
 			
 				return false;
@@ -309,14 +314,14 @@ class LoginClass {
 	public function login_form()
 	{
 		
-		echo load_view(array($model[$this->model_login], $this), $this->login_view);
+		echo load_view(array($this->model_login, $this), $this->login_view);
 	
 	}
 	
 	public function recovery_password_form()
 	{
 		
-		echo load_view(array($model[$this->model_login], $this), $this->recovery_pass_view);
+		echo load_view(array($this->model_login, $this), $this->recovery_pass_view);
 	
 	}
 	
@@ -334,9 +339,9 @@ class LoginClass {
 		
 			$email = @form_text( $_POST['email'] );
 			
-			$query=$model[$this->model_login]->select( 'where '.$this->field_mail.'="'.$email.'"', array($model[$this->model_login]->idmodel, $this->field_name, $this->field_mail) );
+			$query=$this->model_login->select( 'where '.$this->field_mail.'="'.$email.'"', array($this->model_login->idmodel, $this->field_name, $this->field_mail) );
 			
-			list($iduser_recovery, $nick, $email)=$model[$this->model_login]->fetch_row($query);
+			list($iduser_recovery, $nick, $email)=$this->model_login->fetch_row($query);
 			
 			settype($iduser_recovery, 'integer');
 			
@@ -345,9 +350,9 @@ class LoginClass {
 			
 				$email = @form_text( $_POST['email'] );
 		
-				$query=$model[$this->model_login]->select( 'where '.$this->field_mail.'="'.$email.'"', array($model[$this->model_login]->idmodel, $this->field_name, $this->field_mail) );
+				$query=$this->model_login->select( 'where '.$this->field_mail.'="'.$email.'"', array($this->model_login->idmodel, $this->field_name, $this->field_mail) );
 				
-				list($iduser_recovery, $nick, $email)=$model[$this->model_login]->fetch_row($query);
+				list($iduser_recovery, $nick, $email)=$this->model_login->fetch_row($query);
 				
 				settype($iduser_recovery, 'integer');
 			
@@ -355,9 +360,9 @@ class LoginClass {
 				
 				$token_recovery=get_token();
 				
-				$model[$this->model_login]->reset_require();
+				$this->model_login->reset_require();
 				
-				$query=$model[$this->model_login]->update(array($this->field_recovery => hash($this->method_crypt, $token_recovery)), 'where '.$model[$this->model_login]->idmodel.'='.$iduser_recovery);
+				$query=$this->model_login->update(array($this->field_recovery => hash($this->method_crypt, $token_recovery)), 'where '.$this->model_login->idmodel.'='.$iduser_recovery);
 				
 				//$query=$model['recovery_password']->insert(array('iduser' => $iduser_recovery, 'token_recovery' => sha1($token_recovery), 'date_token' => TODAY) );
 				
@@ -402,18 +407,18 @@ class LoginClass {
 		
 			load_libraries(array('fields/passwordfield'));
 
-			$query=$model[$this->model_login]->select('where '.$this->field_recovery.'="'.hash($this->method_crypt, $_GET['token_recovery']).'"', array($model[$this->model_login]->idmodel, $this->field_name, $this->field_mail));
+			$query=$this->model_login->select('where '.$this->field_recovery.'="'.hash($this->method_crypt, $_GET['token_recovery']).'"', array($this->model_login->idmodel, $this->field_name, $this->field_mail));
 			
-			list($iduser_recovery, $nick, $email)=$model[$this->model_login]->fetch_row($query);
+			list($iduser_recovery, $nick, $email)=$this->model_login->fetch_row($query);
 			
 			settype($iduser_recovery, 'integer');
 			
 			if($iduser_recovery>0)
 			{
 			
-				//$query=$model[$this->model_login]->select( 'where '.$this->field_mail.'="'.$email.'"', array($model[$this->model_login]->idmodel, $this->field_name, $this->field_mail) );
+				//$query=$this->model_login->select( 'where '.$this->field_mail.'="'.$email.'"', array($this->model_login->idmodel, $this->field_name, $this->field_mail) );
 				
-				//list($iduser_recovery, $nick, $email)=$model[$this->model_login]->fetch_row($query);
+				//list($iduser_recovery, $nick, $email)=$this->model_login->fetch_row($query);
 				
 				//settype($iduser_recovery, 'integer');
 
@@ -432,11 +437,11 @@ class LoginClass {
 					
 					$portal_name=html_entity_decode($portal_name);	
 					
-					//$query=$model['recovery_password']->delete('where '.$model[$this->model_login]->idmodel.'='.$iduser_recovery);
+					//$query=$model['recovery_password']->delete('where '.$this->model_login->idmodel.'='.$iduser_recovery);
 
-					$model[$this->model_login]->reset_require();
+					$this->model_login->reset_require();
 					
-					$query = $model[$this->model_login]->update(array($this->field_password => $password, $this->field_recovery => ''), 'where '.$model[$this->model_login]->idmodel.'='.$iduser_recovery);
+					$query = $this->model_login->update(array($this->field_password => $password, $this->field_recovery => ''), 'where '.$this->model_login->idmodel.'='.$iduser_recovery);
 					
 					if ( send_mail($email, $topic_email, $body_email) )
 					{
@@ -491,7 +496,7 @@ class LoginClass {
 		
 		}
 	
-		echo load_view(array('model' => $model[$this->model_login], 'login_model' => $this), $this->create_account_view);
+		echo load_view(array('model' => $this->model_login, 'login_model' => $this), $this->create_account_view);
 	
 	}
 	
@@ -506,30 +511,30 @@ class LoginClass {
 		
 		$no_user=0;
 		
-		$check_user=$model[$this->model_login]->components[$this->field_user]->check($post[$this->field_user]);
+		$check_user=$this->model_login->components[$this->field_user]->check($post[$this->field_user]);
 		
-		//$no_user=$model[$this->model_login]->select_count('where `'.$model[$this->model_login]->name.'`.`'.$this->field_user.'`="'.$check_user.'"');
+		//$no_user=$this->model_login->select_count('where `'.$this->model_login->name.'`.`'.$this->field_user.'`="'.$check_user.'"');
 		
 		// && $no_user==0
 		
-		if(ModelForm::check_form($model[$this->model_login]->forms, $post))
+		if(ModelForm::check_form($this->model_login->forms, $post))
 		{
 		
 			/*if($_POST['repeat_password']==$post[$this->field_password] && $check_captcha==1 && $no_user==0)
 			{*/
 			
-			$model[$this->model_login]->reset_require();
+			$this->model_login->reset_require();
 			
 			foreach($this->arr_user_insert as $field_require)
 			{
 			
-				if(isset($model[$this->model_login]->components[$field_require]))
+				if(isset($this->model_login->components[$field_require]))
 				{
-					$model[$this->model_login]->components[$field_require]->required=1;
+					$this->model_login->components[$field_require]->required=1;
 				}
 			}
 			
-			if($model[$this->model_login]->insert($post))
+			if($this->model_login->insert($post))
 			{
 			
 				return true;
@@ -538,7 +543,7 @@ class LoginClass {
 			else
 			{
 			
-				ModelForm::set_values_form($_POST, $model[$this->model_login]->forms, 1);
+				ModelForm::set_values_form($_POST, $this->model_login->forms, 1);
 			
 			
 				return false;
@@ -551,11 +556,11 @@ class LoginClass {
 			if($no_user>0)
 			{
 				
-				$model[$this->model_login]->forms[$this->field_user]->std_error= I18n::lang('users', 'user_or_email_exists', 'User or email exists');
+				$this->model_login->forms[$this->field_user]->std_error= I18n::lang('users', 'user_or_email_exists', 'User or email exists');
 			
 			}
 		
-			ModelForm::set_values_form($_POST, $model[$this->model_login]->forms, 1);
+			ModelForm::set_values_form($_POST, $this->model_login->forms, 1);
 		
 			return false;
 		
@@ -568,16 +573,16 @@ class LoginClass {
 		
 		//$this->arr_user_insert[]='accept_conditions';
 		
-		$model[$this->model_login]->forms['repeat_password']=new ModelForm('repeat_password', 'repeat_password', 'PasswordForm',  I18n::lang('users', 'repeat_password', 'Repeat password'), new PasswordField(), $required=1, $parameters='');
+		$this->model_login->forms['repeat_password']=new ModelForm('repeat_password', 'repeat_password', 'PasswordForm',  I18n::lang('users', 'repeat_password', 'Repeat password'), new PasswordField(), $required=1, $parameters='');
 		
-		//$model[$this->model_login]->InsertAfterFieldForm($this->field_password, 'repeat_password', new ModelForm('repeat_password', 'repeat_password', 'PasswordForm',  I18n::lang('users', 'repeat_password', 'Repeat password'), new PasswordField(), $required=1, $parameters=''));
+		//$this->model_login->InsertAfterFieldForm($this->field_password, 'repeat_password', new ModelForm('repeat_password', 'repeat_password', 'PasswordForm',  I18n::lang('users', 'repeat_password', 'Repeat password'), new PasswordField(), $required=1, $parameters=''));
 			
 		if($captcha_type!='')
 		{
 
 			load_libraries(array('fields/captchafield'));
 
-			$model[$this->model_login]->forms['captcha']=new ModelForm('captcha', 'captcha', 'CaptchaForm', I18n::lang('common', 'captcha', 'Captcha'), new CaptchaField(), $required=1, $parameters='');
+			$this->model_login->forms['captcha']=new ModelForm('captcha', 'captcha', 'CaptchaForm', I18n::lang('common', 'captcha', 'Captcha'), new CaptchaField(), $required=1, $parameters='');
 
 			$this->arr_user_insert[]='captcha';
 			
@@ -586,7 +591,7 @@ class LoginClass {
 		if($this->accept_conditions==1)
 		{
 		
-			$model[$this->model_login]->forms['accept_conditions']=new ModelForm('form_login', 'accept_conditions', 'CheckBoxForm',  I18n::lang('users', 'accept_cond_register', 'Accept registration conditions')
+			$this->model_login->forms['accept_conditions']=new ModelForm('form_login', 'accept_conditions', 'CheckBoxForm',  I18n::lang('users', 'accept_cond_register', 'Accept registration conditions')
 			, new BooleanField(), $required=1, $parameters='');
 			
 			$this->arr_user_insert[]='accept_conditions';
