@@ -23,27 +23,29 @@ class LoginController extends Controller {
 
 	protected $login;
 
-	public function __construct()
+	public function __construct($route)
 	{
+	
+		//parent::__construct($route);
+		
+		$this->route=$route;
 	
 		$this->login=new LoginClass(User::$model['user_admin'], 'username', 'password', '', $arr_user_session=array('IdUser_admin', 'privileges_user'), $arr_user_insert=array('username', 'password', 'repeat_password', 'email'));
 	
 		$this->login->field_name='username';
 	
-		$this->login->url_login=make_fancy_url(PhangoVar::$base_url, 'admin', 'login_check', array());
+		$this->login->url_login=$this->route->makeUrl('login', 'login');//make_fancy_url(PhangoVar::$base_url, 'admin', 'login_check', array());
 		
-		$this->login->url_insert=make_fancy_url(PhangoVar::$base_url, 'admin', 'register_insert', array(1));
+		$this->login->url_insert=$this->route->makeUrl('login', 'register');//make_fancy_url(PhangoVar::$base_url, 'admin', 'register_insert', array(1));
 		
-		$this->login->url_recovery=make_fancy_url(PhangoVar::$base_url, 'admin', 'recovery_password', array(1));
+		$this->login->url_recovery=$this->route->makeUrl('login', 'recovery');//make_fancy_url(PhangoVar::$base_url, 'admin', 'recovery_password', array(1));
 		
-		$this->login->url_recovery_send=make_fancy_url(PhangoVar::$base_url, 'admin', 'recovery_password_send', array(1));
+		$this->login->url_recovery_send=$this->route->makeUrl('login', 'recovery'); //make_fancy_url(PhangoVar::$base_url, 'admin', 'recovery_password_send', array(1));
 		
 		$this->login->accept_conditions=0;
 		
 		$this->login->field_key='token_client';
-	
-		# parent::__construct();
-	
+		
 	}
 
 	public function index()
@@ -78,11 +80,15 @@ class LoginController extends Controller {
 		else
 		{
 			
-			load_libraries(array('redirect'));
+			/*load_libraries(array('redirect'));
 			
 			$url_return=make_fancy_url(PhangoVar::$base_url, ADMIN_FOLDER, 'register');
 			
-			$this->simple_redirect($url_return);
+			$this->simple_redirect($url_return);*/
+			
+			$url_return=$this->route->makeUrl('login', 'register');
+			
+			$this->route->redirect($url_return);
 		
 		}
 	
