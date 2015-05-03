@@ -5,8 +5,20 @@ include('autoload.php');
 use PhangoApp\PhaRouter\Routes;
 use PhangoApp\PhaModels\Webmodel;
 use PhangoApp\PhaView\View;
+use PhangoApp\Framework\Config\PhangoVar;
 
 include('config.php');
+
+//Start session
+
+session_start();
+		
+if(!isset($_SESSION['csrf_token']))
+{
+
+	$_SESSION['csrf_token']=Utils::get_token();
+
+}
 
 //Define the view showmedia file.
 
