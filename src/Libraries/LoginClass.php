@@ -581,7 +581,7 @@ class LoginClass {
 		
 		//$this->model_login->InsertAfterFieldForm($this->field_password, 'repeat_password', new ModelForm('repeat_password', 'repeat_password', 'PasswordForm',  I18n::lang('users', 'repeat_password', 'Repeat password'), new PasswordField(), $required=1, $parameters=''));
 			
-		if($captcha_type!='')
+		/*if($captcha_type!='')
 		{
 
 			load_libraries(array('fields/captchafield'));
@@ -590,7 +590,7 @@ class LoginClass {
 
 			$this->arr_user_insert[]='captcha';
 			
-		}
+		}*/
 		
 		if($this->accept_conditions==1)
 		{

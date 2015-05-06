@@ -8,13 +8,13 @@
 * Now, we define components for use in models. Components are fields on a table.
 *
 */
-
+/*
 namespace PhangoApp\Framework\StdModels;
 
 use PhangoApp\PhaModels\Webmodel;
 use PhangoApp\PhaI18n\I18n;
 use PhangoApp\PhaUtils\Utils;
-
+*/
 I18n::loadLang('users');
 
 /**

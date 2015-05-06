@@ -5,7 +5,14 @@ include('autoload.php');
 use PhangoApp\PhaRouter\Routes;
 use PhangoApp\PhaModels\Webmodel;
 use PhangoApp\PhaView\View;
-use PhangoApp\Framework\Config\PhangoVar;
+
+class_alias('PhangoApp\PhaRouter\Controller', 'ControllerSwitchClass');
+class_alias('PhangoApp\PhaRouter\Routes', 'Routes');
+class_alias('PhangoApp\PhaModels\Webmodel', 'Webmodel');
+class_alias('PhangoApp\PhaView\View', 'View');
+class_alias('PhangoApp\PhaUtils\Utils', 'Utils');
+class_alias('PhangoApp\PhaI18n\I18n', 'I18n');
+
 
 include('config.php');
 
@@ -40,6 +47,8 @@ Webmodel::$model_path='./modules/';
 //See the first element of uri next to index.php.
 
 $route=new Routes();
+
+$route->prefix_controller='Switch';
 
 Routes::$root_path=Routes::$root_path.'/modules';
 

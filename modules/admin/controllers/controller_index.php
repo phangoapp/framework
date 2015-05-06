@@ -5,25 +5,20 @@ load_model('admin');
 load_config('admin');
 */
 
-use PhangoApp\PhaRouter\Controller;
-use PhangoApp\PhaView\View;
-use PhangoApp\PhaModels\Webmodel;
-use PhangoApp\PhaI18n\I18n;
-use PhangoApp\PhaUtils\Utils;
 use PhangoApp\Framework\Libraries\LoginClass;
 
-class indexController extends Controller {
+class indexSwitchController extends ControllerSwitchClass {
 
 	static public $login;
 
 	public function index($module_id='none')
 	{
 	
-		class_alias('indexController', 'AdminSwitchClass');
+		class_alias('indexSwitchController', 'AdminSwitchClass');
 	
 		Webmodel::load_model('admin');
 		
-		AdminSwitchClass::$login=new LoginClass($model['user_admin'], 'username', 'password', '', $arr_user_session=array('IdUser_admin', 'privileges_user', 'username', 'token_client'), $arr_user_insert=array('username', 'password', 'repeat_password', 'email'));
+		AdminSwitchClass::$login=new LoginClass(Webmodel::$model['user_admin'], 'username', 'password', '', $arr_user_session=array('IdUser_admin', 'privileges_user', 'username', 'token_client'), $arr_user_insert=array('username', 'password', 'repeat_password', 'email'));
 		
 		AdminSwitchClass::$login->field_key='token_client';
 		
