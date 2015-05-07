@@ -178,13 +178,14 @@ class LoginSwitchController extends ControllerSwitchClass {
 			
 			ob_start();
 			
-			if($update==0)
+			if($this->route->request_method=='GET')
 			{
-	
+				
 				$this->login->create_account_form();
 				
 			}
 			else
+			if($this->route->request_method=='POST')
 			{
 			
 				if($this->login->create_account())
@@ -197,7 +198,7 @@ class LoginSwitchController extends ControllerSwitchClass {
 				}
 				else
 				{
-				
+					
 					$this->login-> create_account_form();
 				
 				}
