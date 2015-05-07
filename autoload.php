@@ -2,10 +2,10 @@
 
 //Loader from composer.
 
-//if(is_file(__DIR__ . '/vendor/composer/autoload_classmap.php'))
-//{
+if(is_file(__DIR__ . '/vendor/composer/autoload_classmap.php'))
+{
 
-	/*$classMap = require __DIR__ . '/vendor/composer/autoload_classmap.php';
+	$classMap = require __DIR__ . '/vendor/composer/autoload_classmap.php';
 	
 	if(count($classMap)>0)
 	{
@@ -22,13 +22,13 @@
 		
 	}
 	else
-	{*/
+	{
 	
 		require(__DIR__.'/vendor/autoload.php');
 		
-	//}
+	}
 
-//}
+}
 
 //Internal functions autoloading.
 /*

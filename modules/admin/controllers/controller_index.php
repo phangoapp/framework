@@ -5,7 +5,7 @@ load_model('admin');
 load_config('admin');
 */
 
-use PhangoApp\Framework\Libraries\LoginClass;
+Utils::load_libraries('loginclass');
 
 class indexSwitchController extends ControllerSwitchClass {
 

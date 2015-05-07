@@ -3,23 +3,20 @@
 /*load_libraries(array('login'));
 load_model('admin');
 load_lang('users');*/
-
+/*
 use PhangoApp\PhaRouter\Controller;
 use PhangoApp\PhaView\View;
 use PhangoApp\PhaModels\Webmodel;
 use PhangoApp\PhaI18n\I18n;
 use PhangoApp\PhaUtils\Utils;
 use PhangoApp\Framework\Libraries\LoginClass;
+*/
 
-class User {
+Utils::load_libraries(array('loginclass'));
 
-	static public $model=array();
+Webmodel::load_model('admin');
 
-}
-
-User::$model=Webmodel::load_model('admin');
-
-class LoginController extends Controller {
+class LoginSwitchController extends ControllerSwitchClass {
 
 	protected $login;
 
@@ -30,7 +27,7 @@ class LoginController extends Controller {
 		
 		$this->route=$route;
 	
-		$this->login=new LoginClass(User::$model['user_admin'], 'username', 'password', '', $arr_user_session=array('IdUser_admin', 'privileges_user'), $arr_user_insert=array('username', 'password', 'repeat_password', 'email'));
+		$this->login=new LoginClass(Webmodel::$model['user_admin'], 'username', 'password', '', $arr_user_session=array('IdUser_admin', 'privileges_user'), $arr_user_insert=array('username', 'password', 'repeat_password', 'email'));
 	
 		$this->login->field_name='username';
 	
@@ -52,7 +49,7 @@ class LoginController extends Controller {
 	{
 		ob_start();
 		
-		$c_users=User::$model['user_admin']->select_count('');
+		$c_users=Webmodel::$model['user_admin']->select_count('');
 		
 		if($c_users>0)
 		{
@@ -66,7 +63,7 @@ class LoginController extends Controller {
 				
 				ob_end_clean();
 				
-				echo load_view(array($cont_index), 'loginadmin');
+				echo View::loadView(array($cont_index), 'loginadmin');
 				
 			/*}
 			else
@@ -112,18 +109,18 @@ class LoginController extends Controller {
 			
 			ob_end_clean();
 			
-			//$this->load_theme(PhangoVar::$l_['users']->lang('login', 'Login'), $cont_index);
-			echo load_view(array($cont_index), 'loginadmin');
+			//$this->load_theme(I18n::lang('users', 'login', 'Login'), $cont_index);
+			echo View::loadView(array($cont_index), 'loginadmin');
 		
 		}
 		else
 		{
 		
-			load_libraries(array('redirect'));
+			/*Utils::load_libraries(array('redirect'));*/
 			
-			$url_return=make_fancy_url(PhangoVar::$base_url, ADMIN_FOLDER, 'index');
+			$url_return=Routes::makeUrl('index');
 			
-			$this->simple_redirect($url_return);
+			$this->routes->redirect($url_return);
 		
 		}
 	
@@ -143,8 +140,8 @@ class LoginController extends Controller {
 			
 			ob_end_clean();
 			
-			//$this->load_theme(PhangoVar::$l_['users']->lang('login', 'Login'), $cont_index);
-			echo load_view(array($cont_index), 'loginadmin');
+			//$this->load_theme(I18n::lang('users', 'login', 'Login'), $cont_index);
+			echo View::loadView(array($cont_index), 'loginadmin');
 			
 		}
 	
@@ -164,8 +161,8 @@ class LoginController extends Controller {
 			
 			ob_end_clean();
 			
-			//$this->load_theme(PhangoVar::$l_['users']->lang('login', 'Login'), $cont_index);
-			echo load_view(array($cont_index), 'loginadmin');
+			//$this->load_theme(I18n::lang('users', 'login', 'Login'), $cont_index);
+			echo View::loadView(array($cont_index), 'loginadmin');
 			
 		}
 	
@@ -174,7 +171,7 @@ class LoginController extends Controller {
 	public function register($update=0)
 	{
 	
-		$c_users=User::$model['user_admin']->select_count('');
+		$c_users=Webmodel::$model['user_admin']->select_count('');
 		
 		if($c_users==0)
 		{
@@ -184,7 +181,7 @@ class LoginController extends Controller {
 			if($update==0)
 			{
 	
-				$this->login-> create_account_form();
+				$this->login->create_account_form();
 				
 			}
 			else
@@ -193,9 +190,9 @@ class LoginController extends Controller {
 				if($this->login->create_account())
 				{
 					
-					$url_return=make_fancy_url(PhangoVar::$base_url, ADMIN_FOLDER, 'login');
+					$url_return=Routes::makeUrl('login');
 			
-					$this->simple_redirect($url_return);
+					$this->routes->redirect($url_return);
 				
 				}
 				else
@@ -211,7 +208,7 @@ class LoginController extends Controller {
 			
 			ob_end_clean();
 			
-			$this->load_theme(PhangoVar::$l_['users']->lang('login', 'Login'), $cont_index);
+			View::loadTheme(I18n::lang('users', 'login', 'Login'), $cont_index);
 		
 		}
 	

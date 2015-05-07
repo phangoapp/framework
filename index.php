@@ -1,18 +1,32 @@
 <?php
 
-include('autoload.php');
+//include('autoload.php');
 
 use PhangoApp\PhaRouter\Routes;
+use PhangoApp\PhaRouter\Controller;
 use PhangoApp\PhaModels\Webmodel;
+use PhangoApp\PhaModels\ModelForm;
 use PhangoApp\PhaView\View;
+use PhangoApp\PhaI18n\I18n;
+use PhangoApp\PhaUtils\Utils;
+
+include('libraries/fields/corefields.php');
+include('libraries/forms/coreforms.php');
+include('vendor/phangoapp/pharouter/src/Routes.php');
+include('vendor/phangoapp/pharouter/src/Controller.php');
+include('vendor/phangoapp/phamodels/src/Webmodel.php');
+include('vendor/phangoapp/phamodels/src/ModelForm.php');
+include('vendor/phangoapp/phaview/src/View.php');
+include('vendor/phangoapp/phai18n/src/I18n.php');
+include('vendor/phangoapp/phautils/src/Utils.php');
 
 class_alias('PhangoApp\PhaRouter\Controller', 'ControllerSwitchClass');
 class_alias('PhangoApp\PhaRouter\Routes', 'Routes');
 class_alias('PhangoApp\PhaModels\Webmodel', 'Webmodel');
+class_alias('PhangoApp\PhaModels\ModelForm', 'ModelForm');
 class_alias('PhangoApp\PhaView\View', 'View');
 class_alias('PhangoApp\PhaUtils\Utils', 'Utils');
 class_alias('PhangoApp\PhaI18n\I18n', 'I18n');
-
 
 include('config.php');
 
@@ -49,6 +63,8 @@ Webmodel::$model_path='./modules/';
 $route=new Routes();
 
 $route->prefix_controller='Switch';
+
+Routes::$base_path=getcwd();
 
 Routes::$root_path=Routes::$root_path.'/modules';
 

@@ -9,12 +9,12 @@
 *
 */
 
-namespace PhangoApp\Framework\Libraries;
+/*namespace PhangoApp\Framework\Libraries;
 
 use PhangoApp\PhaView\View;
 use PhangoApp\PhaI18n\I18n;
 use PhangoApp\PhaModels\ModelForm;
-use PhangoApp\PhaModels\CoreFields\PasswordField;
+use PhangoApp\PhaModels\CoreFields\PasswordField;*/
 
 class LoginClass {
 
@@ -46,7 +46,7 @@ class LoginClass {
 	
 		//Check is phangoUser the model.
 		
-		if(get_class($model_login)!='PhangoApp\Framework\StdModels\UserPhangoModel')
+		if(get_class($model_login)!='UserPhangoModel')
 		{
 		
 			/*show_error(I18n::lang('users', 'need_class_special', 'A special library is need, please, inform to admin'),
