@@ -109,7 +109,7 @@ class LoginClass {
 	
 		$check_password=0;
 	
-		$user=form_text($user);
+		$user=Utils::form_text($user);
 		
 		$this->arr_user_session[]=$this->field_password;
 		
@@ -167,7 +167,7 @@ class LoginClass {
 				
 				//Create token
 				
-				$new_token=sha1(get_token());
+				$new_token=sha1(Utils::get_token());
 				
 				$this->model_login->reset_require();
 				
@@ -511,7 +511,7 @@ class LoginClass {
 		
 		$this->was_prepared=1;
 					
-		$post=filter_fields_array($this->arr_user_insert, $_POST);
+		$post=Utils::filter_fields_array($this->arr_user_insert, $_POST);
 		
 		$no_user=0;
 		

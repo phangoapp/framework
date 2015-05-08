@@ -118,9 +118,9 @@ class LoginSwitchController extends ControllerSwitchClass {
 		
 			/*Utils::load_libraries(array('redirect'));*/
 			
-			$url_return=Routes::makeUrl('index');
+			$url_return=$this->route->makeUrl('index');
 			
-			$this->routes->redirect($url_return);
+			$this->route->redirect($url_return);
 		
 		}
 	
@@ -191,9 +191,9 @@ class LoginSwitchController extends ControllerSwitchClass {
 				if($this->login->create_account())
 				{
 					
-					$url_return=Routes::makeUrl('login');
+					$url_return=$this->route->makeUrl('login');
 			
-					$this->routes->redirect($url_return);
+					$this->route->redirect($url_return);
 				
 				}
 				else
@@ -226,7 +226,7 @@ class LoginSwitchController extends ControllerSwitchClass {
 		
 		ob_end_clean();
 		
-		$this->simple_redirect( make_fancy_url(PhangoVar::$base_url, ADMIN_FOLDER, 'login') );
+		$this->route->redirect( $this->route->makeUrl('login') );
 	
 	}
 	

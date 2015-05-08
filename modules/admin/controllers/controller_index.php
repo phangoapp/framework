@@ -23,7 +23,7 @@ class indexSwitchController extends ControllerSwitchClass {
 		AdminSwitchClass::$login->field_key='token_client';
 		
 		ob_start();
-
+		
 		//global $model, $lang, PhangoVar::$base_url, PhangoVar::$base_path, $user_data, $arr_module_admin, $config_data, $arr_block, $original_theme, $module_admin, $header;
 		
 		$header='';
@@ -35,9 +35,7 @@ class indexSwitchController extends ControllerSwitchClass {
 		//settype($module_id, 'string');
 		
 		$module_id=Utils::slugify($module_id, 1);
-		
-		
-		
+
 		$extra_urls=array();
 
 		//Make menu...
@@ -50,8 +48,8 @@ class indexSwitchController extends ControllerSwitchClass {
 			
 			//variables for define titles for admin page
 
-			$title_admin=PhangoVar::$l_['admin']->lang('admin', 'Admin');
-			$title_module=PhangoVar::$l_['admin']->lang('home', 'Home');
+			$title_admin=I18n::lang('admin', 'admin', 'Admin');
+			$title_module=I18n::lang('admin', 'home', 'Home');
 			
 			$content='';
 
@@ -69,11 +67,11 @@ class indexSwitchController extends ControllerSwitchClass {
 			//Define $module_admin[$module_id] for check if exists in database the module
 
 			$module_admin[$module_id]='AdminIndex';
-
-			PhangoVar::$lang[$module_admin[$module_id].'_admin']['AdminIndex_admin_name']=ucfirst(PhangoVar::$l_['admin']->lang('admin', 'Admin'));
+			
+			I18n::$lang[$module_admin[$module_id].'_admin']['AdminIndex_admin_name']=ucfirst(I18n::lang('admin', 'admin', 'Admin'));
 			
 			foreach(ModuleAdmin::$arr_modules_admin as $idmodule => $ser_admin_script)
-			{
+			{	
 				$name_module=$idmodule;
 				
 				$arr_admin_script[$idmodule]=$ser_admin_script;
@@ -89,19 +87,19 @@ class indexSwitchController extends ControllerSwitchClass {
 
 				}
 
-				load_lang($dir_lang_admin.$name_module.'_admin');
+				I18n::loadLang($dir_lang_admin.$name_module.'_admin');
 				
-				if(!isset(PhangoVar::$lang[$name_module.'_admin'][$name_module.'_admin_name']))
+				if(!isset(I18n::$lang[$name_module.'_admin'][$name_module.'_admin_name']))
 				{
 
 					$name_modules[$name_module]=ucfirst($name_module);
-					PhangoVar::$lang[$name_module.'_admin'][$name_module.'_admin_name']=ucfirst($name_modules[$name_module]);
+					I18n::$lang[$name_module.'_admin'][$name_module.'_admin_name']=ucfirst($name_modules[$name_module]);
 				
 				}
 				else
 				{
 					
-					$name_modules[$name_module]=ucfirst(PhangoVar::$lang[$name_module.'_admin'][$name_module.'_admin_name']);
+					$name_modules[$name_module]=ucfirst(I18n::$lang[$name_module.'_admin'][$name_module.'_admin_name']);
 
 				}
 
@@ -123,7 +121,7 @@ class indexSwitchController extends ControllerSwitchClass {
 			
 			}
 			
-			$file_include=PhangoVar::$base_path.'modules/'.$arr_admin_script[ $module_id ][0].'/controllers/admin/admin_'.$arr_admin_script[ $module_id ][1].'.php';
+			$file_include=Routes::$base_path.'/modules/'.$arr_admin_script[ $module_id ][0].'/controllers/admin/admin_'.$arr_admin_script[ $module_id ][1].'.php';
 			
 			if(AdminSwitchClass::$login->session['privileges_user']==1)
 			{
@@ -135,9 +133,9 @@ class indexSwitchController extends ControllerSwitchClass {
 				$arr_permissions_admin[$module_id]=0;
 				$arr_permissions_admin['none']=1;
 			
-				$query=PhangoVar::$model['moderators_module']->select('where moderator='.$_SESSION['IdUser_admin'], array('idmodule'), 1);
+				$query=Webmodel::$model['moderators_module']->select('where moderator='.$_SESSION['IdUser_admin'], array('idmodule'), 1);
 				
-				while(list($idmodule_mod)=webtsys_fetch_row($query))
+				while(list($idmodule_mod)=$model['moderators_module']->fetch_row($query))
 				{
 				
 					//settype($idmodule_mod, 'integer');
@@ -171,7 +169,7 @@ class indexSwitchController extends ControllerSwitchClass {
 				if(function_exists($func_admin))
 				{	
 
-					echo '<h1>'.PhangoVar::$lang[$module_admin[$module_id].'_admin'][$module_admin[$module_id].'_admin_name'].'</h1>';
+					echo '<h1>'.I18n::$lang[$module_admin[$module_id].'_admin'][$module_admin[$module_id].'_admin_name'].'</h1>';
 
 					$extra_data=$func_admin();
 
@@ -179,11 +177,13 @@ class indexSwitchController extends ControllerSwitchClass {
 				else
 				{
 
-					$arr_error[0]='Error: no exists function for admin application';
+					/*$arr_error[0]='Error: no exists function for admin application';
 					$arr_error[1]='Error: no exists function '.ucfirst($func_admin).' for admin application';
 					ob_clean();
-					echo load_view(array('title' => 'Phango site is down', 'content' => '<p>'.$arr_error[DEBUG].'</p>'), 'common/common');
-					die();
+					echo View::loadView(array('title' => 'Phango site is down', 'content' => '<p>'.$arr_error[DEBUG].'</p>'), 'common/common');
+					die();*/
+					
+					throw new Exception('Error: no exists function '.ucfirst($func_admin).' for admin application');
 
 				}
 
@@ -195,11 +195,15 @@ class indexSwitchController extends ControllerSwitchClass {
 				
 				ob_clean();
 
-				$arr_error[0]='Error: no exists file for admin application';
+				/*$arr_error[0]='Error: no exists file for admin application';
 				$arr_error[1]='Error: no exists file '.$file_include.' for admin application<p>Output: '.$output.'</p>';
 				
-				echo load_view(array('title' => 'Phango site is down', 'content' => '<p>'.$arr_error[DEBUG].'</p>'), 'common/common');
-				die();
+				echo View::loadView(array('title' => 'Phango site is down', 'content' => '<p>'.$arr_error[DEBUG].'</p>'), 'common/common');
+				die();*/
+				
+				throw new Exception('Error: no exists file '.$file_include.' for admin application');
+				
+				die;
 
 
 			}
@@ -214,15 +218,11 @@ class indexSwitchController extends ControllerSwitchClass {
 		
 			ob_end_clean();
 			
-			echo load_view(array('header' => $header, 'title' => PhangoVar::$l_['admin']->lang('admin_zone', 'Admin zone'), 'content' => $content, 'name_modules' => $name_modules, 'urls' => $urls , 'extra_data' => $extra_data), 'admin/admin');
+			echo View::loadView(array('header' => $header, 'title' => I18n::lang('admin', 'admin_zone', 'Admin zone'), 'content' => $content, 'name_modules' => $name_modules, 'urls' => $urls , 'extra_data' => $extra_data), 'admin/admin');
 
 		}
 		else
 		{	
-		
-			//makeUrl($controller, $method='index', $values=array())
-		
-			//make_fancy_url(PhangoVar::$base_url, ADMIN_FOLDER, 'login')
 			
 			$url=$this->route->makeUrl('login');
 			

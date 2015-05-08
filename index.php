@@ -35,13 +35,6 @@ include('config.php');
 //Start session
 
 session_start();
-		
-if(!isset($_SESSION['csrf_token']))
-{
-
-	$_SESSION['csrf_token']=Utils::get_token();
-
-}
 
 //Define the view showmedia file.
 
