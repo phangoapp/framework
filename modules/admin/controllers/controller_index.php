@@ -224,7 +224,7 @@ class indexSwitchController extends ControllerSwitchClass {
 		else
 		{	
 			
-			$url=$this->route->makeUrl('login');
+			$url=Routes::makeUrl('login');
 			
 			die( header('Location: '.$url, true ) );
 			
