@@ -38,7 +38,7 @@ session_start();
 
 //Define the view showmedia file.
 
-View::$php_file=Routes::$root_url.'/showmedia.php';
+View::$php_file=Routes::$root_url.'showmedia.php';
 
 //Define the views folders based on app installed.
 

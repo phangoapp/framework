@@ -5,7 +5,7 @@
 if(is_file(__DIR__ . '/vendor/composer/autoload_classmap.php'))
 {
 
-	$classMap = require __DIR__ . '/vendor/composer/autoload_classmap.php';
+	/*$classMap = require __DIR__ . '/vendor/composer/autoload_classmap.php';
 	
 	if(count($classMap)>0)
 	{
@@ -22,11 +22,11 @@ if(is_file(__DIR__ . '/vendor/composer/autoload_classmap.php'))
 		
 	}
 	else
-	{
+	{*/
 	
 		require(__DIR__.'/vendor/autoload.php');
 		
-	}
+	//}
 
 }
 

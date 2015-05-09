@@ -176,12 +176,6 @@ class indexSwitchController extends ControllerSwitchClass {
 				}
 				else
 				{
-
-					/*$arr_error[0]='Error: no exists function for admin application';
-					$arr_error[1]='Error: no exists function '.ucfirst($func_admin).' for admin application';
-					ob_clean();
-					echo View::loadView(array('title' => 'Phango site is down', 'content' => '<p>'.$arr_error[DEBUG].'</p>'), 'common/common');
-					die();*/
 					
 					throw new Exception('Error: no exists function '.ucfirst($func_admin).' for admin application');
 
@@ -195,12 +189,6 @@ class indexSwitchController extends ControllerSwitchClass {
 				
 				ob_clean();
 
-				/*$arr_error[0]='Error: no exists file for admin application';
-				$arr_error[1]='Error: no exists file '.$file_include.' for admin application<p>Output: '.$output.'</p>';
-				
-				echo View::loadView(array('title' => 'Phango site is down', 'content' => '<p>'.$arr_error[DEBUG].'</p>'), 'common/common');
-				die();*/
-				
 				throw new Exception('Error: no exists file '.$file_include.' for admin application');
 				
 				die;
