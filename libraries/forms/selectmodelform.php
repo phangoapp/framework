@@ -26,22 +26,22 @@ function SelectModelForm($name, $class, $value, $model_name, $identifier_field, 
 
 	}
 
-	if(!isset(PhangoVar::$model[$model_name]))
+	if(!isset(Webmodel::$model[$model_name]))
 	{
 
-		load_model($model_name);
+		Utils::load_model($model_name);
 
 	}
 	
-	$arr_model=array($value, PhangoVar::$l_['common']->lang('no_element_chosen', 'No element chosen'), 0);
+	$arr_model=array($value, I18n::lang('common', 'no_element_chosen', 'No element chosen'), 0);
 	
-	$query=PhangoVar::$model[$model_select]->select($where, array(PhangoVar::$model[$model_select]->idmodel, $identifier_field));
+	$query=Webmodel::$model[$model_select]->select($where, array(Webmodel::$model[$model_select]->idmodel, $identifier_field));
 
 	while($arr_field=webtsys_fetch_array($query))
 	{
 
-		$arr_model[]=PhangoVar::$model[$model_select]->components[$identifier_field]->show_formatted($arr_field[ $identifier_field ]);
-		$arr_model[]=$arr_field[ PhangoVar::$model[ $model_select]->idmodel ];
+		$arr_model[]=Webmodel::$model[$model_select]->components[$identifier_field]->show_formatted($arr_field[ $identifier_field ]);
+		$arr_model[]=$arr_field[ Webmodel::$model[ $model_select]->idmodel ];
 
 	}
 	

@@ -5,7 +5,10 @@ load_model('admin');
 load_config('admin');
 */
 
+Webmodel::load_model('admin');
+Utils::load_config('admin');
 Utils::load_libraries('loginclass');
+Utils::load_libraries(array('utilities/set_admin_link'));
 
 class indexSwitchController extends ControllerSwitchClass {
 
@@ -15,8 +18,6 @@ class indexSwitchController extends ControllerSwitchClass {
 	{
 	
 		class_alias('indexSwitchController', 'AdminSwitchClass');
-	
-		Webmodel::load_model('admin');
 		
 		AdminSwitchClass::$login=new LoginClass(Webmodel::$model['user_admin'], 'username', 'password', '', $arr_user_session=array('IdUser_admin', 'privileges_user', 'username', 'token_client'), $arr_user_insert=array('username', 'password', 'repeat_password', 'email'));
 		
