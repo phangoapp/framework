@@ -12,7 +12,7 @@
 function TextAreaBBPostForm($name="", $class='', $value='')
 {
 
-	load_libraries(array('forms/textareabb'));
+	Utils::load_libraries(array('forms/textareabb'));
 		
 	 return TextAreaBBForm($name, $class, $value, 'comment');
 

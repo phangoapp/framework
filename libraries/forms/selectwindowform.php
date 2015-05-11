@@ -14,7 +14,9 @@ function SelectWindowForm($name="", $class='', $value='', $module='', $model_nam
 	
 	settype($value, 'integer');
 	
-	$url_choose_option=make_direct_url(PhangoVar::$base_url, 'forms', 'browser_list_field', array('module' => $module, 'model' => $model_name, 'field' => $field, 'field_fill' => $name, 'category_field' => $category_field, 'category_model' => $category_model, 'category_model_field' => $category_model_field ));
+	//makeStaticUrl($app, $controller, $method='index', $values=array(), $get=array())
+	
+	$url_choose_option=Routes::makeStaticUrl('forms', 'browser_list_field', array(), array('module' => $module, 'model' => $model_name, 'field' => $field, 'field_fill' => $name, 'category_field' => $category_field, 'category_model' => $category_model, 'category_model_field' => $category_model_field ));
 
 	if($value==0)
 	{
@@ -26,7 +28,7 @@ function SelectWindowForm($name="", $class='', $value='', $module='', $model_nam
 	else
 	{
 	
-		$arr_model=PhangoVar::$model[$model_name]->select_a_row( $value, array($field) );
+		$arr_model=Webmodel::$model[$model_name]->select_a_row( $value, array($field) );
 		
 		if(isset($arr_model[$field]))
 		{

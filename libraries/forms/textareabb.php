@@ -28,12 +28,12 @@ function TextAreaBBForm($name="", $class='', $value='', $profile='all')
 
 	echo TextAreaForm($name, $class, $value.$paragraph)."<p />";
 
-	if(PhangoVar::$textbb_type!='')
+	if(Utils::$textbb_type!='')
 	{
 
-		PhangoVar::$textbb_type=basename(str_replace('.php', '', PhangoVar::$textbb_type));
+		Utils::$textbb_type=basename(str_replace('.php', '', PhangoVar::$textbb_type));
 
-		load_libraries(array('textbb/'.PhangoVar::$textbb_type.'/'.PhangoVar::$textbb_type.'_'.$profile));
+		Utils::load_libraries(array('textbb/'.PhangoVar::$textbb_type.'/'.PhangoVar::$textbb_type.'_'.$profile));
 		
 		//Load script profile for jscript, is a function called load_profile
 

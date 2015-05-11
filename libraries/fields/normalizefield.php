@@ -32,7 +32,7 @@ class NormalizeField extends TextField {
 	static public function check_text($value, $separator='-')
 	{
 	
-		$str_normalize=slugify(strip_tags($value));
+		$str_normalize=Utils::slugify(strip_tags($value));
 		
 		$arr_normalize=explode($separator, $str_normalize);
 		

@@ -361,7 +361,7 @@ class GenerateAdminClass {
 						
 						echo '<p class="error">'.I18n::lang('common', 'cannot_update_insert_in_model', 'Cannot insert or update this item in the database').' '.$model_name.': '.Webmodel::$model[$model_name]->std_error.'</p>';
 
-						$post=filter_fields_array($arr_fields, $_POST);
+						$post=Webmodel::filter_fields_array($arr_fields, $_POST);
 						
 						ModelForm::set_values_form($post, Webmodel::$model[$model_name]->forms);
 
@@ -380,27 +380,11 @@ class GenerateAdminClass {
 						//die(header('Location: '.$url_admin.'/success/1'));
 						
 						
-						$text_output=I18n::lang('common', 'success', 'Success');
 						
-						ob_end_clean();
-						
-						/*if($simple_redirect==0)
-						{
+						Routes::redirect( $url_back );
 							
-							load_libraries(array('redirect'));
-							die( redirect_webtsys( $url_back, I18n::lang('common']->lang('redirect', 'Redirect'), $text_output, PhangoVar::$l_['common', 'press_here_redirecting', 'Press here for redirecting')) );
-						}
-						else
-						{
-						*/
-							load_libraries(array('redirect'));
-							simple_redirect( $url_back, I18n::lang('common', 'redirect', 'Redirect'), 
-							I18n::lang('common', 'success', 'Success'), 
-							I18n::lang('common', 'press_here_redirecting', 'Press here for redirecting'));
-							
-							return;
+						return;
 
-						//}
 						
 					}
 
@@ -447,7 +431,7 @@ class GenerateAdminClass {
 
 		//Check $std_error if fail
 
-		$post=filter_fields_array($arr_fields, $post);
+		$post=Webmodel::filter_fields_array($arr_fields, $post);
 
 		if( Webmodel::$model[$model_name]->insert($post) )
 		{
@@ -558,7 +542,7 @@ class GenerateAdminClass {
 
 			$query=Webmodel::$model[$model_name]->select($where.' order by `'.$field_position.'` ASC', array(Webmodel::$model[$model_name]->idmodel, $field_name, $field_position));
 
-			while(list($id, $name, $position)=webtsys_fetch_row($query))
+			while(list($id, $name, $position)=Webmodel::$model[$model_name]->fetch_row($query))
 			{
 				$name=Webmodel::$model[$model_name]->components[$field_name]->show_formatted($name);
 
@@ -599,13 +583,11 @@ class GenerateAdminClass {
 			
 			ob_end_clean();
 
-			load_libraries(array('redirect'));
+			
 
 			//die( redirect_webtsys( $url, I18n::lang('common']->lang('redirect', 'Redirect'), I18n::lang('common', 'success', 'Success'), PhangoVar::$l_['common', 'press_here_redirecting', 'Press here for redirecting')) );
 			
-			simple_redirect($url, I18n::lang('common', 'redirect', 'Redirect'), 
-			I18n::lang('common', 'success', 'Success'), 
-			I18n::lang('common', 'press_here_redirecting', 'Press here for redirecting'), $content_view='content');
+			Routes::redirect($url);
 			
 			//die;
 			
@@ -775,7 +757,7 @@ class ListModelClass {
 			
 			$query=Webmodel::$model[$this->model_name]->select('where '.Webmodel::$model[$this->model_name]->idmodel.'='.$_GET[Webmodel::$model[$this->model_name]->idmodel], $this->arr_fields_form, true);
 			
-			$post=webtsys_fetch_array($query);
+			$post=Webmodel::$model[$this->model_name]->fetch_array($query);
 			
 			//model_set_form($this->model_name, $post, NO_SHOW_ERROR);
 			
@@ -827,10 +809,12 @@ class ListModelClass {
 				load_libraries(array('redirect'));
 				die( redirect_webtsys( $url_options_delete, I18n::lang('common']->lang('redirect', 'Redirect'), I18n::lang('common', 'success', 'Success'), PhangoVar::$l_['common', 'press_here_redirecting', 'Press here for redirecting') , $arr_block) );*/
 				
-				load_libraries(array('redirect'));
+				/*load_libraries(array('redirect'));
 				simple_redirect( $url_options_delete, I18n::lang('common', 'redirect', 'Redirect'), 
 				I18n::lang('common', 'success', 'Success'), 
-				I18n::lang('common', 'press_here_redirecting', 'Press here for redirecting'));
+				I18n::lang('common', 'press_here_redirecting', 'Press here for redirecting'));*/
+				
+				Routes::redirect($url_options_delete);
 
 			}
 			else

@@ -2,6 +2,311 @@
 
 /**
 *
+* @author  Antonio de la Rosa <webmaster@web-t-sys.com>
+* @file
+* @package CoreFields
+*
+*/
+
+/**
+* PhangoField class is the base for make class used on Webmodel::components property.
+*
+*/
+
+
+
+
+class PhangoField {
+
+	/**
+	* Property used for set this field how indexed in the database table.
+	*/
+
+	public $indexed=0;
+	
+	/**
+	* Property used for set this field how unique value in the database table.
+	*/
+
+	public $unique=0;
+	
+	/**
+	* The name of the model where this component or field live
+	*/
+	
+	public $name_model='';
+	
+	/**
+	* Name of the field or component.
+	*/
+	
+	public $name_component='';
+	
+	/**
+	* Method used for internal searchs for format the values.
+	*
+	* 
+	*/
+	
+	/**
+	* Required define if this field is required when insert or update a row of this model...
+	*/
+	
+	public $required=0;
+	
+	/** 
+	* $quote_open is used if you need a more flexible sql sentence, 
+	* @warning USE THIS FUNCTION IF YOU KNOW WHAT YOU ARE DOING
+	*/
+	public $quot_open='\'';
+	
+	/** 
+	* $quote_close is used if you need a more flexible sql sentence, 
+	* @warning USE THIS PROPERTY IF YOU KNOW WHAT YOU ARE DOING
+	*/
+	
+	public $quot_close='\'';
+	
+	/**
+	* $std_error contain error in field if exists...
+	*/
+	
+	public $std_error='';
+	
+	/**
+	* Label is the name of field
+	*/
+	public $label="";
+	
+	/**
+	* Value of field...
+	*/
+	public $value="";
+	
+	/**
+	* Form define the function for use in forms...
+	*/
+	
+	public $form="";
+	
+	/**
+	* Array for create initial parameters for form..
+	*/
+	
+	public $parameters=array();
+	
+	/**
+	* Method used for internal tasks related with searchs. You can overwrite this method in your PhangoField object if you need translate the value that the user want search to a real value into the database.
+	*/
+	
+	function search_field($value)
+	{
+	
+		return Utils::form_text($value);
+	
+	}
+	
+	/**
+	* Method used for internal tasks related with foreignkeys. By default make nothing.
+	*
+	* 
+	*/
+	
+	function set_relationships()
+	{
+	
+		
+	
+	}
+
+	/** 
+	* This method is used for describe the new field in a sql language format.
+	*/
+
+	public function get_type_sql()
+	{
+
+		return 'VARCHAR('.$this->size.') NOT NULL';
+
+	}
+	
+	/** 
+	* This method is used for return a default value for a form.
+	*/
+
+	public function get_parameters_default()
+	{
+
+		return array($this->name_component, '', '');
+
+	}
+	
+	/**
+	* This method is used for simple checking, used for WhereSql.
+	*/
+	
+	public function simple_check($value)
+	{
+	
+		return $this->check($value);
+	
+	}
+	
+	
+}
+
+/**
+* Integerfield is a field for integers values.
+*  
+*/
+
+
+
+
+class IntegerField extends PhangoField {
+
+	public $size=11;
+	public $value=0;
+	public $label="";
+	public $required=0;
+	public $only_positive=false;
+	public $min_num=0;
+	public $max_num=0;
+
+	function __construct($size=11, $only_positive=false, $min_num=0, $max_num=0)
+	{
+
+		$this->size=$size;
+		$this->form='TextForm';
+		$this->only_positive=$only_positive;
+		$this->min_num=$min_num;
+		$this->max_num=$max_num;
+
+	}
+
+	function check($value)
+	{
+
+		$this->value=Utils::form_text($value);
+		
+		settype($value, "integer");
+		
+		if($this->only_positive==true && $value<0)
+		{
+		
+			$value=0;
+		
+		}
+		
+		if($this->min_num<>0 && $value<$this->min_num)
+		{
+		
+			$value=$this->min_num;
+		
+		}
+		
+		if($this->max_num<>0 && $value>$this->max_num)
+		{
+		
+			$value=$this->max_num;
+		
+		}
+		
+		return $value;
+
+	}
+
+	function get_type_sql()
+	{
+
+		return 'INT('.$this->size.') NOT NULL';
+
+	}
+	
+	/**
+	* This function is used for show the value on a human format
+	*/
+
+	public function show_formatted($value)
+	{
+
+		return $value;
+
+	}
+
+	function get_parameters_default()
+	{
+
+		return array($this->name_component, '', 0);
+
+	}
+
+}
+
+
+
+
+
+
+/**
+* Keyfield is a indexed field in a sql statement...
+*/
+
+class KeyField extends PhangoField {
+
+	public $size=11;
+	public $value=0;
+	public $label="";
+	public $required=0;
+	public $form="";
+	public $quot_open='\'';
+	public $quot_close='\'';
+	public $fields=array();
+	public $table='';
+	public $model='';
+	public $ident='';
+	public $std_error='';
+
+	function __construct($size=11)
+	{
+
+		$this->size=$size;
+		$this->form='TextForm';
+
+	}
+
+	function check($value)
+	{
+
+		$this->value=Utils::form_text($value);
+
+		settype($value, "integer");
+		return $value;
+
+	}
+
+	function get_type_sql()
+	{
+
+		return 'INT('.$this->size.') NOT NULL';
+
+	}
+	
+	/**
+	* This function is used for show the value on a human format
+	*/
+
+	public function show_formatted($value)
+	{
+
+		return $value;
+
+	}
+
+}
+
+/**
+*
 */
 
 class ArrayField extends SerializeField {
@@ -470,7 +775,7 @@ class DateField extends PhangoField {
 	static public function format_date($value)
 	{
 
-		load_libraries(array('form_date'));
+		Utils::load_libraries(array('form_date'));
 		
 		return form_date( $value );
 	
@@ -777,7 +1082,7 @@ class FileField extends PhangoField {
 	
 		$query=$model->select($conditions, array($name_field));
 		
-		while(list($file_name)=webtsys_fetch_row($query))
+		while(list($file_name)=$model->fetch_row($query))
 		{
 		
 			if(!unlink($this->path.'/'.$file_name))
@@ -833,10 +1138,6 @@ class ForeignKeyField extends IntegerField{
 		$this->name_field_to_field='';
 		$this->null_relation=$null_relation;
 		$this->default_id=$default;
-		
-		//PhangoVar::$model[$related_model]->related_models_delete[]=array('model' => $this->name_model, 'related_field' => $this->name_component);
-		
-		//echo get_parent_class();
 
 	}
 	
@@ -877,7 +1178,7 @@ class ForeignKeyField extends IntegerField{
 
 		//Need checking if the value exists with a select_count
 		
-		$num_rows=$this->related_model->select_count('where '.$this->related_model.'.'.$this->related_model->idmodel.'='.$value, $this->related_model->idmodel);
+		$num_rows=$this->related_model->select_count('where '.$this->related_model->name.'.'.$this->related_model->idmodel.'='.$value, $this->related_model->idmodel);
 		
 		if($num_rows>0)
 		{
@@ -950,15 +1251,15 @@ class ForeignKeyField extends IntegerField{
 	{
 		
 		
-		load_libraries(array('forms/selectmodelform'));
+		Utils::load_libraries(array('forms/selectmodelform'));
 		
 		//SelectModelForm($name, $class, $value, $model_name, $identifier_field, $where='')
 		
 		//Prepare parameters for selectmodelform
 		
-		if(isset($this->name_component) && $this->name_field_to_field!='' && $this->name_model!='' && count(PhangoVar::$model[$this->name_model]->forms)>0)
+		if(isset($this->name_component) && $this->name_field_to_field!='' && $this->name_model!='' && count(Webmodel::$model[$this->name_model]->forms)>0)
 		{
-			PhangoVar::$model[$this->name_model]->forms[$this->name_component]->form='SelectModelForm';
+			Webmodel::$model[$this->name_model]->forms[$this->name_component]->form='SelectModelForm';
 			
 			return array($this->name_component, '', '', $this->related_model, $this->name_field_to_field, '');
 			
@@ -1375,7 +1676,7 @@ class ImageField extends PhangoField {
 		//die;
 		$query=$model->select($conditions, array($name_field));
 		
-		while(list($image_name)=webtsys_fetch_row($query))
+		while(list($image_name)=$model->fetch_row($query))
 		{
 		
 			if( file_exists($this->path.'/'.$image_name) && !is_dir($this->path.'/'.$image_name) )
@@ -1458,162 +1759,6 @@ class ImageField extends PhangoField {
 	}
 
 }
-
-
-
-/**
-* Integerfield is a field for integers values.
-*  
-*/
-
-
-
-
-class IntegerField extends PhangoField {
-
-	public $size=11;
-	public $value=0;
-	public $label="";
-	public $required=0;
-	public $only_positive=false;
-	public $min_num=0;
-	public $max_num=0;
-
-	function __construct($size=11, $only_positive=false, $min_num=0, $max_num=0)
-	{
-
-		$this->size=$size;
-		$this->form='TextForm';
-		$this->only_positive=$only_positive;
-		$this->min_num=$min_num;
-		$this->max_num=$max_num;
-
-	}
-
-	function check($value)
-	{
-
-		$this->value=Utils::form_text($value);
-		
-		settype($value, "integer");
-		
-		if($this->only_positive==true && $value<0)
-		{
-		
-			$value=0;
-		
-		}
-		
-		if($this->min_num<>0 && $value<$this->min_num)
-		{
-		
-			$value=$this->min_num;
-		
-		}
-		
-		if($this->max_num<>0 && $value>$this->max_num)
-		{
-		
-			$value=$this->max_num;
-		
-		}
-		
-		return $value;
-
-	}
-
-	function get_type_sql()
-	{
-
-		return 'INT('.$this->size.') NOT NULL';
-
-	}
-	
-	/**
-	* This function is used for show the value on a human format
-	*/
-
-	public function show_formatted($value)
-	{
-
-		return $value;
-
-	}
-
-	function get_parameters_default()
-	{
-
-		return array($this->name_component, '', 0);
-
-	}
-
-}
-
-
-
-
-
-
-/**
-* Keyfield is a indexed field in a sql statement...
-*/
-
-class KeyField extends PhangoField {
-
-	public $size=11;
-	public $value=0;
-	public $label="";
-	public $required=0;
-	public $form="";
-	public $quot_open='\'';
-	public $quot_close='\'';
-	public $fields=array();
-	public $table='';
-	public $model='';
-	public $ident='';
-	public $std_error='';
-
-	function __construct($size=11)
-	{
-
-		$this->size=$size;
-		$this->form='TextForm';
-
-	}
-
-	function check($value)
-	{
-
-		$this->value=Utils::form_text($value);
-
-		settype($value, "integer");
-		return $value;
-
-	}
-
-	function get_type_sql()
-	{
-
-		return 'INT('.$this->size.') NOT NULL';
-
-	}
-	
-	/**
-	* This function is used for show the value on a human format
-	*/
-
-	public function show_formatted($value)
-	{
-
-		return $value;
-
-	}
-
-}
-
-
-
-
 
 
 /**
@@ -1708,7 +1853,7 @@ class ParentField extends IntegerField{
 		
 		$query=$this->parent_model->select('', array( $this->parent_model->idmodel, $this->name_component, $field_ident) );
 		
-		while(list($id_block, $parent, $name)=webtsys_fetch_row($query))
+		while(list($id_block, $parent, $name)=$this->parent_model->fetch_row($query))
 		{
 		
 			$arr_parent[$id_block]=array($parent, $name);
@@ -1748,165 +1893,6 @@ class ParentField extends IntegerField{
 	}
 
 }
-
-
-
-
-/**
-*
-* @author  Antonio de la Rosa <webmaster@web-t-sys.com>
-* @file
-* @package CoreFields
-*
-*/
-
-/**
-* PhangoField class is the base for make class used on Webmodel::components property.
-*
-*/
-
-
-
-
-class PhangoField {
-
-	/**
-	* Property used for set this field how indexed in the database table.
-	*/
-
-	public $indexed=0;
-	
-	/**
-	* Property used for set this field how unique value in the database table.
-	*/
-
-	public $unique=0;
-	
-	/**
-	* The name of the model where this component or field live
-	*/
-	
-	public $name_model='';
-	
-	/**
-	* Name of the field or component.
-	*/
-	
-	public $name_component='';
-	
-	/**
-	* Method used for internal searchs for format the values.
-	*
-	* 
-	*/
-	
-	/**
-	* Required define if this field is required when insert or update a row of this model...
-	*/
-	
-	public $required=0;
-	
-	/** 
-	* $quote_open is used if you need a more flexible sql sentence, 
-	* @warning USE THIS FUNCTION IF YOU KNOW WHAT YOU ARE DOING
-	*/
-	public $quot_open='\'';
-	
-	/** 
-	* $quote_close is used if you need a more flexible sql sentence, 
-	* @warning USE THIS PROPERTY IF YOU KNOW WHAT YOU ARE DOING
-	*/
-	
-	public $quot_close='\'';
-	
-	/**
-	* $std_error contain error in field if exists...
-	*/
-	
-	public $std_error='';
-	
-	/**
-	* Label is the name of field
-	*/
-	public $label="";
-	
-	/**
-	* Value of field...
-	*/
-	public $value="";
-	
-	/**
-	* Form define the function for use in forms...
-	*/
-	
-	public $form="";
-	
-	/**
-	* Array for create initial parameters for form..
-	*/
-	
-	public $parameters=array();
-	
-	/**
-	* Method used for internal tasks related with searchs. You can overwrite this method in your PhangoField object if you need translate the value that the user want search to a real value into the database.
-	*/
-	
-	function search_field($value)
-	{
-	
-		return Utils::form_text($value);
-	
-	}
-	
-	/**
-	* Method used for internal tasks related with foreignkeys. By default make nothing.
-	*
-	* 
-	*/
-	
-	function set_relationships()
-	{
-	
-		
-	
-	}
-
-	/** 
-	* This method is used for describe the new field in a sql language format.
-	*/
-
-	public function get_type_sql()
-	{
-
-		return 'VARCHAR('.$this->size.') NOT NULL';
-
-	}
-	
-	/** 
-	* This method is used for return a default value for a form.
-	*/
-
-	public function get_parameters_default()
-	{
-
-		return array($this->name_component, '', '');
-
-	}
-	
-	/**
-	* This method is used for simple checking, used for WhereSql.
-	*/
-	
-	public function simple_check($value)
-	{
-	
-		return $this->check($value);
-	
-	}
-	
-	
-}
-
 
 
 
@@ -2056,7 +2042,7 @@ class SerializeField extends PhangoField {
 
 		$this->value=$value;
 		
-		return webtsys_escape_string(serialize($value));
+		return Webmodel::escape_string(serialize($value));
 
 	}
 

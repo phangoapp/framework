@@ -23,16 +23,16 @@ function hierarchy_links($model_name, $parentfield_name, $field_name, $idmodel)
 	//Cache system?
 	
 	$arr_id_father=array(0 => 0);
-	$arr_id_name=array(0 => PhangoVar::$l_['common']->lang('home', 'Home'));
+	$arr_id_name=array(0 => I18n::lang('common', 'home', 'Home'));
 	$arr_hierarchy=array();
 	
-	$query=PhangoVar::$model[$model_name]->select('', array(PhangoVar::$model[$model_name]->idmodel, $parentfield_name, $field_name), 1);
+	$query=Webmodel::$model[$model_name]->select('', array(PhangoVar::$model[$model_name]->idmodel, $parentfield_name, $field_name), 1);
 	
-	while(list($id, $father, $name)=webtsys_fetch_row($query))
+	while(list($id, $father, $name)=Webmodel::$model[$model_name]->fetch_row($query))
 	{
 		
 		$arr_id_father[$id]=$father;
-		$arr_id_name[$id]=PhangoVar::$model[$model_name]->components[$field_name]->show_formatted($name);
+		$arr_id_name[$id]=Webmodel::$model[$model_name]->components[$field_name]->show_formatted($name);
 	
 	}
 	

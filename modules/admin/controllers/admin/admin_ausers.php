@@ -43,7 +43,7 @@ function AusersAdmin()
 		
 		case 1:
 		
-			load_libraries(array('forms/selectmodelform'));
+			Utils::load_libraries(array('forms/selectmodelform'));
 			
 			settype($_GET['IdUser_admin'], 'integer');
 			
@@ -123,7 +123,7 @@ function UserOptionsListModel($url_options, $model_name, $id, $arr_row)
 	
 	if($arr_row['privileges_user']==1)
 	{
-	
+		
 		$arr_options[]='<a href="'.set_admin_link('ausers', array('op' => 1, 'IdUser_admin' => $id)).'">'.I18n::lang('admin', 'change_user_modules', 'Change user modules').'</a>';
 	
 	}
