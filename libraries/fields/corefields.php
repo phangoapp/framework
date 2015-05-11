@@ -2204,7 +2204,7 @@ class TextHTMLField extends PhangoField {
 		
 		}
 
-		if(Utils::$textbb_type=='')
+		if(PhangoVar::$textbb_type=='')
 		{
 			
 			$this->value=Utils::unform_text($value);

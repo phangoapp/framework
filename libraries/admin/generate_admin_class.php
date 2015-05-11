@@ -101,7 +101,7 @@ class GenerateAdminClass {
 		$this->options_func_extra_args=array();
 		$this->num_by_page=20;
 		$this->where_sql='';
-		$this->where_sql_class=new WhereSql($this->model_name, $arr_conditions=array(), $order_by=array(), $limit=array(Utils::$begin_page, $this->num_by_page));
+		$this->where_sql_class=new WhereSql($this->model_name, $arr_conditions=array(), $order_by=array(), $limit=array(PhangoVar::$begin_page, $this->num_by_page));
 		$this->arr_fields_form=array();
 		$this->type_list='Basic';
 		$this->show_id=1;

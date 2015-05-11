@@ -31,6 +31,7 @@ class_alias('PhangoApp\PhaUtils\Utils', 'Utils');
 class_alias('PhangoApp\PhaI18n\I18n', 'I18n');
 
 include('config.php');
+include('libraries/phangovar.php');
 
 //Start session
 
@@ -38,7 +39,7 @@ session_start();
 
 settype($_GET['begin_page'], 'integer');
 
-Utils::$begin_page=$_GET['begin_page'];
+PhangoVar::$begin_page=$_GET['begin_page'];
 
 //Define the view showmedia file.
 

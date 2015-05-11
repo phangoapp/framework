@@ -28,10 +28,10 @@ function TextAreaBBForm($name="", $class='', $value='', $profile='all')
 
 	echo TextAreaForm($name, $class, $value.$paragraph)."<p />";
 
-	if(Utils::$textbb_type!='')
+	if(PhangoVar::$textbb_type!='')
 	{
 
-		Utils::$textbb_type=basename(str_replace('.php', '', PhangoVar::$textbb_type));
+		PhangoVar::$textbb_type=basename(str_replace('.php', '', PhangoVar::$textbb_type));
 
 		Utils::load_libraries(array('textbb/'.PhangoVar::$textbb_type.'/'.PhangoVar::$textbb_type.'_'.$profile));
 		
