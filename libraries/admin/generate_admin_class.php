@@ -335,13 +335,13 @@ class GenerateAdminClass {
 
 					ob_start();
 					
-					echo load_view(array(Webmodel::$model[$model_name]->forms, $arr_fields, $url_post, Webmodel::$model[$model_name]->enctype, '_generate_admin_'.$model_name, $this->arr_categories), 'common/forms/updatemodelform');
+					echo View::loadView(array(Webmodel::$model[$model_name]->forms, $arr_fields, $url_post, Webmodel::$model[$model_name]->enctype, '_generate_admin_'.$model_name, $this->arr_categories), 'common/forms/updatemodelform');
 
 					$cont_index=ob_get_contents();
 
 					ob_end_clean();
 
-					echo load_view(array(I18n::lang('common', 'edit', 'Edit'), $cont_index), 'content');
+					echo View::loadView(array(I18n::lang('common', 'edit', 'Edit'), $cont_index), 'content');
 					
 				break;
 
@@ -365,13 +365,13 @@ class GenerateAdminClass {
 						
 						ModelForm::set_values_form($post, Webmodel::$model[$model_name]->forms);
 
-						echo load_view(array(Webmodel::$model[$model_name]->forms, $arr_fields, $url_post, Webmodel::$model[$model_name]->enctype, '_generate_admin_'.$model_name, $this->arr_categories), 'common/forms/updatemodelform');
+						echo View::loadView(array(Webmodel::$model[$model_name]->forms, $arr_fields, $url_post, Webmodel::$model[$model_name]->enctype, '_generate_admin_'.$model_name, $this->arr_categories), 'common/forms/updatemodelform');
 
 						$cont_index=ob_get_contents();
 
 						ob_end_clean();
 
-						echo load_view(array(I18n::lang('common', 'edit', 'Edit'), $cont_index), 'content');
+						echo View::loadView(array(I18n::lang('common', 'edit', 'Edit'), $cont_index), 'content');
 
 					}
 					else
@@ -573,7 +573,7 @@ class GenerateAdminClass {
 
 			ob_end_clean();
 
-			echo load_view(array(I18n::lang('common', 'order', 'Order'), $cont_order), 'content');
+			echo View::loadView(array(I18n::lang('common', 'order', 'Order'), $cont_order), 'content');
 
 		break;
 
@@ -802,13 +802,13 @@ class ListModelClass {
 			
 			/*ob_start();
 			
-			echo load_view(array(Webmodel::$model[$this->model_name]->forms, $this->arr_fields_form, $this->url_options, Webmodel::$model[$this->model_name]->enctype, '_generate_admin_'.$this->model_name), 'common/forms/updatemodelform');
+			echo View::loadView(array(Webmodel::$model[$this->model_name]->forms, $this->arr_fields_form, $this->url_options, Webmodel::$model[$this->model_name]->enctype, '_generate_admin_'.$this->model_name), 'common/forms/updatemodelform');
 
 			$cont_index=ob_get_contents();
 
 			ob_end_clean();
 
-			echo load_view(array(I18n::lang('common', 'edit', 'Edit'), $cont_index), 'content');*/
+			echo View::loadView(array(I18n::lang('common', 'edit', 'Edit'), $cont_index), 'content');*/
 			
 		break;
 
@@ -923,7 +923,7 @@ class SearchFormClass {
 	public function search_form()
 	{
 	
-		echo load_view(array($this->arr_search_field, $this->arr_order_field, $this->arr_order_select, $this->url_options), 'common/forms/searchform');
+		echo View::loadView(array($this->arr_search_field, $this->arr_order_field, $this->arr_order_select, $this->url_options), 'common/forms/searchform');
 	
 	}
 	
@@ -965,7 +965,7 @@ class ListModelAjaxClass {
 		
 		$query=Webmodel::$model[$this->model_name]->select($this->where_sql, $arr_fields);
 	
-		echo load_view(array($query, $this), 'utilities/list');
+		echo View::loadView(array($query, $this), 'utilities/list');
 		
 	
 	}

@@ -16,7 +16,7 @@ function AdminView($header, $title, $content, $name_modules, $url_modules, $extr
 		<title><?php echo $title; ?></title>
 		<?php echo View::loadCSS(); ?>
 		<?php echo View::loadJS(); ?>
-<!-- 		<?php echo View::loadHeader(); ?> -->
+		<?php echo View::loadHeader(); ?> 
 		</head>
 		<body>
 		<div id="languages_general">

@@ -92,7 +92,7 @@ class SimpleList
 		if($this->yes_options)
 		{
 		
-			$arr_fields_show[]=PhangoVar::$l_['common']->lang('options', 'Options');
+			$arr_fields_show[]=I18n::lang('common', 'options', 'Options');
 			$options_method='yes_add_options';
 		
 		}
@@ -110,7 +110,7 @@ class SimpleList
 		
 		$query=Webmodel::$model[$this->model_name]->select($this->where_sql.' limit '.$this->begin_page.', '.$this->num_by_page, $this->arr_fields, $this->raw_query);
 		
-		while($arr_row=webtsys_fetch_array($query))
+		while($arr_row=Webmodel::$model[$this->model_name]->fetch_array($query))
 		{
 		
 			$arr_row_final=array();
@@ -142,11 +142,12 @@ class SimpleList
 		if($this->yes_pagination==1)
 		{
 		
-			load_libraries(array('pages'));
+			Utils::load_libraries(array('pages'));
 			
 			$total_elements=Webmodel::$model[$this->model_name]->select_count($this->where_sql);
 			
-			echo '<p>'.PhangoVar::$l_['common']->lang('pages', 'Pages').': '.pages( $this->begin_page, $total_elements, $this->num_by_page, $this->url_options ,$this->initial_num_pages, $this->variable_page, $label='', $func_jscript='').'</p>';
+			echo '<p>'.I18n::lang('common', 'pages', 'Pages')
+			.': '.pages( $this->begin_page, $total_elements, $this->num_by_page, $this->url_options ,$this->initial_num_pages, $this->variable_page, $label='', $func_jscript='').'</p>';
 		
 		}
 	

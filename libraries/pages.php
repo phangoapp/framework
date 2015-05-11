@@ -52,8 +52,8 @@ function pages( $begin_page, $total_elements, $num_elements, $link ,$initial_num
 
 	if($initial_page>0)
 	{
-		$initial_link=add_extra_fancy_url($link, array($variable =>0));
-		$middle_link=add_extra_fancy_url($link, array($variable => ($initial_page-$num_elements).$label) );
+		$initial_link=Routes::addGetParameters($link, array($variable =>0));
+		$middle_link=Routes::addGetParameters($link, array($variable => ($initial_page-$num_elements).$label) );
 		$pages .= "<a class=\"link_pages\" href=\"$initial_link\" onclick=\"$func_jscript\">1</a> <a class=\"link_pages\" href=\"$middle_link\">&lt;&lt;</a> ";
 
 	}
@@ -65,7 +65,7 @@ function pages( $begin_page, $total_elements, $num_elements, $link ,$initial_num
 	for($x=$initial_page;$x<$last_page;$x+=$num_elements)
 	{
 
-		$middle_link=add_extra_fancy_url($link, array($variable=>$x.$label) );
+		$middle_link=Routes::addGetParameters($link, array($variable=>$x.$label) );
 
 		$num_page=ceil($x/$num_elements)+1;
 		$arr_pages[$x]="<a class=\"link_pages\" href=\"$middle_link\" onclick=\"$func_jscript\">$num_page</a> ";
@@ -77,8 +77,8 @@ function pages( $begin_page, $total_elements, $num_elements, $link ,$initial_num
 	if($last_page<$total_elements)
 	{
 
-		$middle_link=add_extra_fancy_url($link, array($variable=>$x.$label) );
-		$last_link=add_extra_fancy_url($link, array( $variable=>( ( $total_page*$num_elements ) - $num_elements) ) );
+		$middle_link=Routes::addGetParameters($link, array($variable=>$x.$label) );
+		$last_link=Routes::addGetParameters($link, array( $variable=>( ( $total_page*$num_elements ) - $num_elements) ) );
 
 		$pages .= "<a class=\"link_pages\" href=\"$middle_link\" onclick=\"$func_jscript\">&gt;&gt;</a> <a class=\"link_pages\" href=\"$last_link\" onclick=\"$func_jscript\">".PhangoVar::$l_['common']->lang('last', 'Last')."</a>";
 

@@ -9,7 +9,7 @@ function UpdateModelFormView($model_form, $arr_fields=array(), $url_post, $encty
 	
 	if(isset($arr_categories['default']))
 	{
-	
+		
 		$arr_categories['default']=array('fields' => &$arr_fields, 'name_fields' => 'default');
 	
 		$hide_button_tab=1;
@@ -80,8 +80,8 @@ function UpdateModelFormView($model_form, $arr_fields=array(), $url_post, $encty
 	</script>
 	<?php
 	
-	Utils::$header[]=ob_get_contents();
-
+	View::$header[]=ob_get_contents();
+	
 	ob_end_clean();
 	
 	$html_tabs='';
@@ -136,7 +136,7 @@ function UpdateModelFormView($model_form, $arr_fields=array(), $url_post, $encty
 		
 		<?php
 		
-		echo load_view(array($model_form, $arr_fields_tab['fields']), 'common/forms/modelform');
+		echo View::loadView(array($model_form, $arr_fields_tab['fields']), 'common/forms/modelform');
 	
 		?>
 		</div>
@@ -153,8 +153,8 @@ function UpdateModelFormView($model_form, $arr_fields=array(), $url_post, $encty
 	echo $html_tabs;
 	
 	?>
-	<input type="submit" value="<?php echo PhangoVar::$l_['common']->lang('send', 'Send'); ?>" />
-	<p class="error"><?php echo PhangoVar::$l_['common']->lang('with_*_field_required', '* Field required'); ?></p>
+	<input type="submit" value="<?php echo I18n::lang('common', 'send', 'Send'); ?>" />
+	<p class="error"><?php echo I18n::lang('common', 'with_*_field_required', '* Field required'); ?></p>
 	</form>
 	<?php
 
