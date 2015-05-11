@@ -21,8 +21,8 @@ function SelectWindowForm($name="", $class='', $value='', $module='', $model_nam
 	if($value==0)
 	{
 	
-		//$value=PhangoVar::$l_['common']->lang('no_element_chosen', 'No element chosen');
-		return '<span id="select_window_form_'.$name.'"></span><input type="hidden" name="'.$name.'" class="'.$class.'" id="'.$name.'_field_form" value="'.$value.'"/> <a href="#" onclick="window.open(\''.$url_choose_option.'\', \'\', \'width=800,height=600,scrollbars=yes\'); return false;">'.PhangoVar::$l_['common']->lang('any_option_chosen', 'Any option chosen').'</a>';
+		//$value=I18n::lang('common', 'no_element_chosen', 'No element chosen');
+		return '<span id="select_window_form_'.$name.'"></span><input type="hidden" name="'.$name.'" class="'.$class.'" id="'.$name.'_field_form" value="'.$value.'"/> <a href="#" onclick="window.open(\''.$url_choose_option.'\', \'\', \'width=800,height=600,scrollbars=yes\'); return false;">'.I18n::lang('common', 'any_option_chosen', 'Any option chosen').'</a>';
 	
 	}
 	else
@@ -35,7 +35,7 @@ function SelectWindowForm($name="", $class='', $value='', $module='', $model_nam
 			
 			//window.open('','','width=200,height=100');
 		
-			return '<span id="select_window_form_'.$name.'">'.$arr_model[$field].'</span><input type="hidden" name="'.$name.'" class="'.$class.'" id="'.$name.'_field_form" value="'.$value.'"/> <a href="#" onclick="window.open(\''.$url_choose_option.'\', \'\', \'width=900,height=700,scrollbars=yes\'); return false;">'.PhangoVar::$l_['common']->lang('any_option_chosen', 'Any option chosen').'</a>';
+			return '<span id="select_window_form_'.$name.'">'.$arr_model[$field].'</span><input type="hidden" name="'.$name.'" class="'.$class.'" id="'.$name.'_field_form" value="'.$value.'"/> <a href="#" onclick="window.open(\''.$url_choose_option.'\', \'\', \'width=900,height=700,scrollbars=yes\'); return false;">'.I18n::lang('common', 'any_option_chosen', 'Any option chosen').'</a>';
 		
 		}
 	

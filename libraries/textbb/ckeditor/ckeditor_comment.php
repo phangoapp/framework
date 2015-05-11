@@ -21,15 +21,15 @@ function load_jscript_editor_ckeditor_comment($name_editor, $value, $profiles='a
 
 	list($smiley_text, $smiley_img)=set_emoticons();
 	
-	ob_start();
+	/*ob_start();
 	
-	PhangoVar::$arr_cache_header[]=ob_get_contents();
+	View::$header[]=ob_get_contents();
 	
-	ob_end_clean();
+	ob_end_clean();*/
 	
 	//PhangoVar::$arr_cache_jscript[]='ckeditor_path.js';
-	PhangoVar::$arr_cache_jscript[]='jquery.min.js';
-	PhangoVar::$arr_cache_jscript[]='textbb/ckeditor/ckeditor.js';
+	View::$js[]='jquery.min.js';
+	View::$js[]='textbb/ckeditor/ckeditor.js';
 
 	ob_start();
 	
@@ -65,7 +65,7 @@ function load_jscript_editor_ckeditor_comment($name_editor, $value, $profiles='a
 			
 			removePlugins: 'div,forms,iframe',
 			enterMode : CKEDITOR.ENTER_BR,
-			language: '<?php echo PhangoVar::$arr_i18n_ckeditor[PhangoVar::$language]; ?>',
+			language: '<?php echo PhangoVar::$arr_i18n_ckeditor[I18n::$language]; ?>',
 			toolbar :[
 
 				['Source'],'-', ['Bold', 'Italic','Underline'], '-', ['Blockquote'] , '-', ['Link', 'Unlink'], '-', ['SpecialChar'],  '-', ['Undo','Redo'], '-', ['Smiley']
@@ -136,7 +136,7 @@ function load_jscript_editor_ckeditor_comment($name_editor, $value, $profiles='a
 
 	<?php
 
-PhangoVar::$arr_cache_header[]=ob_get_contents();
+View::$header[]=ob_get_contents();
 
 ob_end_clean();
 	

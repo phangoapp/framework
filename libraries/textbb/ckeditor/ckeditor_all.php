@@ -21,11 +21,11 @@ function load_jscript_editor_ckeditor_all($name_editor, $value, $profiles='all')
 
 	list($smiley_text, $smiley_img)=set_emoticons();
 	
-	ob_start();
+	/*ob_start();
 	
 	View::$header[]=ob_get_contents();
 	
-	ob_end_clean();
+	ob_end_clean();*/
 	
 	//PhangoVar::$arr_cache_jscript[]='ckeditor_path.js';
 	View::$js[]='jquery.min.js';
@@ -65,7 +65,7 @@ function load_jscript_editor_ckeditor_all($name_editor, $value, $profiles='all')
 			
 			removePlugins: 'div,forms,iframe',
 			enterMode : CKEDITOR.ENTER_BR,
-			language: '<?php echo PhangoVar::$arr_i18n_ckeditor[PhangoVar::$language]; ?>',
+			language: '<?php echo PhangoVar::$arr_i18n_ckeditor[I18n::$language]; ?>',
 
 			/*toolbar :[
 
@@ -131,7 +131,7 @@ function load_jscript_editor_ckeditor_all($name_editor, $value, $profiles='all')
 
 	<?php
 
-PhangoVar::$arr_cache_header[]=ob_get_contents();
+View::$header[]=ob_get_contents();
 
 ob_end_clean();
 	
