@@ -30,8 +30,8 @@ function BasicOptionsListModel($url_options, $model_name, $id)
 	</script>
 	<?php
 
-	$url_options_edit=add_extra_fancy_url($url_options, array('op_edit' =>1, Webmodel::$model[$model_name]->idmodel => $id));
-	$url_options_delete=add_extra_fancy_url($url_options, array('op_edit' =>2, Webmodel::$model[$model_name]->idmodel => $id));
+	$url_options_edit=Routes::addGetParameters($url_options, array('op_edit' =>1, Webmodel::$model[$model_name]->idmodel => $id));
+	$url_options_delete=Routes::addGetParameters($url_options, array('op_edit' =>2, Webmodel::$model[$model_name]->idmodel => $id));
 
 	$arr_options=array('<a href="'.$url_options_edit.'">'.I18n::lang('common', 'edit', 'Edit').'</a>', 
 '<a href="'.$url_options_delete.'" onclick="javascript: if(warning()==false) { return false; }">'.I18n::lang('common', 'delete', 'Delete').'</a>');
@@ -52,7 +52,7 @@ function SearchInField($model_name, $arr_fields_order, $arr_fields_search, $wher
 		$arr_error_sql[0]='Do you need create a form for this model';    
 		$arr_error_sql[1]='Do you need create a form for this model '.$model_name.' for use SearchInField function';
 		ob_end_clean();
-		echo load_view(array('title' => 'Phango site is down', 'content' => '<p>'.$arr_error_sql[DEBUG].'</p>'), 'common/common');
+		echo View::loadView(array('title' => 'Phango site is down', 'content' => '<p>'.$arr_error_sql[DEBUG].'</p>'), 'common/common');
 		die();
 
 	}
@@ -126,7 +126,7 @@ function SearchInField($model_name, $arr_fields_order, $arr_fields_search, $wher
 	
 	if($show_form==1)
 	{
-		echo load_view(array($arr_search_field, $arr_order_field, $arr_order_select, $url_options), 'common/forms/searchform');
+		echo View::loadView(array($arr_search_field, $arr_order_field, $arr_order_select, $url_options), 'common/forms/searchform');
 	}
 	//Query for order
 
@@ -209,7 +209,7 @@ function GeneratePositionModel($model_name, $field_name, $field_position, $url, 
 
 			ob_start();
 
-			$url_post=add_extra_fancy_url($url, array('action_field' => 1));
+			$url_post=Routes::addGetParameters($url, array('action_field' => 1));
 
 			echo '<form method="post" action="'.$url_post.'">';
 			set_csrf_key();
@@ -232,7 +232,7 @@ function GeneratePositionModel($model_name, $field_name, $field_position, $url, 
 
 			ob_end_clean();
 
-			echo load_view(array(I18n::lang('common', 'order', 'Order'), $cont_order), 'content');
+			echo View::loadView(array(I18n::lang('common', 'order', 'Order'), $cont_order), 'content');
 
 		break;
 
@@ -303,7 +303,7 @@ class SearchInFieldClass {
 	
 	public function search()
 	{
-	
+		
 		Utils::load_libraries(array('search_in_field'));
 
 		if(count(Webmodel::$model[$this->model_name]->forms)==0)
@@ -312,7 +312,7 @@ class SearchInFieldClass {
 			$arr_error_sql[0]='Do you need create a form for this model';    
 			$arr_error_sql[1]='Do you need create a form for this model '.$this->model_name.' for use SearchInField function';
 			ob_end_clean();
-			echo load_view(array('title' => 'Phango site is down', 'content' => '<p>'.$arr_error_sql[DEBUG].'</p>'), 'common/common');
+			echo View::loadView(array('title' => 'Phango site is down', 'content' => '<p>'.$arr_error_sql[DEBUG].'</p>'), 'common/common');
 			die();
 
 		}
@@ -328,10 +328,10 @@ class SearchInFieldClass {
 		}
 
 		//Set order
-
-		$_GET['order_field']=@form_text($_GET['order_field']);
-		$_GET['search_word']=@form_text($_GET['search_word']);
-		$_GET['search_field']=@form_text($_GET['search_field']);
+		
+		$_GET['order_field']=@Utils::form_text($_GET['order_field']);
+		$_GET['search_word']=@Utils::form_text($_GET['search_word']);
+		$_GET['search_field']=@Utils::form_text($_GET['search_field']);
 		
 		$arr_order_select=array();
 
@@ -386,7 +386,7 @@ class SearchInFieldClass {
 		
 		if($this->show_form==1)
 		{
-			echo load_view(array($arr_search_field, $arr_order_field, $arr_order_select, $this->url_options), 'common/forms/searchform');
+			echo View::loadView(array($arr_search_field, $arr_order_field, $arr_order_select, $this->url_options), 'common/forms/searchform');
 		}
 		//Query for order
 

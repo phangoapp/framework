@@ -36,6 +36,10 @@ include('config.php');
 
 session_start();
 
+settype($_GET['begin_page'], 'integer');
+
+Utils::$begin_page=$_GET['begin_page'];
+
 //Define the view showmedia file.
 
 View::$php_file=Routes::$root_url.'showmedia.php';

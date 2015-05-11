@@ -101,22 +101,22 @@ class GenerateAdminClass {
 		$this->options_func_extra_args=array();
 		$this->num_by_page=20;
 		$this->where_sql='';
-		$this->where_sql_class=new WhereSql($this->model_name, $arr_conditions=array(), $order_by=array(), $limit=array(PhangoVar::$begin_page, $this->num_by_page));
+		$this->where_sql_class=new WhereSql($this->model_name, $arr_conditions=array(), $order_by=array(), $limit=array(Utils::$begin_page, $this->num_by_page));
 		$this->arr_fields_form=array();
 		$this->type_list='Basic';
 		$this->show_id=1;
 		$this->yes_options=1;
 		$this->extra_fields=array();
-		$this->txt_list_new=PhangoVar::$l_['common']->lang('listing_new', 'List of').': '.PhangoVar::$model[$this->model_name]->label;
-		$this->txt_add_new_item=PhangoVar::$l_['common']->lang('add_new_item', 'Add new element').': '.PhangoVar::$model[$this->model_name]->label;
-		$this->txt_edit_item=PhangoVar::$l_['common']->lang('edit', 'Edit');
+		$this->txt_list_new=I18n::lang('common', 'listing_new', 'List of').': '.Webmodel::$model[$this->model_name]->label;
+		$this->txt_add_new_item=I18n::lang('common', 'add_new_item', 'Add new element').': '.Webmodel::$model[$this->model_name]->label;
+		$this->txt_edit_item=I18n::lang('common', 'edit', 'Edit');
 		$this->simple_redirect=0;
 		$this->class_add='add_class_item_link';
 		$this->goback_class='add_class_item_link';
 		$this->separator_element_opt='<br />';
 		$this->extra_menu_create='';
-		$this->search_asc=PhangoVar::$l_['common']->lang('ascent', 'Ascendent');
-		$this->search_desc=PhangoVar::$l_['common']->lang('descent', 'Descendent');
+		$this->search_asc=I18n::lang('common', 'ascent', 'Ascendent');
+		$this->search_desc=I18n::lang('common', 'descent', 'Descendent');
 		$this->show_goback=1;
 		$this->arr_fields_order=array();
 		$this->arr_fields_search=array();
@@ -141,13 +141,13 @@ class GenerateAdminClass {
 	function show()
 	{
 	
-		//PhangoVar::$model[$this->model_name]->generate_admin($this->arr_fields, $this->arr_fields_edit, $this->url_options, $this->options_func, $this->where_sql, $this->arr_fields_form, $this->type_list, $this->no_search);
+		//Webmodel::$model[$this->model_name]->generate_admin($this->arr_fields, $this->arr_fields_edit, $this->url_options, $this->options_func, $this->where_sql, $this->arr_fields_form, $this->type_list, $this->no_search);
 		
 		settype($_GET['op_edit'], 'integer');
 		settype($_GET['op_action'], 'integer');
-		settype($_GET[PhangoVar::$model[$this->model_name]->idmodel], 'integer');
+		settype($_GET[Webmodel::$model[$this->model_name]->idmodel], 'integer');
 
-		$url_admin=add_extra_fancy_url($this->url_options, array('op_action' => 1));
+		$url_admin=Routes::addGetParameters($this->url_options, array('op_action' => 1));
 		
 		$arr_menu=array( 0 => array($this->txt_list_new, $this->url_options), 1 => array($this->txt_add_new_item, $url_admin) );
 		
@@ -163,7 +163,7 @@ class GenerateAdminClass {
 
 					echo '<p>'.menu_barr_hierarchy($arr_menu, 'op_action').'</p>';
 				
-					echo '<p class="add_new_item"><a class="'.$this->class_add.'" href="'.add_extra_fancy_url($this->url_options, array('op_action' => 1)).'">'.$this->txt_add_new_item.'</a> '.$this->extra_menu_create.'</p>';
+					echo '<p class="add_new_item"><a class="'.$this->class_add.'" href="'.Routes::addGetParameters($this->url_options, array('op_action' => 1)).'">'.$this->txt_add_new_item.'</a> '.$this->extra_menu_create.'</p>';
 					
 				}
 				else
@@ -177,7 +177,7 @@ class GenerateAdminClass {
 				
 				//$this->url_back=$this->url_options;
 				
-				//$this->url_options=add_extra_fancy_url($this->url_options, array('op_edit' => $_GET['op_edit']));
+				//$this->url_options=Routes::addGetParameters($this->url_options, array('op_edit' => $_GET['op_edit']));
 				
 				//$this->set_where_sql();
 				
@@ -237,7 +237,7 @@ class GenerateAdminClass {
 				
 				$this->url_back=$this->url_options;
 				
-				$this->url_options=add_extra_fancy_url($this->url_options, array('op_action' => 1));
+				$this->url_options=Routes::addGetParameters($this->url_options, array('op_action' => 1));
 				
 				$this->insert_model_form();
 				
@@ -250,12 +250,12 @@ class GenerateAdminClass {
 	function show_config_mode($post=array())
 	{
 	
-		PhangoVar::$model[$this->model_name]->func_update='config';
+		Webmodel::$model[$this->model_name]->func_update='config';
 
-		if(count(PhangoVar::$model[$this->model_name]->forms)==0)
+		if(count(Webmodel::$model[$this->model_name]->forms)==0)
 		{
 		
-			PhangoVar::$model[$this->model_name]->create_form();
+			Webmodel::$model[$this->model_name]->create_form();
 		
 		}
 		//Obtain data
@@ -265,11 +265,11 @@ class GenerateAdminClass {
 		
 			//$this->set_where_sql();
 		
-			$post=PhangoVar::$model[$this->model_name]->select_a_row_where($this->where_sql, $this->arr_fields_edit, 1);
+			$post=Webmodel::$model[$this->model_name]->select_a_row_where($this->where_sql, $this->arr_fields_edit, 1);
 		
 		}
 		
-		ModelForm::set_values_form($post, PhangoVar::$model[$this->model_name]->forms, 0);
+		ModelForm::set_values_form($post, Webmodel::$model[$this->model_name]->forms, 0);
 		
 		//nsertModelForm($model_name, $url_admin, $url_back, $arr_fields=array(), $id=0, $goback=1)
 		
@@ -280,7 +280,7 @@ class GenerateAdminClass {
 			$this->url_back=$this->url_options;
 		}
 		
-		$this->url_options=add_extra_fancy_url($this->url_options, array('op_action' => 1));
+		$this->url_options=Routes::addGetParameters($this->url_options, array('op_action' => 1));
 	
 		$this->insert_model_form();
 		
@@ -306,17 +306,17 @@ class GenerateAdminClass {
 		$simple_redirect=$this->simple_redirect;
 		$where_sql=$this->where_sql;
 		
-		if(isset(PhangoVar::$model[$model_name]))
+		if(isset(Webmodel::$model[$model_name]))
 		{
 
 			settype($_GET['op_update'], 'integer');
 			settype($_GET['success'], 'integer');
 
-			$url_post=add_extra_fancy_url($url_admin, array('op_update' =>1));
+			$url_post=Routes::addGetParameters($url_admin, array('op_update' =>1));
 			
-			if( count(PhangoVar::$model[$model_name]->forms)==0)
+			if( count(Webmodel::$model[$model_name]->forms)==0)
 			{	
-				PhangoVar::$model[$model_name]->create_form();
+				Webmodel::$model[$model_name]->create_form();
 			}
 			
 			//UpdateModelFormView($model_form, $arr_fields=array(), $url_post)
@@ -324,7 +324,7 @@ class GenerateAdminClass {
 			if(count($arr_fields)==0)
 			{
 
-				$arr_fields=array_keys(PhangoVar::$model[$model_name]->forms);
+				$arr_fields=array_keys(Webmodel::$model[$model_name]->forms);
 
 			}
 			
@@ -335,43 +335,43 @@ class GenerateAdminClass {
 
 					ob_start();
 					
-					echo load_view(array(PhangoVar::$model[$model_name]->forms, $arr_fields, $url_post, PhangoVar::$model[$model_name]->enctype, '_generate_admin_'.$model_name, $this->arr_categories), 'common/forms/updatemodelform');
+					echo load_view(array(Webmodel::$model[$model_name]->forms, $arr_fields, $url_post, Webmodel::$model[$model_name]->enctype, '_generate_admin_'.$model_name, $this->arr_categories), 'common/forms/updatemodelform');
 
 					$cont_index=ob_get_contents();
 
 					ob_end_clean();
 
-					echo load_view(array(PhangoVar::$l_['common']->lang('edit', 'Edit'), $cont_index), 'content');
+					echo load_view(array(I18n::lang('common', 'edit', 'Edit'), $cont_index), 'content');
 					
 				break;
 
 				case 1:
 			
-					$arr_update[$id]=PhangoVar::$model[$model_name]->func_update.'_update_model';
-					$arr_update[0]=PhangoVar::$model[$model_name]->func_update.'_insert_model';
+					$arr_update[$id]=Webmodel::$model[$model_name]->func_update.'_update_model';
+					$arr_update[0]=Webmodel::$model[$model_name]->func_update.'_insert_model';
 
 					$func_update=$arr_update[$id];
 					
-					$_POST[PhangoVar::$model[$model_name]->idmodel]=$id;
+					$_POST[Webmodel::$model[$model_name]->idmodel]=$id;
 					
 					if(!$this->$func_update($model_name, $arr_fields, $_POST, $id, $where_sql))
 					{
 
 						ob_start();
 						
-						echo '<p class="error">'.PhangoVar::$l_['common']->lang('cannot_update_insert_in_model', 'Cannot insert or update this item in the database').' '.$model_name.': '.PhangoVar::$model[$model_name]->std_error.'</p>';
+						echo '<p class="error">'.I18n::lang('common', 'cannot_update_insert_in_model', 'Cannot insert or update this item in the database').' '.$model_name.': '.Webmodel::$model[$model_name]->std_error.'</p>';
 
 						$post=filter_fields_array($arr_fields, $_POST);
 						
-						ModelForm::set_values_form($post, PhangoVar::$model[$model_name]->forms);
+						ModelForm::set_values_form($post, Webmodel::$model[$model_name]->forms);
 
-						echo load_view(array(PhangoVar::$model[$model_name]->forms, $arr_fields, $url_post, PhangoVar::$model[$model_name]->enctype, '_generate_admin_'.$model_name, $this->arr_categories), 'common/forms/updatemodelform');
+						echo load_view(array(Webmodel::$model[$model_name]->forms, $arr_fields, $url_post, Webmodel::$model[$model_name]->enctype, '_generate_admin_'.$model_name, $this->arr_categories), 'common/forms/updatemodelform');
 
 						$cont_index=ob_get_contents();
 
 						ob_end_clean();
 
-						echo load_view(array(PhangoVar::$l_['common']->lang('edit', 'Edit'), $cont_index), 'content');
+						echo load_view(array(I18n::lang('common', 'edit', 'Edit'), $cont_index), 'content');
 
 					}
 					else
@@ -380,7 +380,7 @@ class GenerateAdminClass {
 						//die(header('Location: '.$url_admin.'/success/1'));
 						
 						
-						$text_output=PhangoVar::$l_['common']->lang('success', 'Success');
+						$text_output=I18n::lang('common', 'success', 'Success');
 						
 						ob_end_clean();
 						
@@ -388,13 +388,15 @@ class GenerateAdminClass {
 						{
 							
 							load_libraries(array('redirect'));
-							die( redirect_webtsys( $url_back, PhangoVar::$l_['common']->lang('redirect', 'Redirect'), $text_output, PhangoVar::$l_['common']->lang('press_here_redirecting', 'Press here for redirecting')) );
+							die( redirect_webtsys( $url_back, I18n::lang('common']->lang('redirect', 'Redirect'), $text_output, PhangoVar::$l_['common', 'press_here_redirecting', 'Press here for redirecting')) );
 						}
 						else
 						{
 						*/
 							load_libraries(array('redirect'));
-							simple_redirect( $url_back, PhangoVar::$l_['common']->lang('redirect', 'Redirect'), PhangoVar::$l_['common']->lang('success', 'Success'), PhangoVar::$l_['common']->lang('press_here_redirecting', 'Press here for redirecting'));
+							simple_redirect( $url_back, I18n::lang('common', 'redirect', 'Redirect'), 
+							I18n::lang('common', 'success', 'Success'), 
+							I18n::lang('common', 'press_here_redirecting', 'Press here for redirecting'));
 							
 							return;
 
@@ -410,7 +412,7 @@ class GenerateAdminClass {
 			{
 		
 				?>
-				<p><a href="<?php echo $url_back; ?>" class="<?php echo $this->goback_class; ?>"><?php echo PhangoVar::$l_['common']->lang('go_back', 'Go back'); ?></a></p>
+				<p><a href="<?php echo $url_back; ?>" class="<?php echo $this->goback_class; ?>"><?php echo I18n::lang('common', 'go_back', 'Go back'); ?></a></p>
 				<?php
 
 			}
@@ -447,7 +449,7 @@ class GenerateAdminClass {
 
 		$post=filter_fields_array($arr_fields, $post);
 
-		if( PhangoVar::$model[$model_name]->insert($post) )
+		if( Webmodel::$model[$model_name]->insert($post) )
 		{
 
 			return 1;
@@ -462,7 +464,7 @@ class GenerateAdminClass {
 	{
 
 
-		if( PhangoVar::$model[$model_name]->update($post, 'where '.PhangoVar::$model[$model_name]->idmodel.'='.$id) )
+		if( Webmodel::$model[$model_name]->update($post, 'where '.Webmodel::$model[$model_name]->idmodel.'='.$id) )
 		{
 			
 			return 1;
@@ -479,7 +481,7 @@ class GenerateAdminClass {
 
 		settype($id, 'integer');
 		
-		if( PhangoVar::$model[$model_name]->delete('where '.PhangoVar::$model[$model_name]->idmodel.'='.$id) )
+		if( Webmodel::$model[$model_name]->delete('where '.Webmodel::$model[$model_name]->idmodel.'='.$id) )
 		{
 			
 			return 1;
@@ -493,7 +495,7 @@ class GenerateAdminClass {
 	function config_insert_model($model_name, $arr_fields, $post, $id, $where_sql='')
 	{
 
-		$num_insert=PhangoVar::$model[$model_name]->select_count($where_sql, PhangoVar::$model[$model_name]->idmodel);
+		$num_insert=Webmodel::$model[$model_name]->select_count($where_sql, Webmodel::$model[$model_name]->idmodel);
 		
 		$func_update='insert';
 
@@ -504,7 +506,7 @@ class GenerateAdminClass {
 
 		}
 		
-		if(PhangoVar::$model[$model_name]->$func_update($post, $where_sql.' limit 1'))
+		if(Webmodel::$model[$model_name]->$func_update($post, $where_sql.' limit 1'))
 		{
 			
 			return 1;
@@ -537,7 +539,7 @@ class GenerateAdminClass {
 	
 	$model_name=$this->model_name;
 	
-	$num_order=PhangoVar::$model[$model_name]->select_count($where, PhangoVar::$model[$model_name]->idmodel );
+	$num_order=Webmodel::$model[$model_name]->select_count($where, Webmodel::$model[$model_name]->idmodel );
 
 	if($num_order>0)
 	{
@@ -548,22 +550,22 @@ class GenerateAdminClass {
 
 			ob_start();
 
-			$url_post=add_extra_fancy_url($url, array('action_field' => 1));
+			$url_post=Routes::addGetParameters($url, array('action_field' => 1));
 
 			echo '<form method="post" action="'.$url_post.'">';
 			set_csrf_key();
 			echo '<div class="form">';
 
-			$query=PhangoVar::$model[$model_name]->select($where.' order by `'.$field_position.'` ASC', array(PhangoVar::$model[$model_name]->idmodel, $field_name, $field_position));
+			$query=Webmodel::$model[$model_name]->select($where.' order by `'.$field_position.'` ASC', array(Webmodel::$model[$model_name]->idmodel, $field_name, $field_position));
 
 			while(list($id, $name, $position)=webtsys_fetch_row($query))
 			{
-				$name=PhangoVar::$model[$model_name]->components[$field_name]->show_formatted($name);
+				$name=Webmodel::$model[$model_name]->components[$field_name]->show_formatted($name);
 
 				echo '<p><label for="'.$field_position.'">'.$name.'</label><input type="text" name="position['.$id.']" value="'.$position.'" size="3"/></p>';
 
 			}
-			echo '<input type="submit" value="'.PhangoVar::$l_['common']->lang('send', 'Send').'"/>';
+			echo '<input type="submit" value="'.I18n::lang('common', 'send', 'Send').'"/>';
 			echo '</div>';
 			echo '</form>';
 			
@@ -571,7 +573,7 @@ class GenerateAdminClass {
 
 			ob_end_clean();
 
-			echo load_view(array(PhangoVar::$l_['common']->lang('order', 'Order'), $cont_order), 'content');
+			echo load_view(array(I18n::lang('common', 'order', 'Order'), $cont_order), 'content');
 
 		break;
 
@@ -585,13 +587,13 @@ class GenerateAdminClass {
 				settype($key, 'integer');
 				settype($value, 'integer');
 				
-				$where='where '.PhangoVar::$model[$model_name]->idmodel.'='.$key;
+				$where='where '.Webmodel::$model[$model_name]->idmodel.'='.$key;
 
 				//Clean required...
 
-				PhangoVar::$model[$model_name]->reset_require();
+				Webmodel::$model[$model_name]->reset_require();
 				
-				$query=PhangoVar::$model[$model_name]->update(array($field_position => $value), $where);
+				$query=Webmodel::$model[$model_name]->update(array($field_position => $value), $where);
 				
 			}
 			
@@ -599,14 +601,16 @@ class GenerateAdminClass {
 
 			load_libraries(array('redirect'));
 
-			//die( redirect_webtsys( $url, PhangoVar::$l_['common']->lang('redirect', 'Redirect'), PhangoVar::$l_['common']->lang('success', 'Success'), PhangoVar::$l_['common']->lang('press_here_redirecting', 'Press here for redirecting')) );
+			//die( redirect_webtsys( $url, I18n::lang('common']->lang('redirect', 'Redirect'), I18n::lang('common', 'success', 'Success'), PhangoVar::$l_['common', 'press_here_redirecting', 'Press here for redirecting')) );
 			
-			simple_redirect($url, PhangoVar::$l_['common']->lang('redirect', 'Redirect'), PhangoVar::$l_['common']->lang('success', 'Success'), PhangoVar::$l_['common']->lang('press_here_redirecting', 'Press here for redirecting'), $content_view='content');
+			simple_redirect($url, I18n::lang('common', 'redirect', 'Redirect'), 
+			I18n::lang('common', 'success', 'Success'), 
+			I18n::lang('common', 'press_here_redirecting', 'Press here for redirecting'), $content_view='content');
 			
 			//die;
 			
 			/*load_libraries(array('redirect'));
-			simple_redirect( $url, PhangoVar::$l_['common']->lang('redirect', 'Redirect'), PhangoVar::$l_['common']->lang('success', 'Success'), PhangoVar::$l_['common']->lang('press_here_redirecting', 'Press here for redirecting'));*/
+			simple_redirect( $url, I18n::lang('common']->lang('redirect', 'Redirect'), I18n::lang('common', 'success', 'Success'), PhangoVar::$l_['common', 'press_here_redirecting', 'Press here for redirecting'));*/
 
 		break;
 
@@ -616,7 +620,7 @@ class GenerateAdminClass {
 	else
 	{
 
-		echo '<p>'.PhangoVar::$l_['common']->lang('no_exists_elements_to_order', 'There is no item to order').'</p>';
+		echo '<p>'.I18n::lang('common', 'no_exists_elements_to_order', 'There is no item to order').'</p>';
 
 	}
 
@@ -647,8 +651,8 @@ class ListModelClass {
 		$this->extra_fields=$extra_fields; 
 		$this->separator_element=$separator_element; 
 		$this->simple_redirect=$simple_redirect;
-		$this->search_asc=PhangoVar::$l_['common']->lang('ascent', 'Ascendent');
-		$this->search_desc=PhangoVar::$l_['common']->lang('descent', 'Descendent');
+		$this->search_asc=I18n::lang('common', 'ascent', 'Ascendent');
+		$this->search_desc=I18n::lang('common', 'descent', 'Descendent');
 		$this->show_goback=1;
 		$this->separator_element_opt='<br />';
 		$this->arr_fields_order=$this->arr_fields;
@@ -668,9 +672,9 @@ class ListModelClass {
 	
 		settype($_GET['op_edit'], 'integer');
 
-		if( count(PhangoVar::$model[$this->model_name]->forms)==0)
+		if( count(Webmodel::$model[$this->model_name]->forms)==0)
 		{	
-			PhangoVar::$model[$this->model_name]->create_form();
+			Webmodel::$model[$this->model_name]->create_form();
 		}
 		
 		switch($_GET['op_edit'])
@@ -709,7 +713,7 @@ class ListModelClass {
 			//}
 			//Num elements in page
 			/*
-			if(!function_exists(PhangoVar::$model[$this->model_name]->func_update.'List'))
+			if(!function_exists(Webmodel::$model[$this->model_name]->func_update.'List'))
 			{
 				
 				BasicList($this->model_name, $this->where_sql, $arr_where_sql, $location, $arr_order, $this->arr_fields, $cell_sizes, $this->options_func, $this->url_options, $this->yes_id, $this->yes_options, $this->extra_fields, $this->separator_element);
@@ -718,7 +722,7 @@ class ListModelClass {
 			else
 			{
 				
-				$func_list=PhangoVar::$model[$this->model_name]->func_update.'List';
+				$func_list=Webmodel::$model[$this->model_name]->func_update.'List';
 
 				$func_list($this->model_name, $this->where_sql, $arr_where_sql, $location, $arr_order, $this->arr_fields, $cell_sizes, $this->options_func, $this->url_options, $this->yes_id, $this->yes_options, $this->extra_fields, $this->separator_element);
 
@@ -733,13 +737,13 @@ class ListModelClass {
 			if($this->yes_id)
 			{
 			
-				array_unshift($list->arr_fields, PhangoVar::$model[$this->model_name]->idmodel);
+				array_unshift($list->arr_fields, Webmodel::$model[$this->model_name]->idmodel);
 				
-				PhangoVar::$model[$this->model_name]->components[PhangoVar::$model[$this->model_name]->idmodel]->label='#Id';
+				Webmodel::$model[$this->model_name]->components[Webmodel::$model[$this->model_name]->idmodel]->label='#Id';
 				
 			}
 			
-			$list->arr_cell_sizes=array(PhangoVar::$model[$this->model_name]->idmodel => ' width="25"');
+			$list->arr_cell_sizes=array(Webmodel::$model[$this->model_name]->idmodel => ' width="25"');
 			
 			$list->num_by_page=$this->num_by_page;
 			
@@ -767,17 +771,17 @@ class ListModelClass {
 
 		case 1:
 			
-			settype($_GET[PhangoVar::$model[$this->model_name]->idmodel], 'integer');
+			settype($_GET[Webmodel::$model[$this->model_name]->idmodel], 'integer');
 			
-			$query=PhangoVar::$model[$this->model_name]->select('where '.PhangoVar::$model[$this->model_name]->idmodel.'='.$_GET[PhangoVar::$model[$this->model_name]->idmodel], $this->arr_fields_form, true);
+			$query=Webmodel::$model[$this->model_name]->select('where '.Webmodel::$model[$this->model_name]->idmodel.'='.$_GET[Webmodel::$model[$this->model_name]->idmodel], $this->arr_fields_form, true);
 			
 			$post=webtsys_fetch_array($query);
 			
 			//model_set_form($this->model_name, $post, NO_SHOW_ERROR);
 			
-			ModelForm::set_values_form($post, PhangoVar::$model[$this->model_name]->forms, 0);
+			ModelForm::set_values_form($post, Webmodel::$model[$this->model_name]->forms, 0);
 			
-			$url_options_edit=add_extra_fancy_url($this->url_options, array('op_edit' =>1, PhangoVar::$model[$this->model_name]->idmodel => $_GET[PhangoVar::$model[$this->model_name]->idmodel]) );
+			$url_options_edit=Routes::addGetParameters($this->url_options, array('op_edit' =>1, Webmodel::$model[$this->model_name]->idmodel => $_GET[Webmodel::$model[$this->model_name]->idmodel]) );
 			
 			//$this->admin_class->url_back=$this->url_options;
 			//echo $this->admin_class->url_back; die;
@@ -790,41 +794,43 @@ class ListModelClass {
 			
 			}
 			
-			//InsertModelForm($this->model_name, $url_options_edit, $this->url_options, $this->arr_fields_form, $_GET[PhangoVar::$model[$this->model_name]->idmodel], $this->show_goback, $this->simple_redirect);
+			//InsertModelForm($this->model_name, $url_options_edit, $this->url_options, $this->arr_fields_form, $_GET[Webmodel::$model[$this->model_name]->idmodel], $this->show_goback, $this->simple_redirect);
 			
-			$this->admin_class->number_id=$_GET[PhangoVar::$model[$this->model_name]->idmodel];
+			$this->admin_class->number_id=$_GET[Webmodel::$model[$this->model_name]->idmodel];
 			
 			$this->admin_class->insert_model_form();
 			
 			/*ob_start();
 			
-			echo load_view(array(PhangoVar::$model[$this->model_name]->forms, $this->arr_fields_form, $this->url_options, PhangoVar::$model[$this->model_name]->enctype, '_generate_admin_'.$this->model_name), 'common/forms/updatemodelform');
+			echo load_view(array(Webmodel::$model[$this->model_name]->forms, $this->arr_fields_form, $this->url_options, Webmodel::$model[$this->model_name]->enctype, '_generate_admin_'.$this->model_name), 'common/forms/updatemodelform');
 
 			$cont_index=ob_get_contents();
 
 			ob_end_clean();
 
-			echo load_view(array(PhangoVar::$l_['common']->lang('edit', 'Edit'), $cont_index), 'content');*/
+			echo load_view(array(I18n::lang('common', 'edit', 'Edit'), $cont_index), 'content');*/
 			
 		break;
 
 		case 2:
 
-			settype($_GET[PhangoVar::$model[$this->model_name]->idmodel], 'integer');
+			settype($_GET[Webmodel::$model[$this->model_name]->idmodel], 'integer');
 
-			$func_delete=PhangoVar::$model[$this->model_name]->func_update.'_delete_model';
+			$func_delete=Webmodel::$model[$this->model_name]->func_update.'_delete_model';
 			
-			$url_options_delete=add_extra_fancy_url($this->url_options, array('success_delete' => 1) );
+			$url_options_delete=Routes::addGetParameters($this->url_options, array('success_delete' => 1) );
 
-			if($this->admin_class->$func_delete($this->model_name, $_GET[ PhangoVar::$model[$this->model_name]->idmodel ]))
+			if($this->admin_class->$func_delete($this->model_name, $_GET[ Webmodel::$model[$this->model_name]->idmodel ]))
 			{	
 				//die(header('Location: '.$url_options_delete));
 				/*ob_end_clean();
 				load_libraries(array('redirect'));
-				die( redirect_webtsys( $url_options_delete, PhangoVar::$l_['common']->lang('redirect', 'Redirect'), PhangoVar::$l_['common']->lang('success', 'Success'), PhangoVar::$l_['common']->lang('press_here_redirecting', 'Press here for redirecting') , $arr_block) );*/
+				die( redirect_webtsys( $url_options_delete, I18n::lang('common']->lang('redirect', 'Redirect'), I18n::lang('common', 'success', 'Success'), PhangoVar::$l_['common', 'press_here_redirecting', 'Press here for redirecting') , $arr_block) );*/
 				
 				load_libraries(array('redirect'));
-				simple_redirect( $url_options_delete, PhangoVar::$l_['common']->lang('redirect', 'Redirect'), PhangoVar::$l_['common']->lang('success', 'Success'), PhangoVar::$l_['common']->lang('press_here_redirecting', 'Press here for redirecting'));
+				simple_redirect( $url_options_delete, I18n::lang('common', 'redirect', 'Redirect'), 
+				I18n::lang('common', 'success', 'Success'), 
+				I18n::lang('common', 'press_here_redirecting', 'Press here for redirecting'));
 
 			}
 			else
@@ -955,9 +961,9 @@ class ListModelAjaxClass {
 	
 		//The limit is defined in query...
 	
-		$total_elements=PhangoVar::$model[$this->model_name]->select_count($this->where_sql);
+		$total_elements=Webmodel::$model[$this->model_name]->select_count($this->where_sql);
 		
-		$query=PhangoVar::$model[$this->model_name]->select($this->where_sql, $arr_fields);
+		$query=Webmodel::$model[$this->model_name]->select($this->where_sql, $arr_fields);
 	
 		echo load_view(array($query, $this), 'utilities/list');
 		

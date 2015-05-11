@@ -35,14 +35,14 @@ class SimpleList
 	
 	function __construct($model_name)
 	{
-	
+		
 		$this->model_name=$model_name;
 		
 		$this->begin_page=$_GET['begin_page'];
 		
-		if( count(PhangoVar::$model[$this->model_name]->forms)==0)
+		if( count(Webmodel::$model[$this->model_name]->forms)==0)
 		{	
-			PhangoVar::$model[$this->model_name]->create_form();
+			Webmodel::$model[$this->model_name]->create_form();
 		}
 		
 	}
@@ -50,22 +50,22 @@ class SimpleList
 	public function show()
 	{
 		
-		load_libraries(array('table_config'));
+		Utils::load_libraries(array('table_config'));
 		
 		$arr_fields_show=array();
 		
 		if(count($this->arr_fields)==0)
 		{
 			
-			$this->arr_fields=array_keys(PhangoVar::$model[$this->model_name]->components);
+			$this->arr_fields=array_keys(Webmodel::$model[$this->model_name]->components);
 		
 		}
 		
-		if(!in_array(PhangoVar::$model[$this->model_name]->idmodel, $this->arr_fields))
+		if(!in_array(Webmodel::$model[$this->model_name]->idmodel, $this->arr_fields))
 		{
 		
-			$this->arr_fields[]=PhangoVar::$model[$this->model_name]->idmodel;
-			$this->arr_fields_no_showed[]=PhangoVar::$model[$this->model_name]->idmodel;
+			$this->arr_fields[]=Webmodel::$model[$this->model_name]->idmodel;
+			$this->arr_fields_no_showed[]=Webmodel::$model[$this->model_name]->idmodel;
 		
 		}
 		
@@ -74,7 +74,7 @@ class SimpleList
 		foreach($arr_fields_showed as $field)
 		{
 		
-			$arr_fields_show[$field]=PhangoVar::$model[$this->model_name]->forms[$field]->label;
+			$arr_fields_show[$field]=Webmodel::$model[$this->model_name]->forms[$field]->label;
 		
 		}
 		
@@ -108,7 +108,7 @@ class SimpleList
 		
 		up_table_config($arr_fields_show, $this->arr_cell_sizes);
 		
-		$query=PhangoVar::$model[$this->model_name]->select($this->where_sql.' limit '.$this->begin_page.', '.$this->num_by_page, $this->arr_fields, $this->raw_query);
+		$query=Webmodel::$model[$this->model_name]->select($this->where_sql.' limit '.$this->begin_page.', '.$this->num_by_page, $this->arr_fields, $this->raw_query);
 		
 		while($arr_row=webtsys_fetch_array($query))
 		{
@@ -118,7 +118,7 @@ class SimpleList
 			foreach($arr_fields_showed as $field)
 			{
 			
-				$arr_row_final[$field]=PhangoVar::$model[$this->model_name]->components[$field]->show_formatted($arr_row[$field],  $arr_row[PhangoVar::$model[$this->model_name]->idmodel]);
+				$arr_row_final[$field]=Webmodel::$model[$this->model_name]->components[$field]->show_formatted($arr_row[$field],  $arr_row[Webmodel::$model[$this->model_name]->idmodel]);
 			
 			}
 			
@@ -131,7 +131,7 @@ class SimpleList
 				
 			}
 			
-			$arr_row_final=$this->$options_method($arr_row_final, $arr_row, $this->options_func, $this->url_options, $this->model_name, PhangoVar::$model[$this->model_name]->idmodel, $this->separator_element, $this->options_func_extra_args);
+			$arr_row_final=$this->$options_method($arr_row_final, $arr_row, $this->options_func, $this->url_options, $this->model_name, Webmodel::$model[$this->model_name]->idmodel, $this->separator_element, $this->options_func_extra_args);
 		
 			middle_table_config($arr_row_final, $cell_sizes=array());
 		
@@ -144,7 +144,7 @@ class SimpleList
 		
 			load_libraries(array('pages'));
 			
-			$total_elements=PhangoVar::$model[$this->model_name]->select_count($this->where_sql);
+			$total_elements=Webmodel::$model[$this->model_name]->select_count($this->where_sql);
 			
 			echo '<p>'.PhangoVar::$l_['common']->lang('pages', 'Pages').': '.pages( $this->begin_page, $total_elements, $this->num_by_page, $this->url_options ,$this->initial_num_pages, $this->variable_page, $label='', $func_jscript='').'</p>';
 		
