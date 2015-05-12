@@ -12,7 +12,10 @@ class_alias('PhangoApp\PhaView\View', 'View');
 class_alias('PhangoApp\PhaUtils\Utils', 'Utils');
 class_alias('PhangoApp\PhaI18n\I18n', 'I18n');
 
+include('libraries/phangovar.php');
 include('config.php');
+
+View::$root_path=PhangoVar::$base_path;
 
 //Define the views folders based on app installed.
 

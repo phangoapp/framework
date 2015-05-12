@@ -24,6 +24,7 @@ Webmodel::$model['user_admin']->register('token_recovery', 'CharField', array(25
 Webmodel::$model['login_tried_admin']=new Webmodel('login_tried_admin');
 
 Webmodel::$model['login_tried_admin']->register('ip', 'CharField', array(255));
+
 Webmodel::$model['login_tried_admin']->register('num_tried', 'IntegerField', array(11));
 Webmodel::$model['login_tried_admin']->register('time', 'IntegerField', array(11));
 

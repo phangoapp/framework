@@ -30,8 +30,11 @@ class_alias('PhangoApp\PhaView\View', 'View');
 class_alias('PhangoApp\PhaUtils\Utils', 'Utils');
 class_alias('PhangoApp\PhaI18n\I18n', 'I18n');
 
-include('config.php');
 include('libraries/phangovar.php');
+include('config.php');
+//Define the timezone of php
+
+date_default_timezone_set (MY_TIMEZONE);
 
 //Start session
 
@@ -53,6 +56,8 @@ foreach(Routes::$apps as $app)
 	View::$folder_env[]='modules/'.$app.'/views';
 	
 }
+
+View::$root_path=PhangoVar::$base_path;
 
 //Define model and controllers paths
 
