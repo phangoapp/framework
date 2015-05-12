@@ -9,7 +9,8 @@ function padminConsole()
 	
 	if(!isset($options['model']))
 	{
-		echo "Use: padmin --model=module/model\n";
+	
+		echo "Use: php console.php -m=padmin -c=padmin --model=module/model\n";
 		die;
 	
 	}

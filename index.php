@@ -10,6 +10,10 @@ use PhangoApp\PhaView\View;
 use PhangoApp\PhaI18n\I18n;
 use PhangoApp\PhaUtils\Utils;
 
+//Start session
+
+session_start();
+
 /*
 include('vendor/phangoapp/pharouter/src/Routes.php');
 include('vendor/phangoapp/pharouter/src/Controller.php');
@@ -32,13 +36,17 @@ class_alias('PhangoApp\PhaI18n\I18n', 'I18n');
 
 include('libraries/phangovar.php');
 include('config.php');
+
+//Set i18n base path
+
+I18n::$base_path=PhangoVar::$base_path.'/';
+I18n::$modules_path='modules';
+
+I18n::loadLang('common');
+
 //Define the timezone of php
 
 date_default_timezone_set (MY_TIMEZONE);
-
-//Start session
-
-session_start();
 
 settype($_GET['begin_page'], 'integer');
 

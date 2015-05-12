@@ -262,9 +262,6 @@ function GeneratePositionModel($model_name, $field_name, $field_position, $url, 
 			
 			$this->route->redirect($url);
 
-			//die( redirect_webtsys( $url, I18n::lang('common']->lang('redirect', 'Redirect'), I18n::lang('common', 'success', 'Success'),
-			//I18n::lang('common', 'press_here_redirecting', 'Press here for redirecting')) );
-
 		break;
 
 		}

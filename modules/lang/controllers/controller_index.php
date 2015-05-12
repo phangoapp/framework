@@ -23,7 +23,7 @@ class indexSwitchController extends ControllerSwitchClass {
 			if(  preg_match('/\/lang\//', $_SERVER['HTTP_REFERER']) )
 			{
 			
-				$_SERVER['HTTP_REFERER']=$base_url;
+				$_SERVER['HTTP_REFERER']=Routes::$root_url;
 			
 			}
 			

@@ -582,17 +582,10 @@ class GenerateAdminClass {
 			}
 			
 			ob_end_clean();
-
-			
-
-			//die( redirect_webtsys( $url, I18n::lang('common']->lang('redirect', 'Redirect'), I18n::lang('common', 'success', 'Success'), PhangoVar::$l_['common', 'press_here_redirecting', 'Press here for redirecting')) );
 			
 			Routes::redirect($url);
 			
-			//die;
-			
-			/*load_libraries(array('redirect'));
-			simple_redirect( $url, I18n::lang('common']->lang('redirect', 'Redirect'), I18n::lang('common', 'success', 'Success'), PhangoVar::$l_['common', 'press_here_redirecting', 'Press here for redirecting'));*/
+			die;
 
 		break;
 
@@ -804,17 +797,9 @@ class ListModelClass {
 
 			if($this->admin_class->$func_delete($this->model_name, $_GET[ Webmodel::$model[$this->model_name]->idmodel ]))
 			{	
-				//die(header('Location: '.$url_options_delete));
-				/*ob_end_clean();
-				load_libraries(array('redirect'));
-				die( redirect_webtsys( $url_options_delete, I18n::lang('common']->lang('redirect', 'Redirect'), I18n::lang('common', 'success', 'Success'), PhangoVar::$l_['common', 'press_here_redirecting', 'Press here for redirecting') , $arr_block) );*/
-				
-				/*load_libraries(array('redirect'));
-				simple_redirect( $url_options_delete, I18n::lang('common', 'redirect', 'Redirect'), 
-				I18n::lang('common', 'success', 'Success'), 
-				I18n::lang('common', 'press_here_redirecting', 'Press here for redirecting'));*/
 				
 				Routes::redirect($url_options_delete);
+				die;
 
 			}
 			else

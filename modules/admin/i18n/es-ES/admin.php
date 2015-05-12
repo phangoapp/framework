@@ -1,29 +1,25 @@
 <?php
 
-PhangoVar::$lang['admin']['applications']='Aplicaciones';
+I18n::$lang['admin']['applications']='Aplicaciones';
 
-PhangoVar::$lang['admin']['welcome_to_admin']='Bienvenido a administrador';
+I18n::$lang['admin']['welcome_to_admin']='Bienvenido al administrador';
 
-PhangoVar::$lang['admin']['welcome_text']='Bienvenido al administrador de Phango!';
+I18n::$lang['admin']['welcome_text']='Bienvenido, desde aquí podrá gestionar todos los elementos de su sitio web';
 
-PhangoVar::$lang['admin']['add_moderator_to_module']='Añadir moderador a módulo';
+I18n::$lang['admin']['add_moderator_to_module']='Añadir moderador a módulo';
 
-PhangoVar::$lang['admin']['moderator']='Moderador';
+I18n::$lang['admin']['moderator']='Moderador';
 
-PhangoVar::$lang['admin']['go_back_home']='Volver a home';
+I18n::$lang['admin']['go_back_home']='Volver a home';
 
-PhangoVar::$lang['admin']['change_user_modules']='Cambiar módulos de usuario';
+I18n::$lang['admin']['change_user_modules']='Cambiar modulos de este moderador';
 
-PhangoVar::$lang['admin']['admin']='Admin';
+I18n::$lang['admin']['admin']='Administrador';
 
-PhangoVar::$lang['admin']['home']='Home';
+I18n::$lang['admin']['home']='Home';
 
-PhangoVar::$lang['admin']['admin_zone']='Zona de administración';
+I18n::$lang['admin']['admin_zone']='Zona de administración';
 
-PhangoVar::$lang['admin']['administrator']='Administrador';
-
-PhangoVar::$lang['admin']['users_admin']='Usuarios administrador';
-
-PhangoVar::$lang['admin']['cannot_insert_user_email_or_user']='Ya existe un usuario con ese nombre y email';
+I18n::$lang['admin']['administrator']='Administrador';
 
 ?>

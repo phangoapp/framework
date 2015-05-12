@@ -84,7 +84,7 @@ class indexSwitchController extends ControllerSwitchClass {
 				if($arr_admin_script[$idmodule][0]!=$arr_admin_script[$idmodule][1])
 				{
 
-					$dir_lang_admin=$arr_admin_script[$idmodule][0].'_';
+					$dir_lang_admin=$arr_admin_script[$idmodule][0].'/';
 
 				}
 

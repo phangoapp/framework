@@ -1,29 +1,25 @@
 <?php
 
-PhangoVar::$lang['admin']['applications']='Applications';
+I18n::$lang['admin']['applications']='Applications';
 
-PhangoVar::$lang['admin']['welcome_to_admin']='Welcome to admin';
+I18n::$lang['admin']['welcome_to_admin']='Welcome to admin';
 
-PhangoVar::$lang['admin']['welcome_text']='Welcome';
+I18n::$lang['admin']['welcome_text']='Welcome text';
 
-PhangoVar::$lang['admin']['add_moderator_to_module']='Add moderator to module';
+I18n::$lang['admin']['add_moderator_to_module']='Add moderator to module';
 
-PhangoVar::$lang['admin']['moderator']='Moderator';
+I18n::$lang['admin']['moderator']='Moderator';
 
-PhangoVar::$lang['admin']['go_back_home']='go back to home';
+I18n::$lang['admin']['go_back_home']='go back to home';
 
-PhangoVar::$lang['admin']['change_user_modules']='Change user modules';
+I18n::$lang['admin']['change_user_modules']='Change user modules';
 
-PhangoVar::$lang['admin']['admin']='Admin';
+I18n::$lang['admin']['admin']='Admin';
 
-PhangoVar::$lang['admin']['home']='Home';
+I18n::$lang['admin']['home']='Home';
 
-PhangoVar::$lang['admin']['admin_zone']='Admin zone';
+I18n::$lang['admin']['admin_zone']='Admin zone';
 
-PhangoVar::$lang['admin']['administrator']='Administrator';
-
-PhangoVar::$lang['admin']['users_admin']='user\'s admin';
-
-PhangoVar::$lang['admin']['cannot_insert_user_email_or_user']='Cannot insert user. Email or user exists in database';
+I18n::$lang['admin']['administrator']='Administrator';
 
 ?>
