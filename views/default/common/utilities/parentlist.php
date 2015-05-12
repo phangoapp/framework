@@ -3,7 +3,7 @@
 function ParentListView($model_name, $arr_cat, $arr_list_father, $idfather, $url_cat, $arr_perm=array())
 {
 
-	$idfield=PhangoVar::$model[$model_name]->idmodel;
+	$idfield=Webmodel::$model[$model_name]->idmodel;
 	
 	$arr_hidden[0]='';
 	$arr_hidden[1]='';
@@ -17,8 +17,8 @@ function ParentListView($model_name, $arr_cat, $arr_list_father, $idfather, $url
 	if($idfather==0)
 	{
 	
-		$first_url[$_GET[$idfield]]='<ul><li><a href="'.$url_cat.'">'.PhangoVar::$l_['common']->lang('home', 'Home').'</a><ul>';
-		$first_url[0]='<ul><li><strong>'.PhangoVar::$l_['common']->lang('home', 'Home').'</strong></li><ul>';
+		$first_url[$_GET[$idfield]]='<ul><li><a href="'.$url_cat.'">'.I18n::lang('common', 'home', 'Home').'</a><ul>';
+		$first_url[0]='<ul><li><strong>'.I18n::lang('common', 'home', 'Home').'</strong></li><ul>';
 		
 		echo $first_url[$_GET[$idfield]];
 		
@@ -32,7 +32,7 @@ function ParentListView($model_name, $arr_cat, $arr_list_father, $idfather, $url
 		
 		settype($arr_perm[$idcat], 'integer');
 		
-		$url_blog=add_extra_fancy_url($url_cat, array($idfield => $idcat) );
+		$url_blog=Routes::addGetParameters($url_cat, array($idfield => $idcat) );
 		
 		$arr_hidden[$arr_perm[$idcat]]='<span class="error">'.$arr_cat[$idcat].'</span>';
 		$arr_hidden[0]='<a href="'.$url_blog.'">'.$arr_cat[$idcat].'</a>';
