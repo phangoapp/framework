@@ -4,12 +4,13 @@
 * Configuration file for phangoapp
 */
 
-namespace PhangoApp\Config;
+/**
+* Global configuration
+*/
 
-use PhangoApp\PhaRouter\Routes;
-use PhangoApp\PhaModels\Webmodel;
-use PhangoApp\PhaView\View;
-use PhangoApp\PhaI18n\I18n;
+//The base path where phango is installed. You can leave this value or get the real absolute path.
+
+PhangoVar::$base_path=\getcwd();
 
 /*
 * Configure routes and apps
@@ -19,9 +20,9 @@ use PhangoApp\PhaI18n\I18n;
 
 Routes::$root_url='/';
 
-Routes::$app='welcome';
+Routes::$app='app';
 
-Routes::$apps=['welcome'];
+Routes::$apps=['app', 'admin', 'lang'];
 
 /**
 * Configure database. You can configure multiple databases for different models.
@@ -29,7 +30,7 @@ Routes::$apps=['welcome'];
 
 Webmodel::$host_db['default']='localhost';
 	
-Webmodel::$db['default']='phangoapp';
+Webmodel::$db['default']='phangodb';
 
 Webmodel::$login_db['default']='root';
 
@@ -40,6 +41,8 @@ Webmodel::$pass_db['default']='';
 */
 
 View::$url_media='/media';
+
+//View::$root_path=PhangoVar::$base_path;
 
 /**
 * Property for define the theme.
@@ -57,11 +60,31 @@ View::setProduction(false);
 
 
 /**
-* Configure internazionalitation
+* Configure default internazionalitation
 */
 
 I18n::$arr_i18n=array('es-ES', 'en-US');
 
-I18n::$language='en-US';
+I18n::$language='es-ES';
+
+/**
+* Standard configurations constants. 
+*/
+
+//The cookie path used by cookies in phango
+
+define('COOKIE_PATH', Routes::$root_url);
+
+//The name of the cookie
+
+define('COOKIE_NAME', 'phango');
+
+//The folder of admin
+
+define('ADMIN_FOLDER', 'admin');
+
+//The timezone
+
+define('MY_TIMEZONE', 'Europe/Madrid');
 
 ?>
