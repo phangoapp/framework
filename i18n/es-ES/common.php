@@ -26,7 +26,7 @@ I18n::$lang['common']['descent']='Descendente';
 
 I18n::$lang['common']['cannot_update_insert_in_model']='No puedo actualizar o insertar este elmento en la bsae de datos';
 
-I18n::$lang['common']['success']='success';
+I18n::$lang['common']['success']='Éxito en la operación';
 
 I18n::$lang['common']['redirect']='redirect';
 

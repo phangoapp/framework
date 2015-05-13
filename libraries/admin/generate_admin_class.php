@@ -379,7 +379,7 @@ class GenerateAdminClass {
 
 						//die(header('Location: '.$url_admin.'/success/1'));
 						
-						
+						View::set_flash(I18n::lang('common', 'success', 'Success'));
 						
 						Routes::redirect( $url_back );
 							
@@ -581,7 +581,7 @@ class GenerateAdminClass {
 				
 			}
 			
-			ob_end_clean();
+			View::set_flash(I18n::lang('common', 'success', 'Success'));
 			
 			Routes::redirect($url);
 			
@@ -797,6 +797,7 @@ class ListModelClass {
 
 			if($this->admin_class->$func_delete($this->model_name, $_GET[ Webmodel::$model[$this->model_name]->idmodel ]))
 			{	
+				View::set_flash(I18n::lang('common', 'success', 'Success'));
 				
 				Routes::redirect($url_options_delete);
 				die;

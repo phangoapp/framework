@@ -260,7 +260,7 @@ function GeneratePositionModel($model_name, $field_name, $field_position, $url, 
 
 			Utils::load_libraries(array('redirect'));
 			
-			$this->route->redirect($url);
+			Route::redirect($url);
 
 		break;
 

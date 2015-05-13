@@ -78,6 +78,7 @@ function AdminView($header, $title, $content, $name_modules, $url_modules, $extr
 					?>
 				</div>
 				<div class="contents">
+					<?php echo View::show_flash(); ?>
 					<?php echo $content; ?>
 				</div>
 			</div>
