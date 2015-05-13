@@ -838,6 +838,8 @@ function generate_admin_model_ng($model_name, $arr_fields, $arr_fields_edit, $ur
 	
 	$admin->no_search=$no_search;
 	
+	$admin->where_sql=$where_sql;
+	
 	$admin->show();
 
 }

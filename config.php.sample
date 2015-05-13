@@ -65,7 +65,7 @@ View::setProduction(false);
 
 I18n::$arr_i18n=array('es-ES', 'en-US');
 
-I18n::$language='es-ES';
+I18n::$language='en-US';
 
 /**
 * Standard configurations constants. 
@@ -85,6 +85,6 @@ define('ADMIN_FOLDER', 'admin');
 
 //The timezone
 
-define('MY_TIMEZONE', 'Europe/Madrid');
+define('MY_TIMEZONE', 'America/New_York');
 
 ?>
