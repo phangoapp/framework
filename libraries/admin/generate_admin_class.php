@@ -806,7 +806,7 @@ class ListModelClass {
 			else
 			{
 
-				echo 'Error: '.PhangoVar::$std_error;
+				echo 'Error: '.Webmodel::$std_error;
 
 			}
 		

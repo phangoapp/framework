@@ -1,8 +1,8 @@
 <?php
 
-I18n::$lang['error_model']['cant_insert']='Can\\';
+I18n::$lang['error_model']['cant_insert']='Cannot insert';
 
-I18n::$lang['error_model']['cant_update']='Can\\';
+I18n::$lang['error_model']['cant_update']='Cannot update';
 
 I18n::$lang['error_model']['check_error_field']='Error in field';
 
