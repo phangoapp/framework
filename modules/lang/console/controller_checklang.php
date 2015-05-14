@@ -5,11 +5,15 @@ function checklangConsole()
 
 	$arr_options=get_opts_console('', $arr_opts=array('module::', 'all', 'status'));
 	
+	$climate = new League\CLImate\CLImate;
+	
 	if(!isset($arr_options['module']) && !isset($arr_options['all']))
 	{
 	
-		echo "Use: php console.php -m=padmin -c=padmin [--all] [--module=module] [--status]\n\n";
-		echo "If you use --module and --all together, the script use the --module option always\n";
+		//echo "Use: php console.php -m=padmin -c=padmin [--all] [--module=module] [--status]\n\n";
+		$climate->white()->backgroundBlack()->out("Use: php console.php -m=padmin -c=padmin [--all] [--module=module] [--status]\n");
+		$climate->white()->backgroundBlack()->out("If you use --module and --all together, the script use the --module option by default");
+		
 		die;
 	
 	}
@@ -50,7 +54,8 @@ function checklangConsole()
 			else
 			{
 			
-				echo $arr_options['module']." is not a directory...\n";
+				//echo $arr_options['module']." is not a directory...\n";
+				$climate->white()->backgroundRed()->out($arr_options['module']." is not a directory...");
 			
 			}
 
@@ -58,7 +63,8 @@ function checklangConsole()
 		else
 		{
 
-			echo $arr_options['module']." file don't exists...\n";
+			//echo $arr_options['module']." file don't exists...\n";
+			$climate->white()->backgroundRed()->out($arr_options['module']." file doesn't exists...");
 
 		}
 
