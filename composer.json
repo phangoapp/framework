@@ -11,8 +11,7 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {
-	},
+
     "autoload": {
          "classmap": ["src/"]
     },
@@ -49,7 +48,8 @@
 	"phangoapp/phautils": "dev-master",
 	"phangoapp/phai18n": "dev-master",
 	"ext-gd": "*",
-	"ext-libxml": "*"
+	"ext-libxml": "*",
+	"league/climate": "dev-master"
 	
     }
 }

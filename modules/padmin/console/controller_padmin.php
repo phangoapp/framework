@@ -7,10 +7,15 @@ function padminConsole()
 
 	$options=get_opts_console('', $arr_opts=array('model:'));
 	
+	$climate = new League\CLImate\CLImate;
+	
 	if(!isset($options['model']))
 	{
 	
-		echo "Use: php console.php -m=padmin -c=padmin --model=module/model\n";
+		//echo "Use: php console.php -m=padmin -c=padmin --model=module/model\n";
+		
+		$climate->white()->backgroundBlack()->out("Use: php console.php -m=padmin -c=padmin --model=module/model");
+		
 		die;
 	
 	}
@@ -27,7 +32,9 @@ function padminConsole()
 	if(!is_file($model_file))
 	{
 
-		die("Error: cannot find the model file in ".$arr_option[0]."/models/models_".$arr_option[1].".php\n");
+		$climate->white()->backgroundRed()->out("Error: cannot find the model file in ".$arr_option[0]."/models/models_".$arr_option[1].".php");
+	
+		die();
 
 	}
 
@@ -42,8 +49,8 @@ function padminConsole()
 		
 	} catch(Exception $e)
 	{
-
-		echo $e->getMessage()."\n";
+		$climate->white()->backgroundRed()->out($e->getMessage());
+		//echo $e->getMessage()."\n";
 		die;
 
 	}
@@ -61,7 +68,9 @@ function padminConsole()
 	if(file_exists($post_install_script) && !file_exists($post_install_lock))
 	{
 
-		echo "Executing post_install script...\n";
+		//echo "Executing post_install script...\n";
+		
+		$climate->white()->backgroundBlack()->out('Executing post_install script...');
 
 		include($post_install_script);
 
@@ -71,13 +80,15 @@ function padminConsole()
 			if(!file_put_contents($post_install_lock, 'installed'))
 			{
 			
-				echo "Done, but cannot create this file: ".$arr_option[0].'/install/lock'.". Check your permissions and create the file if the script executed satisfally \n";
+				//echo "Done, but cannot create this file: ".$arr_option[0].'/install/lock'.". Check your permissions and create the file if the script executed satisfally \n";
+				$climate->white()->backgroundBlack()->out("Done, but cannot create this file: ".$arr_option[0].'/install/lock'.". Check your permissions and create the file if the script executed satisfally");
 			
 			}
 			else
 			{
 			
-				echo "Done\n";
+				//echo "Done\n";
+				$climate->white()->backgroundBlack()->out('Done');
 			
 			}
 		
@@ -85,13 +96,16 @@ function padminConsole()
 		else
 		{
 		
-			echo "Error, please, check ${post_install_script} file and execute padmin.php again\n";
+			//echo "Error, please, check ${post_install_script} file and execute padmin.php again\n";
+			$climate->white()->backgroundRed()->out("Error, please, check ${post_install_script} file and execute padmin.php again");
 		
 		}
 
 	}
 
-	echo "All things done\n";
+	//echo "All things done\n";
+	
+	$climate->white()->backgroundBlack()->out("All things done");
 
 }
 

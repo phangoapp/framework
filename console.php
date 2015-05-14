@@ -62,11 +62,15 @@ $longopts=array();
 
 $options = getopt(OPTS, $longopts);
 
+$climate = new League\CLImate\CLImate;
+
 if(!isset($options['m']) && !isset($options['c']))
 {
 
-	die("Use: php console.php -m=module -c=console_controller [more arguments for daemon]\n");
-
+	//die("Use: php console.php -m=module -c=console_controller [more arguments for daemon]\n");
+	
+	$climate->white()->backgroundBlack()->out("Use: php console.php -m=module -c=console_controller [more arguments for daemon]");
+	die;
 }
 
 $module=@Utils::form_text(basename($options['m']));
@@ -94,8 +98,8 @@ if(file_exists($controller))
 	}
 	else
 	{
-	
-		die("Error: Don't exists the function with name ".$function_console." in ".$controller."...\n");
+		$climate->white()->backgroundRed()->out("Error: Don't exists the function with name ".$function_console." in ".$controller."...");
+		die();
 	
 	}
 
@@ -103,7 +107,8 @@ if(file_exists($controller))
 else
 {
 
-	die("Error: Don't exists the controller ".$controller." for console statement...\n");
+	$climate->white()->backgroundRed()->out("Error: Don't exists the controller ".$controller." for console statement...");
+	die();
 
 }
 
