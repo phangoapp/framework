@@ -71,7 +71,7 @@ I18n::$language='en-US';
 * Standard configurations constants. 
 */
 
-//The cookie path used by cookies in phango
+//The cookie path used by cookies in phango. Normally you don't need change this
 
 define('COOKIE_PATH', Routes::$root_url);
 
@@ -83,7 +83,7 @@ define('COOKIE_NAME', 'phango');
 
 define('ADMIN_FOLDER', 'admin');
 
-//The timezone
+//The timezone used for time libraries.
 
 define('MY_TIMEZONE', 'America/New_York');
 

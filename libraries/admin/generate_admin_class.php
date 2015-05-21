@@ -1,5 +1,7 @@
 <?php
 
+use PhangoApp\PhaModels\WhereSql;
+
 /**
 *
 * @author  Antonio de la Rosa <webmaster@web-t-sys.com>
