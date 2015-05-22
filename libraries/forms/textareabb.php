@@ -26,7 +26,7 @@ function TextAreaBBForm($name="", $class='', $value='', $profile='all')
 
 	}
 
-	echo TextAreaForm($name, $class, $value.$paragraph)."<p />";
+	echo TextAreaForm($name, Utils::slugify($name).'_class '.$class, $value.$paragraph)."<p />";
 
 	if(PhangoVar::$textbb_type!='')
 	{
@@ -34,12 +34,6 @@ function TextAreaBBForm($name="", $class='', $value='', $profile='all')
 		PhangoVar::$textbb_type=basename(str_replace('.php', '', PhangoVar::$textbb_type));
 
 		Utils::load_libraries(array('textbb/'.PhangoVar::$textbb_type.'/'.PhangoVar::$textbb_type.'_'.$profile));
-		
-		//Load script profile for jscript, is a function called load_profile
-
-		//load_libraries(array('textbb/profiles/'.$config_data['textbb_type'].'_'.$profile.'.php'));
-		
-		//Load editor
 		
 		$func_load_script='load_jscript_editor_'.PhangoVar::$textbb_type.'_'.$profile;
 		

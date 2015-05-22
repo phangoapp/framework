@@ -11,7 +11,7 @@
 
 function SelectModelForm($name, $class, $value, $model_name, $identifier_field, $where='')
 {
-
+	
 	$model_select=$model_name;
 	
 	if(strpos($model_name, '|')!==false)
@@ -29,7 +29,7 @@ function SelectModelForm($name, $class, $value, $model_name, $identifier_field, 
 	if(!isset(Webmodel::$model[$model_name]))
 	{
 
-		Utils::load_model($model_name);
+		Webmodel::load_model($model_name);
 
 	}
 	
@@ -37,7 +37,7 @@ function SelectModelForm($name, $class, $value, $model_name, $identifier_field, 
 	
 	$query=Webmodel::$model[$model_select]->select($where, array(Webmodel::$model[$model_select]->idmodel, $identifier_field));
 
-	while($arr_field=webtsys_fetch_array($query))
+	while($arr_field=Webmodel::$model[$model_select]->fetch_array($query))
 	{
 
 		$arr_model[]=Webmodel::$model[$model_select]->components[$identifier_field]->show_formatted($arr_field[ $identifier_field ]);

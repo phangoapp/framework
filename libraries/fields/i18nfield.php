@@ -38,7 +38,7 @@ class I18nField extends PhangoField {
 
 	function check($value)
 	{
-	
+		
 		settype($value, 'array');
 		
 		foreach(I18n::$arr_i18n as $lang_item)

@@ -36,8 +36,6 @@ function load_jscript_editor_ckeditor_all($name_editor, $value, $profiles='all')
 	?>
 	
 	<script type="text/javascript">
-	//<![CDATA[
-
 		// This call can be placed at any point after the
 		// <textarea>, or inside a <head><script> in a
 		// window.onload event handler.
@@ -53,8 +51,10 @@ function load_jscript_editor_ckeditor_all($name_editor, $value, $profiles='all')
 	$(document).ready( function () {
 	
 		//CKEDITOR.config.baseHref='<?php echo PhangoVar::$base_url; ?>/media/jscript/textbb/ckeditor/';
+		
+		CKEDITOR.replace( '<?php echo $name_editor; ?>' );
 	
-		CKEDITOR.replace( '<?php echo $name_editor; ?>' , 
+		/*CKEDITOR.replace( '<?php echo $name_editor; ?>' , 
 		{
 			//Here, function, load_profile
 			//extraPlugins : 'bbcodeweb,devtools',
@@ -67,11 +67,6 @@ function load_jscript_editor_ckeditor_all($name_editor, $value, $profiles='all')
 			enterMode : CKEDITOR.ENTER_BR,
 			language: '<?php echo PhangoVar::$arr_i18n_ckeditor[I18n::$language]; ?>',
 
-			/*toolbar :[
-
-				['Source'],'-', ['Bold', 'Italic','Underline'], '-', ['Blockquote'] , '-', ['Link', 'Unlink'], '-', ['TextColor', 'SpecialChar', 'FontSize'], '-', ['Image','Table'], '-', ['Undo','Redo'], '-', ['Smiley']
-
-				],*/
 			smiley_columns: 10,
 			smiley_path: [''], //['<?php echo PhangoVar::$base_url; ?>/media/smileys/'],
 			smiley_images :
@@ -106,27 +101,11 @@ function load_jscript_editor_ckeditor_all($name_editor, $value, $profiles='all')
 			
 			]
 
-			/*,on :
-			{
-				instanceReady : function( ev )
-				{
-					// Output paragraphs as <p>Text</p>.
-					this.dataProcessor.writer.setRules( 'p',
-					{
-						indent : false,
-						breakBeforeOpen : true,
-						breakAfterOpen : false,
-						breakBeforeClose : false,
-						breakAfterClose : true
-					});
-				}
-			}*/
-
 		}
-	);
+	);*/
 
 });
-	//]]>
+
 	</script>
 
 	<?php

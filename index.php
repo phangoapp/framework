@@ -51,6 +51,11 @@ date_default_timezone_set (MY_TIMEZONE);
 settype($_GET['begin_page'], 'integer');
 
 PhangoVar::$begin_page=$_GET['begin_page'];
+PhangoVar::$base_url=substr(Routes::$root_url, 0, -1);
+
+//Define simple variables in utils
+
+Utils::$textbb_type=PhangoVar::$textbb_type;
 
 //Define the view showmedia file.
 

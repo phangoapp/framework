@@ -71,6 +71,10 @@ I18n::$language='en-US';
 * Standard configurations constants. 
 */
 
+//The title of the website
+
+PhangoVar::$portal_name='My Website';
+
 //The cookie path used by cookies in phango. Normally you don't need change this
 
 define('COOKIE_PATH', Routes::$root_url);

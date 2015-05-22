@@ -1,6 +1,6 @@
 <?php
 
-class indexSwitchController extends Controller {
+class indexSwitchController extends ControllerSwitchClass {
 
 	public function index()
 	{

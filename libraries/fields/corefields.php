@@ -1172,7 +1172,7 @@ class ForeignKeyField extends IntegerField{
 		if(!isset($this->related_model))
 		{
 
-			load_model($this->container_model);
+			Webmodel::load_model($this->container_model);
 
 		}
 
@@ -1261,7 +1261,7 @@ class ForeignKeyField extends IntegerField{
 		{
 			Webmodel::$model[$this->name_model]->forms[$this->name_component]->form='SelectModelForm';
 			
-			return array($this->name_component, '', '', $this->related_model, $this->name_field_to_field, '');
+			return array($this->name_component, '', '', $this->related_model->name, $this->name_field_to_field, '');
 			
 		}
 		else
