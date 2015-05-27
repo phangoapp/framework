@@ -3,6 +3,7 @@
 Utils::load_libraries('admin/generate_admin_class');
 Utils::load_libraries('forms/selectmodelform');
 Webmodel::load_model('gallery');
+I18n::loadLang('gallery');
 
 function GalleryAdmin()
 {
@@ -13,6 +14,8 @@ function GalleryAdmin()
 	{
 	
 		default:
+			
+			Webmodel::$model['cat_gallery']->label=I18n::lang('gallery', 'gallery', 'Gallery');
 		
 			$admin=new GenerateAdminClass('cat_gallery');
 			
@@ -29,6 +32,8 @@ function GalleryAdmin()
 			//All images
 			
 			settype($_GET['category'], 'integer');
+			
+			Webmodel::$model['image_gallery']->label=I18n::lang('gallery', 'image', 'Image');
 			
 			Webmodel::$model['image_gallery']->create_form();
 			

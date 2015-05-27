@@ -79,7 +79,7 @@ class indexSwitchController extends ControllerSwitchClass {
 				
 				//load little file lang with the name for admin. With this you don't need bloated with biggest files of langs...
 
-				$dir_lang_admin='';
+				$dir_lang_admin=$name_module.'/';
 
 				if($arr_admin_script[$idmodule][0]!=$arr_admin_script[$idmodule][1])
 				{

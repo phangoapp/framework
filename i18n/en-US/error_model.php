@@ -12,4 +12,6 @@ I18n::$lang['error_model']['check_error_enctype_for_upload_file']='Please, check
 
 I18n::$lang['error_model']['img_format_error']='Img format error, only accept gif, jpg and png formats';
 
+I18n::$lang['error_model']['email_format_error']='Error en formato de email';
+
 ?>
