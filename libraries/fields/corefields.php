@@ -1384,8 +1384,10 @@ class ImageField extends PhangoField {
 				{
 				
 					$func_token=$this->func_token;
+					
+					$token=call_user_func($func_token);
 				
-					$_FILES[$file]['name']=$func_token().'_'.$_FILES[$file]['name'];
+					$_FILES[$file]['name']=$token.'_'.$_FILES[$file]['name'];
 				
 				}
 				
