@@ -113,8 +113,7 @@ function recursive_list_ng($model_name, $idfather, $name_field, $parent_field, $
 		else
 		{
 		
-			$arr_list_father[$parent][$idmodel]='<a href="'.$url_base.''.$idmodel.'">'.Webmodel::$model[$model_name]-
-			>components[$name_field]->show_formatted($name).'</a>';
+			$arr_list_father[$parent][$idmodel]='<a href="'.$url_base.''.$idmodel.'">'.Webmodel::$model[$model_name]->components[$name_field]->show_formatted($name).'</a>';
 		
 		}
 	}
