@@ -539,7 +539,7 @@ class GenerateAdminClass {
 			$url_post=Routes::addGetParameters($url, array('action_field' => 1));
 
 			echo '<form method="post" action="'.$url_post.'">';
-			set_csrf_key();
+			Utils::set_csrf_key();
 			echo '<div class="form">';
 
 			$query=Webmodel::$model[$model_name]->select($where.' order by `'.$field_position.'` ASC', array(Webmodel::$model[$model_name]->idmodel, $field_name, $field_position));
