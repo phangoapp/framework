@@ -31,13 +31,13 @@ class LoginSwitchController extends ControllerSwitchClass {
 	
 		$this->login->field_name='username';
 	
-		$this->login->url_login=Routes::makeUrl('login', 'login');//make_fancy_url(PhangoVar::$base_url, 'admin', 'login_check', array());
+		$this->login->url_login=Routes::make_url('login', 'login');//make_fancy_url(PhangoVar::$base_url, 'admin', 'login_check', array());
 		
-		$this->login->url_insert=Routes::makeUrl('login', 'register');//make_fancy_url(PhangoVar::$base_url, 'admin', 'register_insert', array(1));
+		$this->login->url_insert=Routes::make_url('login', 'register');//make_fancy_url(PhangoVar::$base_url, 'admin', 'register_insert', array(1));
 		
-		$this->login->url_recovery=Routes::makeUrl('login', 'recovery');//make_fancy_url(PhangoVar::$base_url, 'admin', 'recovery_password', array(1));
+		$this->login->url_recovery=Routes::make_url('login', 'recovery');//make_fancy_url(PhangoVar::$base_url, 'admin', 'recovery_password', array(1));
 		
-		$this->login->url_recovery_send=Routes::makeUrl('login', 'recovery'); //make_fancy_url(PhangoVar::$base_url, 'admin', 'recovery_password_send', array(1));
+		$this->login->url_recovery_send=Routes::make_url('login', 'recovery'); //make_fancy_url(PhangoVar::$base_url, 'admin', 'recovery_password_send', array(1));
 		
 		$this->login->accept_conditions=0;
 		
@@ -83,7 +83,7 @@ class LoginSwitchController extends ControllerSwitchClass {
 			
 			$this->simple_redirect($url_return);*/
 			
-			$url_return=Routes::makeUrl('login', 'register');
+			$url_return=Routes::make_url('login', 'register');
 			
 			Routes::redirect($url_return);
 		
@@ -118,7 +118,7 @@ class LoginSwitchController extends ControllerSwitchClass {
 		
 			/*Utils::load_libraries(array('redirect'));*/
 			
-			$url_return=Routes::makeUrl('index');
+			$url_return=Routes::make_url('index');
 			
 			Routes::redirect($url_return);
 		
@@ -191,7 +191,7 @@ class LoginSwitchController extends ControllerSwitchClass {
 				if($this->login->create_account())
 				{
 					
-					$url_return=Routes::makeUrl('login');
+					$url_return=Routes::make_url('login');
 			
 					Routes::redirect($url_return);
 				
@@ -226,7 +226,7 @@ class LoginSwitchController extends ControllerSwitchClass {
 		
 		ob_end_clean();
 		
-		Routes::redirect( Routes::makeUrl('login') );
+		Routes::redirect( Routes::make_url('login') );
 	
 	}
 	

@@ -79,7 +79,7 @@ Routes::$root_path=Routes::$root_path.'/modules';
 
 //Define routes...
 
-$route->addRoutesApps();
+$route->add_routes_apps();
 
 $route->response($_SERVER['REQUEST_URI']);
 

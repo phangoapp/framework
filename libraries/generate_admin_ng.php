@@ -30,8 +30,8 @@ function BasicOptionsListModel($url_options, $model_name, $id)
 	</script>
 	<?php
 
-	$url_options_edit=Routes::addGetParameters($url_options, array('op_edit' =>1, Webmodel::$model[$model_name]->idmodel => $id));
-	$url_options_delete=Routes::addGetParameters($url_options, array('op_edit' =>2, Webmodel::$model[$model_name]->idmodel => $id));
+	$url_options_edit=Routes::add_get_parameters($url_options, array('op_edit' =>1, Webmodel::$model[$model_name]->idmodel => $id));
+	$url_options_delete=Routes::add_get_parameters($url_options, array('op_edit' =>2, Webmodel::$model[$model_name]->idmodel => $id));
 
 	$arr_options=array('<a href="'.$url_options_edit.'">'.I18n::lang('common', 'edit', 'Edit').'</a>', 
 '<a href="'.$url_options_delete.'" onclick="javascript: if(warning()==false) { return false; }">'.I18n::lang('common', 'delete', 'Delete').'</a>');
@@ -209,7 +209,7 @@ function GeneratePositionModel($model_name, $field_name, $field_position, $url, 
 
 			ob_start();
 
-			$url_post=Routes::addGetParameters($url, array('action_field' => 1));
+			$url_post=Routes::add_get_parameters($url, array('action_field' => 1));
 
 			echo '<form method="post" action="'.$url_post.'">';
 			set_csrf_key();

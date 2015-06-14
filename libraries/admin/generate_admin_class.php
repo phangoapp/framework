@@ -149,7 +149,7 @@ class GenerateAdminClass {
 		settype($_GET['op_action'], 'integer');
 		settype($_GET[Webmodel::$model[$this->model_name]->idmodel], 'integer');
 
-		$url_admin=Routes::addGetParameters($this->url_options, array('op_action' => 1));
+		$url_admin=Routes::add_get_parameters($this->url_options, array('op_action' => 1));
 		
 		$arr_menu=array( 0 => array($this->txt_list_new, $this->url_options), 1 => array($this->txt_add_new_item, $url_admin) );
 		
@@ -165,7 +165,7 @@ class GenerateAdminClass {
 
 					echo '<p>'.menu_barr_hierarchy($arr_menu, 'op_action').'</p>';
 				
-					echo '<p class="add_new_item"><a class="'.$this->class_add.'" href="'.Routes::addGetParameters($this->url_options, array('op_action' => 1)).'">'.$this->txt_add_new_item.'</a> '.$this->extra_menu_create.'</p>';
+					echo '<p class="add_new_item"><a class="'.$this->class_add.'" href="'.Routes::add_get_parameters($this->url_options, array('op_action' => 1)).'">'.$this->txt_add_new_item.'</a> '.$this->extra_menu_create.'</p>';
 					
 				}
 				else
@@ -179,7 +179,7 @@ class GenerateAdminClass {
 				
 				//$this->url_back=$this->url_options;
 				
-				//$this->url_options=Routes::addGetParameters($this->url_options, array('op_edit' => $_GET['op_edit']));
+				//$this->url_options=Routes::add_get_parameters($this->url_options, array('op_edit' => $_GET['op_edit']));
 				
 				//$this->set_where_sql();
 				
@@ -239,7 +239,7 @@ class GenerateAdminClass {
 				
 				$this->url_back=$this->url_options;
 				
-				$this->url_options=Routes::addGetParameters($this->url_options, array('op_action' => 1));
+				$this->url_options=Routes::add_get_parameters($this->url_options, array('op_action' => 1));
 				
 				$this->insert_model_form();
 				
@@ -282,7 +282,7 @@ class GenerateAdminClass {
 			$this->url_back=$this->url_options;
 		}
 		
-		$this->url_options=Routes::addGetParameters($this->url_options, array('op_action' => 1));
+		$this->url_options=Routes::add_get_parameters($this->url_options, array('op_action' => 1));
 	
 		$this->insert_model_form();
 		
@@ -314,7 +314,7 @@ class GenerateAdminClass {
 			settype($_GET['op_update'], 'integer');
 			settype($_GET['success'], 'integer');
 
-			$url_post=Routes::addGetParameters($url_admin, array('op_update' =>1));
+			$url_post=Routes::add_get_parameters($url_admin, array('op_update' =>1));
 			
 			if( count(Webmodel::$model[$model_name]->forms)==0)
 			{	
@@ -536,7 +536,7 @@ class GenerateAdminClass {
 
 			ob_start();
 
-			$url_post=Routes::addGetParameters($url, array('action_field' => 1));
+			$url_post=Routes::add_get_parameters($url, array('action_field' => 1));
 
 			echo '<form method="post" action="'.$url_post.'">';
 			Utils::set_csrf_key();
@@ -758,7 +758,7 @@ class ListModelClass {
 			
 			ModelForm::set_values_form($post, Webmodel::$model[$this->model_name]->forms, 0);
 			
-			$url_options_edit=Routes::addGetParameters($this->url_options, array('op_edit' =>1, Webmodel::$model[$this->model_name]->idmodel => $_GET[Webmodel::$model[$this->model_name]->idmodel]) );
+			$url_options_edit=Routes::add_get_parameters($this->url_options, array('op_edit' =>1, Webmodel::$model[$this->model_name]->idmodel => $_GET[Webmodel::$model[$this->model_name]->idmodel]) );
 			
 			//$this->admin_class->url_back=$this->url_options;
 			//echo $this->admin_class->url_back; die;
@@ -795,7 +795,7 @@ class ListModelClass {
 
 			$func_delete=Webmodel::$model[$this->model_name]->func_update.'_delete_model';
 			
-			$url_options_delete=Routes::addGetParameters($this->url_options, array('success_delete' => 1) );
+			$url_options_delete=Routes::add_get_parameters($this->url_options, array('success_delete' => 1) );
 
 			if($this->admin_class->$func_delete($this->model_name, $_GET[ Webmodel::$model[$this->model_name]->idmodel ]))
 			{	

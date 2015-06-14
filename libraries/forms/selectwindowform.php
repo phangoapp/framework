@@ -14,9 +14,9 @@ function SelectWindowForm($name="", $class='', $value='', $module='', $model_nam
 	
 	settype($value, 'integer');
 	
-	//makeStaticUrl($app, $controller, $method='index', $values=array(), $get=array())
+	//make_module_url($app, $controller, $method='index', $values=array(), $get=array())
 	
-	$url_choose_option=Routes::makeStaticUrl('forms', 'browser_list_field', array(), array('module' => $module, 'model' => $model_name, 'field' => $field, 'field_fill' => $name, 'category_field' => $category_field, 'category_model' => $category_model, 'category_model_field' => $category_model_field ));
+	$url_choose_option=Routes::make_module_url('forms', 'browser_list_field', array(), array('module' => $module, 'model' => $model_name, 'field' => $field, 'field_fill' => $name, 'category_field' => $category_field, 'category_model' => $category_model, 'category_model_field' => $category_model_field ));
 
 	if($value==0)
 	{

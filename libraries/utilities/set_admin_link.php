@@ -19,7 +19,7 @@ function set_admin_link($text_admin, $parameters)
 	
 	//base_url/ADMIN_FOLDER/module_name/other_parameters, other parameters is moving to function admin.
 	
-	return Routes::makeStaticUrl(ADMIN_FOLDER, 'index', 'index', array($text_admin), $get=$parameters);
+	return Routes::make_module_url(ADMIN_FOLDER, 'index', 'index', array($text_admin), $get=$parameters);
 	
 	// make_fancy_url(PhangoVar::$base_url, ADMIN_FOLDER, 'module', array($text_admin), $parameters);
 
