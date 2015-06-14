@@ -3,7 +3,7 @@
 Utils::load_libraries('admin/generate_admin_class');
 Utils::load_libraries('forms/selectmodelform');
 Webmodel::load_model('gallery');
-I18n::loadLang('gallery');
+I18n::load_lang('gallery');
 
 function GalleryAdmin()
 {

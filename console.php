@@ -37,7 +37,7 @@ include('config.php');
 include('libraries/fields/corefields.php');
 include('libraries/forms/coreforms.php');
 
-I18n::loadLang('common');
+I18n::load_lang('common');
 
 Routes::$base_path=getcwd();
 

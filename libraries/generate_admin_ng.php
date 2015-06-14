@@ -52,7 +52,7 @@ function SearchInField($model_name, $arr_fields_order, $arr_fields_search, $wher
 		$arr_error_sql[0]='Do you need create a form for this model';    
 		$arr_error_sql[1]='Do you need create a form for this model '.$model_name.' for use SearchInField function';
 		ob_end_clean();
-		echo View::loadView(array('title' => 'Phango site is down', 'content' => '<p>'.$arr_error_sql[DEBUG].'</p>'), 'common/common');
+		echo View::load_view(array('title' => 'Phango site is down', 'content' => '<p>'.$arr_error_sql[DEBUG].'</p>'), 'common/common');
 		die();
 
 	}
@@ -126,7 +126,7 @@ function SearchInField($model_name, $arr_fields_order, $arr_fields_search, $wher
 	
 	if($show_form==1)
 	{
-		echo View::loadView(array($arr_search_field, $arr_order_field, $arr_order_select, $url_options), 'common/forms/searchform');
+		echo View::load_view(array($arr_search_field, $arr_order_field, $arr_order_select, $url_options), 'common/forms/searchform');
 	}
 	//Query for order
 
@@ -232,7 +232,7 @@ function GeneratePositionModel($model_name, $field_name, $field_position, $url, 
 
 			ob_end_clean();
 
-			echo View::loadView(array(I18n::lang('common', 'order', 'Order'), $cont_order), 'content');
+			echo View::load_view(array(I18n::lang('common', 'order', 'Order'), $cont_order), 'content');
 
 		break;
 
@@ -309,7 +309,7 @@ class SearchInFieldClass {
 			$arr_error_sql[0]='Do you need create a form for this model';    
 			$arr_error_sql[1]='Do you need create a form for this model '.$this->model_name.' for use SearchInField function';
 			ob_end_clean();
-			echo View::loadView(array('title' => 'Phango site is down', 'content' => '<p>'.$arr_error_sql[DEBUG].'</p>'), 'common/common');
+			echo View::load_view(array('title' => 'Phango site is down', 'content' => '<p>'.$arr_error_sql[DEBUG].'</p>'), 'common/common');
 			die();
 
 		}
@@ -383,7 +383,7 @@ class SearchInFieldClass {
 		
 		if($this->show_form==1)
 		{
-			echo View::loadView(array($arr_search_field, $arr_order_field, $arr_order_select, $this->url_options), 'common/forms/searchform');
+			echo View::load_view(array($arr_search_field, $arr_order_field, $arr_order_select, $this->url_options), 'common/forms/searchform');
 		}
 		//Query for order
 

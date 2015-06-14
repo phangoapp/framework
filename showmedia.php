@@ -28,6 +28,6 @@ foreach(Routes::$apps as $app)
 
 $view=new View();
 
-$view->loadMediaFile($_SERVER['REQUEST_URI']);
+$view->load_media_file($_SERVER['REQUEST_URI']);
 
 ?>

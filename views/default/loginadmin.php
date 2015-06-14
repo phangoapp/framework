@@ -12,9 +12,9 @@ function LoginAdminView($content)
 	<?php 
 		View::$css[]='login.css';
 	
-		echo View::loadJS();
-		echo View::loadCSS();
-		echo View::loadHeader();
+		echo View::load_js();
+		echo View::load_css();
+		echo View::load_header();
 	?>
 	</head>
 	<body>

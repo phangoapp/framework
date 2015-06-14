@@ -5,7 +5,7 @@
 Utils::load_libraries('models/userphangomodel');
 Utils::load_libraries('fields/passwordfield');
 
-I18n::loadLang('admin');
+I18n::load_lang('admin');
 
 Webmodel::$model['user_admin']=new UserPhangoModel('user_admin');
 

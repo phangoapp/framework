@@ -19,7 +19,7 @@ function SearchFormView($arr_search_field, $arr_order_field, $arr_order_select, 
 
 	$form_search.='</form></p>';
 	
-	echo View::loadView(array(I18n::lang('common', 'order_and_search', 'Order and search'), $form_search), 'content');
+	echo View::load_view(array(I18n::lang('common', 'order_and_search', 'Order and search'), $form_search), 'content');
 
 }
 

@@ -9,7 +9,7 @@
 *
 */
 
-I18n::loadLang('users');
+I18n::load_lang('users');
 
 /**
 * Children class of webmodel for use with login class

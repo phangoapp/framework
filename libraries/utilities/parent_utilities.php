@@ -32,7 +32,7 @@ function recursive_list($model_name, $idfather, $url_cat, $arr_fields, $arr_perm
 
 	}
 	
-	echo View::loadView(array($model_name, $arr_cat, $arr_list_father, $idfather, $url_cat, $arr_perm), 'common/utilities/parentlist');
+	echo View::load_view(array($model_name, $arr_cat, $arr_list_father, $idfather, $url_cat, $arr_perm), 'common/utilities/parentlist');
 
 }
 
@@ -121,7 +121,7 @@ function recursive_list_ng($model_name, $idfather, $name_field, $parent_field, $
 	
 	settype($arr_list_father[$idfather], 'array');
 	
-	return View::loadView(array($idfather, $arr_list_father, $id_ul, $class_ul, $name_ul), $parent_list_view);
+	return View::load_view(array($idfather, $arr_list_father, $id_ul, $class_ul, $name_ul), $parent_list_view);
 }
 
 ?>

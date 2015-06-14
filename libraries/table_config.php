@@ -18,7 +18,7 @@
 function up_table_config($fields, $cell_sizes=array())
 {
 
-	echo View::loadView(array($fields, $cell_sizes), 'common/table_config/headtable');
+	echo View::load_view(array($fields, $cell_sizes), 'common/table_config/headtable');
 }
 
 /**
@@ -29,7 +29,7 @@ function up_table_config($fields, $cell_sizes=array())
 
 function middle_table_config($fill, $cell_sizes=array())
 {
-	echo View::loadView(array($fill, $cell_sizes), 'common/table_config/middletable');
+	echo View::load_view(array($fill, $cell_sizes), 'common/table_config/middletable');
 }
 
 /**
@@ -39,7 +39,7 @@ function middle_table_config($fill, $cell_sizes=array())
 
 function down_table_config()
 {
-	echo View::loadView(array(), 'common/table_config/bottomtable');
+	echo View::load_view(array(), 'common/table_config/bottomtable');
 }
 
 /**
@@ -51,7 +51,7 @@ function down_table_config()
 function pages_table($pages, $more_data='')
 {
 	
-	echo View::loadView(array(), 'common/table_config/pagestable');
+	echo View::load_view(array(), 'common/table_config/pagestable');
 
 }
 

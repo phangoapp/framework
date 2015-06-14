@@ -30,7 +30,7 @@ class indexSwitchController extends ControllerSwitchClass {
 		$header='';
 		$content='';
 		
-		I18n::loadLang('admin');
+		I18n::load_lang('admin');
 		//load_libraries(array('utilities/set_admin_link'));
 
 		//settype($module_id, 'string');
@@ -88,7 +88,7 @@ class indexSwitchController extends ControllerSwitchClass {
 
 				}
 
-				I18n::loadLang($dir_lang_admin.$name_module.'_admin');
+				I18n::load_lang($dir_lang_admin.$name_module.'_admin');
 				
 				if(!isset(I18n::$lang[$name_module.'_admin'][$name_module.'_admin_name']))
 				{
@@ -207,7 +207,7 @@ class indexSwitchController extends ControllerSwitchClass {
 		
 			ob_end_clean();
 			
-			echo View::loadView(array('header' => $header, 'title' => I18n::lang('admin', 'admin_zone', 'Admin zone'), 'content' => $content, 'name_modules' => $name_modules, 'urls' => $urls , 'extra_data' => $extra_data), 'admin/admin');
+			echo View::load_view(array('header' => $header, 'title' => I18n::lang('admin', 'admin_zone', 'Admin zone'), 'content' => $content, 'name_modules' => $name_modules, 'urls' => $urls , 'extra_data' => $extra_data), 'admin/admin');
 
 		}
 		else

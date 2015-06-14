@@ -17,9 +17,9 @@ $block_type, $block_id, $config_data, $headers='')
 		<title><?php echo $title; ?></title>
 		<?php echo $headers; ?>
 		<?php 
-		echo View::loadCSS(); 
-		echo View::loadJS(); 
-		echo View::loadHeader(); 		
+		echo View::load_css(); 
+		echo View::load_js(); 
+		echo View::load_header(); 		
 		?>
 		</head>
 		<body>

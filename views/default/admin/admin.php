@@ -14,9 +14,9 @@ function AdminView($header, $title, $content, $name_modules, $url_modules, $extr
 		<head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 		<title><?php echo $title; ?></title>
-		<?php echo View::loadCSS(); ?>
-		<?php echo View::loadJS(); ?>
-		<?php echo View::loadHeader(); ?> 
+		<?php echo View::load_css(); ?>
+		<?php echo View::load_js(); ?>
+		<?php echo View::load_header(); ?> 
 		</head>
 		<body>
 		<div id="languages_general">
@@ -34,7 +34,7 @@ function AdminView($header, $title, $content, $name_modules, $url_modules, $extr
 			$arr_selected[Utils::slugify(I18n::$language)]='choose_flag_general';
 
 			?>
-			<a class="<?php echo $arr_selected[Utils::slugify($lang_item)]; ?>" href="<?php echo Routes::makeStaticUrl( 'lang', 'index', 'index', array('language' => $lang_item));?>"><img src="<?php echo View::getMediaUrl('images/languages/'.$lang_item.'.png'); ?>" alt="<?php echo $lang_item; ?>"/></a> 
+			<a class="<?php echo $arr_selected[Utils::slugify($lang_item)]; ?>" href="<?php echo Routes::makeStaticUrl( 'lang', 'index', 'index', array('language' => $lang_item));?>"><img src="<?php echo View::get_media_url('images/languages/'.$lang_item.'.png'); ?>" alt="<?php echo $lang_item; ?>"/></a> 
 			<?php
 
 		}

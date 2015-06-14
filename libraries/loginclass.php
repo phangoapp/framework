@@ -318,14 +318,14 @@ class LoginClass {
 	public function login_form()
 	{
 		
-		echo View::loadView(array($this->model_login, $this), $this->login_view);
+		echo View::load_view(array($this->model_login, $this), $this->login_view);
 	
 	}
 	
 	public function recovery_password_form()
 	{
 		
-		echo View::loadView(array($this->model_login, $this), $this->recovery_pass_view);
+		echo View::load_view(array($this->model_login, $this), $this->recovery_pass_view);
 	
 	}
 	
@@ -500,7 +500,7 @@ class LoginClass {
 		
 		}
 	
-		echo View::loadView(array('model' => $this->model_login, 'login_model' => $this), $this->create_account_view);
+		echo View::load_view(array('model' => $this->model_login, 'login_model' => $this), $this->create_account_view);
 	
 	}
 	

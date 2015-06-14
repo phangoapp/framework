@@ -63,7 +63,7 @@ class LoginSwitchController extends ControllerSwitchClass {
 				
 				ob_end_clean();
 				
-				echo View::loadView(array($cont_index), 'loginadmin');
+				echo View::load_view(array($cont_index), 'loginadmin');
 				
 			/*}
 			else
@@ -110,7 +110,7 @@ class LoginSwitchController extends ControllerSwitchClass {
 			ob_end_clean();
 			
 			//$this->load_theme(I18n::lang('users', 'login', 'Login'), $cont_index);
-			echo View::loadView(array($cont_index), 'loginadmin');
+			echo View::load_view(array($cont_index), 'loginadmin');
 		
 		}
 		else
@@ -141,7 +141,7 @@ class LoginSwitchController extends ControllerSwitchClass {
 			ob_end_clean();
 			
 			//$this->load_theme(I18n::lang('users', 'login', 'Login'), $cont_index);
-			echo View::loadView(array($cont_index), 'loginadmin');
+			echo View::load_view(array($cont_index), 'loginadmin');
 			
 		}
 	
@@ -162,7 +162,7 @@ class LoginSwitchController extends ControllerSwitchClass {
 			ob_end_clean();
 			
 			//$this->load_theme(I18n::lang('users', 'login', 'Login'), $cont_index);
-			echo View::loadView(array($cont_index), 'loginadmin');
+			echo View::load_view(array($cont_index), 'loginadmin');
 			
 		}
 	

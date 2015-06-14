@@ -59,7 +59,7 @@ function obtain_fathers($arr_father, $arr_menu, $father)
 function menu_barr_hierarchy($arr_menu, $name_get, $yes_last_link=0, $arr_final_menu=array(), $return_arr_menu=0)
 {
 
-	View::loadLibrariesViews('common/utilities/menu_barr_hierarchy', $func_views=array('linkhierarchy', 'nolinkhierarchy', 'menuhierarchy'));
+	View::load_libraries_views('common/utilities/menu_barr_hierarchy', $func_views=array('linkhierarchy', 'nolinkhierarchy', 'menuhierarchy'));
 
 	$_GET[$name_get]=Utils::slugify($_GET[$name_get]);
 
@@ -71,7 +71,7 @@ function menu_barr_hierarchy($arr_menu, $name_get, $yes_last_link=0, $arr_final_
 			if($_GET[$name_get]==$key_menu && $yes_last_link==0)
 			{
 				
-				$arr_final_menu[]=View::loadView(array($menu[0]), 'nolinkhierarchy');
+				$arr_final_menu[]=View::load_view(array($menu[0]), 'nolinkhierarchy');
 			
 				break;
 			
@@ -79,7 +79,7 @@ function menu_barr_hierarchy($arr_menu, $name_get, $yes_last_link=0, $arr_final_
 			else
 			{
 			
-				$arr_final_menu[]=View::loadView(array($menu[1], $menu[0]), 'linkhierarchy');
+				$arr_final_menu[]=View::load_view(array($menu[1], $menu[0]), 'linkhierarchy');
 			
 			}
 			
@@ -96,7 +96,7 @@ function menu_barr_hierarchy($arr_menu, $name_get, $yes_last_link=0, $arr_final_
 	if($return_arr_menu==0)
 	{
 	
-		return View::loadView(array($arr_final_menu), 'menuhierarchy');
+		return View::load_view(array($arr_final_menu), 'menuhierarchy');
 		
 	}
 	else

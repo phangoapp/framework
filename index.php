@@ -14,15 +14,6 @@ use PhangoApp\PhaUtils\Utils;
 
 session_start();
 
-/*
-include('vendor/phangoapp/pharouter/src/Routes.php');
-include('vendor/phangoapp/pharouter/src/Controller.php');
-include('vendor/phangoapp/phamodels/src/Webmodel.php');
-include('vendor/phangoapp/phamodels/src/ModelForm.php');
-include('vendor/phangoapp/phaview/src/View.php');
-include('vendor/phangoapp/phai18n/src/I18n.php');
-include('vendor/phangoapp/phautils/src/Utils.php');*/
-
 include('libraries/fields/corefields.php');
 include('libraries/forms/coreforms.php');
 
@@ -42,7 +33,7 @@ include('config.php');
 I18n::$base_path=PhangoVar::$base_path.'/';
 I18n::$modules_path='modules';
 
-I18n::loadLang('common');
+I18n::load_lang('common');
 
 //Define the timezone of php
 

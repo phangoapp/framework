@@ -3,7 +3,7 @@
 class_alias('PhangoApp\PhaModels\WhereSql', 'WhereSql');
 
 Webmodel::load_model('admin');
-I18n::loadLang('users');
+I18n::load_lang('users');
 Utils::load_libraries(array('admin/generate_admin_class'));
 
 function AusersAdmin()
