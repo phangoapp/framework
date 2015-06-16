@@ -56,10 +56,10 @@ function obtain_fathers($arr_father, $arr_menu, $father)
 
 // $arr_menu[1]=array(2 => menu3, 3 => menu4)
 
+View::load_libraries_views('common/utilities/menu_barr_hierarchy', $func_views=array('linkhierarchy', 'nolinkhierarchy', 'menuhierarchy'));
+
 function menu_barr_hierarchy($arr_menu, $name_get, $yes_last_link=0, $arr_final_menu=array(), $return_arr_menu=0)
 {
-
-	View::load_libraries_views('common/utilities/menu_barr_hierarchy', $func_views=array('linkhierarchy', 'nolinkhierarchy', 'menuhierarchy'));
 
 	$_GET[$name_get]=Utils::slugify($_GET[$name_get]);
 
