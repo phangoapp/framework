@@ -53,7 +53,7 @@ function load_jscript_editor_tinymce_all($name_editor, $value, $profiles='all', 
 			"save table contextmenu directionality emoticons template paste textcolor"
 		],
 		file_browser_callback: function(field_name, url, type, win){
-					var filebrowser = "<?php Routes::make_module_url('gallery', 'filebrowser', $method='index', $values=array(), $get=array()); ?>";
+					var filebrowser = "<?php echo Routes::make_module_url('gallery', 'index'); ?>";
 					tinymce.activeEditor.windowManager.open({
 					title : "Insertar fichero",
 					width : 520,
