@@ -39,6 +39,7 @@ function load_jscript_editor_tinymce_all($name_editor, $value, $profiles='all', 
 	
 	<script type="text/javascript">
 	
+	
 	$(document).ready( function () {
 	
 		
@@ -51,8 +52,22 @@ function load_jscript_editor_tinymce_all($name_editor, $value, $profiles='all', 
 			"searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
 			"save table contextmenu directionality emoticons template paste textcolor"
 		],
+		file_browser_callback: function(field_name, url, type, win){
+					var filebrowser = "<?php Routes::make_module_url('gallery', 'filebrowser', $method='index', $values=array(), $get=array()); ?>";
+					tinymce.activeEditor.windowManager.open({
+					title : "Insertar fichero",
+					width : 520,
+					height : 400,
+					url : filebrowser
+					}, {
+					window : win,
+					input : field_name
+					});
+					return false;
+					}
 
 		});
+		
 		
 
 	});
