@@ -43,7 +43,7 @@ function AdminView($header, $title, $content, $name_modules, $url_modules, $extr
 		</div>
 		
 		<div id="logout">
-		<a href="<?php echo Routes::make_url('admin', 'logout');?>">Logout</a>
+		<a href="<?php echo Routes::make_url('login', 'logout');?>">Logout</a>
 		</div>
 
 		<div id="center_body">
