@@ -54,6 +54,8 @@ View::$php_file=Routes::$root_url.'showmedia.php';
 
 //Define the views folders based on app installed.
 
+View::$theme=basename(View::$folder_env[0]);
+
 foreach(Routes::$apps as $app)
 {
 

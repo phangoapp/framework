@@ -19,10 +19,12 @@ View::$root_path=PhangoVar::$base_path;
 
 //Define the views folders based on app installed.
 
+View::$media_env=View::$folder_env;
+
 foreach(Routes::$apps as $app)
 {
 
-	View::$folder_env[]='modules/'.$app.'/views';
+	View::$media_env[]='modules/'.$app;
 	
 }
 
