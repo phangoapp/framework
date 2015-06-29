@@ -27,9 +27,9 @@ class LoginSwitchController extends ControllerSwitchClass {
 		
 		$this->route=$route;
 	
-		$this->login=new LoginClass(Webmodel::$model['user_admin'], 'username', 'password', '', $arr_user_session=array('IdUser_admin', 'privileges_user'), $arr_user_insert=array('username', 'password', 'repeat_password', 'email'));
+		$this->login=new LoginClass(Webmodel::$model['user_admin'], 'email', 'password', '', $arr_user_session=array('IdUser_admin', 'privileges_user'), $arr_user_insert=array('email', 'username', 'password', 'repeat_password' ));
 	
-		$this->login->field_name='username';
+		$this->login->field_name='email';
 	
 		$this->login->url_login=Routes::make_url('login', 'login');//make_fancy_url(PhangoVar::$base_url, 'admin', 'login_check', array());
 		
@@ -95,10 +95,10 @@ class LoginSwitchController extends ControllerSwitchClass {
 	{
 	
 		settype($_POST['no_expire_session'], 'integer');
-		settype($_POST['username'], 'string');
+		settype($_POST['email'], 'string');
 		settype($_POST['password'], 'string');
 		
-		if(!$this->login->login($_POST['username'], $_POST['password'], $_POST['no_expire_session']))
+		if(!$this->login->login($_POST['email'], $_POST['password'], $_POST['no_expire_session']))
 		{
 			
 			ob_start();
@@ -209,7 +209,7 @@ class LoginSwitchController extends ControllerSwitchClass {
 			
 			ob_end_clean();
 			
-			View::loadTheme(I18n::lang('users', 'login', 'Login'), $cont_index);
+			View::load_theme(I18n::lang('users', 'login', 'Login'), $cont_index);
 		
 		}
 	

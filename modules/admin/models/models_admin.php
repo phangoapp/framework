@@ -21,6 +21,8 @@ Webmodel::$model['user_admin']->register('token_client', 'CharField', array(255)
 
 Webmodel::$model['user_admin']->register('token_recovery', 'CharField', array(255));
 
+Webmodel::$model['user_admin']->username='email';
+
 Webmodel::$model['login_tried_admin']=new Webmodel('login_tried_admin');
 
 Webmodel::$model['login_tried_admin']->register('ip', 'CharField', array(255));
