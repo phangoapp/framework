@@ -10,13 +10,12 @@
             "email": "webmaster@web-t-sys.com"
         }
     ],
-    "minimum-stability": "dev",
-
-    "autoload": {
-         "classmap": ["src/"]
+    
+    "includes": { 
+	"packages.json": { }
     },
-
-    "includes": { "extras/extra-repo.json": {} }, 
+    
+    "minimum-stability": "dev",
 
     "repositories": [{
             "type": "vcs",

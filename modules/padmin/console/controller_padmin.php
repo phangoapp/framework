@@ -1,6 +1,6 @@
 <?php
 
-use PhangoApp\PhaModels\MySQLClass;
+use PhangoApp\PhaModels\SQLClass;
 
 function padminConsole()
 {
@@ -127,9 +127,9 @@ function update_table($model)
 	
 	$arr_etable=array();
 	
-	$query=MySQLClass::webtsys_query("show tables");
+	$query=SQLClass::webtsys_query("show tables");
 		
-	while(list($table)=MySQLClass::webtsys_fetch_row($query))
+	while(list($table)=SQLClass::webtsys_fetch_row($query))
 	{
 	
 		$arr_etable[$table]=1;
@@ -206,15 +206,15 @@ function update_table($model)
 			
 			echo "Creating table $key\n";
 			
-			$query=MySQLClass::webtsys_query($sql_query);
+			$query=SQLClass::webtsys_query($sql_query);
 
 			/*foreach($arr_sql_index as $key_data => $sql_index)
 			{
 
 				echo "---Creating index for ".$key_data."\n";
 
-				$query=MySQLClass::webtsys_query($sql_index);
-				$query=MySQLClass::webtsys_query($arr_sql_set_index[$key_data]);
+				$query=SQLClass::webtsys_query($sql_index);
+				$query=SQLClass::webtsys_query($arr_sql_set_index[$key_data]);
 
 			}*/
 
@@ -238,11 +238,11 @@ function update_table($model)
 
 			unset($allfields[$model[$key]->idmodel]);
 		
-			$query=MySQLClass::webtsys_query("describe `".$key."`");
+			$query=SQLClass::webtsys_query("describe `".$key."`");
 			
-			list($key_field_old, $type, $null, $key_db, $default, $extra)=MySQLClass::webtsys_fetch_row($query);
+			list($key_field_old, $type, $null, $key_db, $default, $extra)=SQLClass::webtsys_fetch_row($query);
 		
-			while(list($field, $type, $null, $key_db, $default, $extra)=MySQLClass::webtsys_fetch_row($query))
+			while(list($field, $type, $null, $key_db, $default, $extra)=SQLClass::webtsys_fetch_row($query))
 			{
 		
 				$fields[]=$field;
@@ -266,7 +266,7 @@ function update_table($model)
 					if($model[$key]->components[$field]->get_type_sql()!=($type.' '.$null_set[$field]))
 					{
 						
-						$query=MySQLClass::webtsys_query('alter table `'.$key.'` modify `'.$field.'` '.$model[$key]->components[$field]->get_type_sql());
+						$query=SQLClass::webtsys_query('alter table `'.$key.'` modify `'.$field.'` '.$model[$key]->components[$field]->get_type_sql());
 						
 						echo "Upgrading ".$field." from ".$key."...\n";
 						
@@ -315,7 +315,7 @@ function update_table($model)
 						
 						echo "---Delete index for ".$field." from ".$key."\n";
 						
-						$query=MySQLClass::webtsys_query('DROP INDEX `index_'.$key.'_'.$field.'` ON '.$key);
+						$query=SQLClass::webtsys_query('DROP INDEX `index_'.$key.'_'.$field.'` ON '.$key);
 
 					}
 		
@@ -338,7 +338,7 @@ function update_table($model)
 		if($key_field_old!=$model[$key]->idmodel)
 		{
 
-			$query=MySQLClass::webtsys_query('alter table `'.$key.'` change `'.$key_field_old.'` `'.$model[$key]->idmodel.'` INT NOT NULL AUTO_INCREMENT');
+			$query=SQLClass::webtsys_query('alter table `'.$key.'` change `'.$key_field_old.'` `'.$model[$key]->idmodel.'` INT NOT NULL AUTO_INCREMENT');
 
 			echo "Renaming id for this model to ".$model[$key]->idmodel."...\n";
 
@@ -352,7 +352,7 @@ function update_table($model)
 			if($allfields[$new_field]==1)
 			{
 		
-				$query=MySQLClass::webtsys_query('alter table `'.$key.'` add `'.$new_field.'` '.$model[$key]->components[$new_field]->get_type_sql());
+				$query=SQLClass::webtsys_query('alter table `'.$key.'` add `'.$new_field.'` '.$model[$key]->components[$new_field]->get_type_sql());
 
 				echo "Adding ".$new_field." to ".$key."...\n";
 				
@@ -371,7 +371,7 @@ function update_table($model)
 
 					/*echo "---Creating index for ".$new_field." from ".$key."\n";
 
-					$query=MySQLClass::webtsys_query('CREATE INDEX index_'.$key.'_'.$new_field.' ON '.$key.'('.$new_field.')');*/
+					$query=SQLClass::webtsys_query('CREATE INDEX index_'.$key.'_'.$new_field.' ON '.$key.'('.$new_field.')');*/
 					
 					$arr_sql_index[$key][$new_field]='CREATE INDEX `index_'.$key.'_'.$new_field.'` ON `'.$key.'`(`'.$new_field.'`);';
 					
@@ -398,14 +398,14 @@ function update_table($model)
 				if($keys[$new_field]!='')
 				{
 				
-					$query=MySQLClass::webtsys_query('ALTER TABLE `'.$key.'` DROP FOREIGN KEY '.$new_field.'_'.$key.'IDX');
+					$query=SQLClass::webtsys_query('ALTER TABLE `'.$key.'` DROP FOREIGN KEY '.$new_field.'_'.$key.'IDX');
 					
 				}
 					
 				
 				//}
 
-				$query=MySQLClass::webtsys_query('alter table `'.$key.'` drop `'.$new_field.'`');
+				$query=SQLClass::webtsys_query('alter table `'.$key.'` drop `'.$new_field.'`');
 			
 				echo "Deleting ".$new_field." from ".$key."...\n";
 		
@@ -426,11 +426,11 @@ function update_table($model)
 
 			echo "---Creating index for ".$key_data." on model ".$model_name."\n";
 
-			$query=MySQLClass::webtsys_query($sql_index);
+			$query=SQLClass::webtsys_query($sql_index);
 			
 			if($arr_sql_set_index[$model_name][$key_data]!='')
 			{
-				$query=MySQLClass::webtsys_query($arr_sql_set_index[$model_name][$key_data]);
+				$query=SQLClass::webtsys_query($arr_sql_set_index[$model_name][$key_data]);
 			}
 
 		}
@@ -445,11 +445,11 @@ function update_table($model)
 
 			echo "---Creating unique for ".$key_data." on model ".$model_name."\n";
 
-			$query=MySQLClass::webtsys_query($sql_index);
+			$query=SQLClass::webtsys_query($sql_index);
 			
 			if($arr_sql_set_unique[$model_name][$key_data]!='')
 			{
-				$query=MySQLClass::webtsys_query($arr_sql_set_unique[$model_name][$key_data]);
+				$query=SQLClass::webtsys_query($arr_sql_set_unique[$model_name][$key_data]);
 			}
 
 		}
@@ -461,7 +461,7 @@ function update_table($model)
 		if($value==1)
 		{
 		
-			$query=MySQLClass::webtsys_query('DROP TABLE `'.$table.'`');
+			$query=SQLClass::webtsys_query('DROP TABLE `'.$table.'`');
 			
 			echo 'Deleting table '.$table."\n";
 		
