@@ -1,6 +1,7 @@
 *~
 config.php
 vendor/*
+modules/*
 modules/admin/config
 !modules/admin
 !modules/lang
