@@ -89,6 +89,6 @@ define('ADMIN_FOLDER', 'admin');
 
 //The timezone used for time libraries.
 
-define('MY_TIMEZONE', 'America/New_York');
+define('MY_TIMEZONE', 'Europe/Madrid');
 
 ?>
