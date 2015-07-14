@@ -26,6 +26,15 @@ class_alias('PhangoApp\PhaUtils\Utils', 'Utils');
 class_alias('PhangoApp\PhaI18n\I18n', 'I18n');
 
 include('libraries/phangovar.php');
+
+if(!is_file('config.php'))
+{
+
+	echo 'Need create a config.php file. Use config.php.sample';
+	die;
+  
+}
+
 include('config.php');
 
 //Set i18n base path

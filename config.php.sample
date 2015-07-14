@@ -56,7 +56,7 @@ View::$folder_env=array('views/default');
 * @warning Never forget set this method when you are going to production
 */
 
-View::setProduction(false);
+View::set_production(false);
 
 
 /**
