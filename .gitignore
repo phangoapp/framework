@@ -1,4 +1,13 @@
 *~
 config.php
 vendor/*
+modules/admin/config
+!modules/admin
+!modules/lang
+!modules/media
+!modules/users
+!modules/welcome
+!modules/forms
+views/*
+!views/default
 
