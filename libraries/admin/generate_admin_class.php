@@ -70,6 +70,7 @@ class GenerateAdminClass {
 	*/
 	
 	public $type_list;
+	
 	public $url_back;
 	public $no_search;
 	public $txt_list_new;

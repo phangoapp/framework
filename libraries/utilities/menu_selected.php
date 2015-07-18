@@ -12,7 +12,7 @@
 function menu_selected($activation, $arr_op, $type=0)
 {
 
-	echo View::load_view(array($activation, $arr_op, $type=0), 'common/utilities/menuselected');
+	echo View::load_view(array($activation, $arr_op, $type), 'common/utilities/menuselected');
 
 }
 
