@@ -118,15 +118,15 @@ I18n::$lang['common']['address']='Dirección';
 
 I18n::$lang['common']['any_option']='any_option';
 
-I18n::$lang['common']['description']='description';
+I18n::$lang['common']['description']='Descripción';
 
 I18n::$lang['common']['date']='Fecha';
 
-I18n::$lang['common']['name']='name';
+I18n::$lang['common']['name']='Nombre';
 
-I18n::$lang['common']['user']='user';
+I18n::$lang['common']['user']='Usuario';
 
-I18n::$lang['common']['last_name']='last_name';
+I18n::$lang['common']['last_name']='Last name';
 
 I18n::$lang['common']['title']='Título';
 
