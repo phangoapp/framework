@@ -59,7 +59,7 @@ function padminConsole()
 
 
 
-	update_table(Webmodel::$model);
+	update_table();
 
 	$post_install_script=Webmodel::$model_path.$arr_option[0].'/install/post_install.php';
 
@@ -115,15 +115,15 @@ function padminConsole()
 * @param Webmodel $model The model used for create or update a sql table.
 */
 
-function update_table($model)
+function update_table()
 {
 	//include(__DIR__.'/../src/Databases/'.Webmodel::$type_db.'.php');
 	
-	$arr_sql_index=array();
-	$arr_sql_set_index=array();
+	Webmodel::$arr_sql_index=array();
+	Webmodel::$arr_sql_set_index=array();
 	
-	$arr_sql_unique=array();
-	$arr_sql_set_unique=array();
+	Webmodel::$arr_sql_unique=array();
+	Webmodel::$arr_sql_set_unique=array();
 	
 	$arr_etable=array();
 	
@@ -136,8 +136,7 @@ function update_table($model)
 	
 	}
 	
-	foreach($model as $key => $thing)
-	
+	foreach(Webmodel::$model as $key => $thing)
 	{
 		
 		$arr_table=array();
@@ -152,79 +151,81 @@ function update_table($model)
 		$key_db=""; 
 		$default=""; 
 		$extra="";
-		$key_field_old=$model[$key]->idmodel;
+		$key_field_old=Webmodel::$model[$key]->idmodel;
 		
 		if(!isset($arr_etable[$key]))
 		{
 			//If table not exists make this
 			
-			foreach($model[$key]->components as $field => $data)
+			echo "Creating table $key\n";
+			
+			Webmodel::$model[$key]->create_table();
+			
+			/*foreach(Webmodel::$model[$key]->components as $field => $data)
 			{
 			
-				$arr_table[]='`'.$field.'` '.$model[$key]->components[$field]->get_type_sql();
+				$arr_table[]='`'.$field.'` '.Webmodel::$model[$key]->components[$field]->get_type_sql();
 
 				//Check if indexed
 				
-				if($model[$key]->components[$field]->indexed==true)
+				if(Webmodel::$model[$key]->components[$field]->indexed==true)
 				{
 				
-					$arr_sql_index[$key][$field]='CREATE INDEX `index_'.$key.'_'.$field.'` ON '.$key.'(`'.$field.'`);';
-					$arr_sql_set_index[$key][$field]='';
+					Webmodel::$arr_sql_index[$key][$field]='CREATE INDEX `index_'.$key.'_'.$field.'` ON '.$key.'(`'.$field.'`);';
+					Webmodel::$arr_sql_set_index[$key][$field]='';
 				
 				}
 				
 				//Check if unique
 				
-				if($model[$key]->components[$field]->unique==true)
+				if(Webmodel::$model[$key]->components[$field]->unique==true)
 				{
 				
-					$arr_sql_unique[$key][$field]=' ALTER TABLE `'.$key.'` ADD UNIQUE (`'.$field.'`)';
-					$arr_sql_set_unique[$key][$field]='';
+					Webmodel::$arr_sql_unique[$key][$field]=' ALTER TABLE `'.$key.'` ADD UNIQUE (`'.$field.'`)';
+					Webmodel::$arr_sql_set_unique[$key][$field]='';
 				
 				}
 				
 				//Check if foreignkeyfield...
-				if(isset($model[$key]->components[$field]->related_model))
+				if(isset(Webmodel::$model[$key]->components[$field]->related_model))
 				{
 
 					//Create indexes...
 					
-					$arr_sql_index[$key][$field]='CREATE INDEX `index_'.$key.'_'.$field.'` ON '.$key.'(`'.$field.'`);';
+					Webmodel::$arr_sql_index[$key][$field]='CREATE INDEX `index_'.$key.'_'.$field.'` ON '.$key.'(`'.$field.'`);';
 					
-					$table_related=$model[$key]->components[$field]->related_model->name;
+					$table_related=Webmodel::$model[$key]->components[$field]->related_model->name;
 					
-					$id_table_related=load_id_model_related($model[$key]->components[$field], $model);
+					$id_table_related=load_id_model_related(Webmodel::$model[$key]->components[$field], $model);
 
-					//'Id'.ucfirst($model[$key]->components[$field]->related_model);				
+					//'Id'.ucfirst(Webmodel::$model[$key]->components[$field]->related_model);				
 					
-					$arr_sql_set_index[$key][$field]='ALTER TABLE `'.$key.'` ADD CONSTRAINT `'.$field.'_'.$key.'IDX` FOREIGN KEY ( `'.$field.'` ) REFERENCES `'.$table_related.'` (`'.$id_table_related.'`) ON DELETE RESTRICT ON UPDATE RESTRICT;';
+					Webmodel::$arr_sql_set_index[$key][$field]='ALTER TABLE `'.$key.'` ADD CONSTRAINT `'.$field.'_'.$key.'IDX` FOREIGN KEY ( `'.$field.'` ) REFERENCES `'.$table_related.'` (`'.$id_table_related.'`) ON DELETE RESTRICT ON UPDATE RESTRICT;';
 
 				}
-			}
+			}*/
 			
-			$sql_query="create table `$key` (\n".implode(",\n", $arr_table)."\n) DEFAULT CHARSET=utf8;\n";
+			/*$sql_query="create table `$key` (\n".implode(",\n", $arr_table)."\n) DEFAULT CHARSET=utf8;\n";
 			
-			echo "Creating table $key\n";
-			
-			$query=SQLClass::webtsys_query($sql_query);
+			$query=SQLClass::webtsys_query($sql_query);*/
 
-			/*foreach($arr_sql_index as $key_data => $sql_index)
+			/*foreach(Webmodel::$arr_sql_index as $key_data => $sql_index)
 			{
 
 				echo "---Creating index for ".$key_data."\n";
 
 				$query=SQLClass::webtsys_query($sql_index);
-				$query=SQLClass::webtsys_query($arr_sql_set_index[$key_data]);
+				$query=SQLClass::webtsys_query(Webmodel::$arr_sql_set_index[$key_data]);
 
 			}*/
 
 		}
 		else
-		if(isset($model[$key]))
+		if(isset(Webmodel::$model[$key]))
 		{
 			//Obtain all fields of model
 		
-			foreach($model[$key]->components as $kfield => $value)
+			foreach(Webmodel::$model[$key]->components as $kfield => $value)
 			{
 		
 				$allfields[$kfield]=1;
@@ -236,7 +237,7 @@ function update_table($model)
 			$arr_null['NO']='NOT NULL';
 			$arr_null['YES']='NULL';
 
-			unset($allfields[$model[$key]->idmodel]);
+			unset($allfields[Webmodel::$model[$key]->idmodel]);
 		
 			$query=SQLClass::webtsys_query("describe `".$key."`");
 			
@@ -263,10 +264,10 @@ function update_table($model)
 					
 					unset($allfields[$field]);
 					
-					if($model[$key]->components[$field]->get_type_sql()!=($type.' '.$null_set[$field]))
+					if(Webmodel::$model[$key]->components[$field]->get_type_sql()!=($type.' '.$null_set[$field]))
 					{
 						
-						$query=SQLClass::webtsys_query('alter table `'.$key.'` modify `'.$field.'` '.$model[$key]->components[$field]->get_type_sql());
+						$query=SQLClass::webtsys_query('alter table `'.$key.'` modify `'.$field.'` '.Webmodel::$model[$key]->components[$field]->get_type_sql());
 						
 						echo "Upgrading ".$field." from ".$key."...\n";
 						
@@ -275,42 +276,42 @@ function update_table($model)
 					
 					//Check if indexed
 				
-					if($model[$key]->components[$field]->indexed==true && $keys[$field]=='')
+					if(Webmodel::$model[$key]->components[$field]->indexed==true && $keys[$field]=='')
 					{
 					
-						$arr_sql_index[$key][$field]='CREATE INDEX `index_'.$key.'_'.$field.'` ON `'.$key.'`(`'.$field.'`);';
-						$arr_sql_set_index[$key][$field]='';
+						Webmodel::$arr_sql_index[$key][$field]='CREATE INDEX `index_'.$key.'_'.$field.'` ON `'.$key.'`(`'.$field.'`);';
+						Webmodel::$arr_sql_set_index[$key][$field]='';
 					
 					}
 					
 					//Check if unique
 				
-					if($model[$key]->components[$field]->unique==true && $keys[$field]=='')
+					if(Webmodel::$model[$key]->components[$field]->unique==true && $keys[$field]=='')
 					{
 					
-						$arr_sql_unique[$key][$field]=' ALTER TABLE `'.$key.'` ADD UNIQUE (`'.$field.'`)';
-						$arr_sql_set_unique[$key][$field]='';
+						Webmodel::$arr_sql_unique[$key][$field]=' ALTER TABLE `'.$key.'` ADD UNIQUE (`'.$field.'`)';
+						Webmodel::$arr_sql_set_unique[$key][$field]='';
 					
 					}
 
 					//Set index
 
-					if(isset($model[$key]->components[$field]->related_model) && $keys[$field]=='')
+					if(isset(Webmodel::$model[$key]->components[$field]->related_model) && $keys[$field]=='')
 					{
 
 						
-						$arr_sql_index[$key][$field]='CREATE INDEX `index_'.$key.'_'.$field.'` ON `'.$key.'`(`'.$field.'`);';
+						Webmodel::$arr_sql_index[$key][$field]='CREATE INDEX `index_'.$key.'_'.$field.'` ON `'.$key.'`(`'.$field.'`);';
 					
-						$table_related=$model[$key]->components[$field]->related_model->name;
+						$table_related=Webmodel::$model[$key]->components[$field]->related_model->name;
 						
-						$id_table_related=load_id_model_related($model[$key]->components[$field], $model);
+						$id_table_related=Webmodel::load_id_model_related(Webmodel::$model[$key]->components[$field], $model);
 						
-						$arr_sql_set_index[$key][$field]='ALTER TABLE `'.$key.'` ADD CONSTRAINT `'.$field.'_'.$key.'IDX` FOREIGN KEY ( `'.$field.'` ) REFERENCES `'.$table_related.'` (`'.$id_table_related.'`) ON DELETE RESTRICT ON UPDATE RESTRICT;';
+						Webmodel::$arr_sql_set_index[$key][$field]='ALTER TABLE `'.$key.'` ADD CONSTRAINT `'.$field.'_'.$key.'IDX` FOREIGN KEY ( `'.$field.'` ) REFERENCES `'.$table_related.'` (`'.$id_table_related.'`) ON DELETE RESTRICT ON UPDATE RESTRICT;';
 						
 
 					}
 					
-					if(!isset($model[$key]->components[$field]->related_model) && $keys[$field]!='' && $model[$key]->components[$field]->indexed==false && $model[$key]->components[$field]->unique!=true)
+					if(!isset(Webmodel::$model[$key]->components[$field]->related_model) && $keys[$field]!='' && Webmodel::$model[$key]->components[$field]->indexed==false && Webmodel::$model[$key]->components[$field]->unique!=true)
 					{
 						
 						echo "---Delete index for ".$field." from ".$key."\n";
@@ -335,12 +336,12 @@ function update_table($model)
 
 		//Check if new id...
 
-		if($key_field_old!=$model[$key]->idmodel)
+		if($key_field_old!=Webmodel::$model[$key]->idmodel)
 		{
 
-			$query=SQLClass::webtsys_query('alter table `'.$key.'` change `'.$key_field_old.'` `'.$model[$key]->idmodel.'` INT NOT NULL AUTO_INCREMENT');
+			$query=SQLClass::webtsys_query('alter table `'.$key.'` change `'.$key_field_old.'` `'.Webmodel::$model[$key]->idmodel.'` INT NOT NULL AUTO_INCREMENT');
 
-			echo "Renaming id for this model to ".$model[$key]->idmodel."...\n";
+			echo "Renaming id for this model to ".Webmodel::$model[$key]->idmodel."...\n";
 
 		}
 
@@ -352,34 +353,34 @@ function update_table($model)
 			if($allfields[$new_field]==1)
 			{
 		
-				$query=SQLClass::webtsys_query('alter table `'.$key.'` add `'.$new_field.'` '.$model[$key]->components[$new_field]->get_type_sql());
+				$query=SQLClass::webtsys_query('alter table `'.$key.'` add `'.$new_field.'` '.Webmodel::$model[$key]->components[$new_field]->get_type_sql());
 
 				echo "Adding ".$new_field." to ".$key."...\n";
 				
 				//Check if indexed
 				
-				if($model[$key]->components[$new_field]->indexed==true)
+				if(Webmodel::$model[$key]->components[$new_field]->indexed==true)
 				{
 				
-					$arr_sql_index[$key][$new_field]='CREATE INDEX `index_'.$key.'_'.$new_field.'` ON `'.$key.'`(`'.$new_field.'`);';
-					$arr_sql_set_index[$key][$new_field]='';
+					Webmodel::$arr_sql_index[$key][$new_field]='CREATE INDEX `index_'.$key.'_'.$new_field.'` ON `'.$key.'`(`'.$new_field.'`);';
+					Webmodel::$arr_sql_set_index[$key][$new_field]='';
 				
 				}
 
-				if(isset($model[$key]->components[$new_field]->related_model) )
+				if(isset(Webmodel::$model[$key]->components[$new_field]->related_model) )
 				{
 
 					/*echo "---Creating index for ".$new_field." from ".$key."\n";
 
 					$query=SQLClass::webtsys_query('CREATE INDEX index_'.$key.'_'.$new_field.' ON '.$key.'('.$new_field.')');*/
 					
-					$arr_sql_index[$key][$new_field]='CREATE INDEX `index_'.$key.'_'.$new_field.'` ON `'.$key.'`(`'.$new_field.'`);';
+					Webmodel::$arr_sql_index[$key][$new_field]='CREATE INDEX `index_'.$key.'_'.$new_field.'` ON `'.$key.'`(`'.$new_field.'`);';
 					
-					$table_related=$model[$key]->components[$new_field]->related_model->name;
+					$table_related=Webmodel::$model[$key]->components[$new_field]->related_model->name;
 					
-					$id_table_related=load_id_model_related($model[$key]->components[$new_field], $model);
+					$id_table_related=Webmodel::load_id_model_related(Webmodel::$model[$key]->components[$new_field], $model);
 					
-					$arr_sql_set_index[$key][$new_field]='ALTER TABLE `'.$key.'` ADD CONSTRAINT `'.$new_field.'_'.$key.'IDX` FOREIGN KEY ( `'.$new_field.'` ) REFERENCES `'.$table_related.'` (`'.$id_table_related.'`) ON DELETE RESTRICT ON UPDATE RESTRICT;';
+					Webmodel::$arr_sql_set_index[$key][$new_field]='ALTER TABLE `'.$key.'` ADD CONSTRAINT `'.$new_field.'_'.$key.'IDX` FOREIGN KEY ( `'.$new_field.'` ) REFERENCES `'.$table_related.'` (`'.$id_table_related.'`) ON DELETE RESTRICT ON UPDATE RESTRICT;';
 
 				}
 		
@@ -389,7 +390,7 @@ function update_table($model)
 		
 			{
 			
-				/*if(isset($model[$key]->components[$new_field]->related_model) )
+				/*if(isset(Webmodel::$model[$key]->components[$new_field]->related_model) )
 				{*/
 				
 					//Drop foreignkeyfield
@@ -419,18 +420,18 @@ function update_table($model)
 	
 	//Create Indexes...
 	
-	foreach($arr_sql_index as $model_name => $arr_index)
+	foreach(Webmodel::$arr_sql_index as $model_name => $arr_index)
 	{
-		foreach($arr_sql_index[$model_name] as $key_data => $sql_index)
+		foreach(Webmodel::$arr_sql_index[$model_name] as $key_data => $sql_index)
 		{
 
 			echo "---Creating index for ".$key_data." on model ".$model_name."\n";
 
 			$query=SQLClass::webtsys_query($sql_index);
 			
-			if($arr_sql_set_index[$model_name][$key_data]!='')
+			if(Webmodel::$arr_sql_set_index[$model_name][$key_data]!='')
 			{
-				$query=SQLClass::webtsys_query($arr_sql_set_index[$model_name][$key_data]);
+				$query=SQLClass::webtsys_query(Webmodel::$arr_sql_set_index[$model_name][$key_data]);
 			}
 
 		}
@@ -438,18 +439,18 @@ function update_table($model)
 	
 	//Create Uniques...
 	
-	foreach($arr_sql_unique as $model_name => $arr_index)
+	foreach(Webmodel::$arr_sql_unique as $model_name => $arr_index)
 	{
-		foreach($arr_sql_unique[$model_name] as $key_data => $sql_index)
+		foreach(Webmodel::$arr_sql_unique[$model_name] as $key_data => $sql_index)
 		{
 
 			echo "---Creating unique for ".$key_data." on model ".$model_name."\n";
 
 			$query=SQLClass::webtsys_query($sql_index);
 			
-			if($arr_sql_set_unique[$model_name][$key_data]!='')
+			if(Webmodel::$arr_sql_set_unique[$model_name][$key_data]!='')
 			{
-				$query=SQLClass::webtsys_query($arr_sql_set_unique[$model_name][$key_data]);
+				$query=SQLClass::webtsys_query(Webmodel::$arr_sql_set_unique[$model_name][$key_data]);
 			}
 
 		}
@@ -471,7 +472,7 @@ function update_table($model)
 
 }
 
-function load_id_model_related($foreignkeyfield, $model)
+function load_id_model_related($foreignkeyfield)
 {
 
 	//global $model;
@@ -480,10 +481,10 @@ function load_id_model_related($foreignkeyfield, $model)
 	
 	$id_table_related='';
 					
-	if(!isset($model[ $table_related ]->idmodel))
+	if(!isset(Webmodel::$model[ $table_related ]->idmodel))
 	{
 		
-		//$id_table_related='Id'.ucfirst(PhangoVar::$model[$key]->components[$new_field]->related_model);
+		//$id_table_related='Id'.ucfirst(PhangoVar::Webmodel::$model[$key]->components[$new_field]->related_model);
 		//Need load the model
 		
 		if(isset($foreignkeyfield->params_loading_mod['module']) && isset($foreignkeyfield->params_loading_mod['model']))
@@ -493,9 +494,9 @@ function load_id_model_related($foreignkeyfield, $model)
 			
 			//obtain id
 			
-			$id_table_related=$model[ $foreignkeyfield->params_loading_mod['model'] ]->idmodel;
+			$id_table_related=Webmodel::$model[ $foreignkeyfield->params_loading_mod['model'] ]->idmodel;
 			
-			/*unset(PhangoVar::$model[ $foreignkeyfield->params_loading_mod['model'] ]);
+			/*unset(PhangoVar::Webmodel::$model[ $foreignkeyfield->params_loading_mod['model'] ]);
 			
 			unset($cache_model);*/
 			
@@ -505,7 +506,7 @@ function load_id_model_related($foreignkeyfield, $model)
 	else
 	{
 	
-		$id_table_related=$model[ $table_related ]->idmodel;
+		$id_table_related=Webmodel::$model[ $table_related ]->idmodel;
 	
 	}
 	
