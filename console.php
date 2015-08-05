@@ -7,7 +7,6 @@ ini_set('html_errors', 0);
 include('autoload.php');
 
 use PhangoApp\PhaRouter\Routes;
-use PhangoApp\PhaRouter\Controller;
 use PhangoApp\PhaModels\Webmodel;
 use PhangoApp\PhaModels\ModelForm;
 use PhangoApp\PhaView\View;
@@ -23,7 +22,6 @@ include('vendor/phangoapp/phaview/src/View.php');
 include('vendor/phangoapp/phai18n/src/I18n.php');
 include('vendor/phangoapp/phautils/src/Utils.php');*/
 
-class_alias('PhangoApp\PhaRouter\Controller', 'ControllerSwitchClass');
 class_alias('PhangoApp\PhaRouter\Routes', 'Routes');
 class_alias('PhangoApp\PhaModels\Webmodel', 'Webmodel');
 class_alias('PhangoApp\PhaModels\ModelForm', 'ModelForm');
